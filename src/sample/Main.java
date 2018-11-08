@@ -22,5 +22,7 @@ public class Main extends Application {
         //launch(args);
         Controller controller= new Controller();
         controller.start();
+        /*TrackVerwalter trackListe = new TrackVerwalter();
+        trackListe.songListe();*/
     }
 }

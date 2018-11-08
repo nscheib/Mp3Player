@@ -5,17 +5,17 @@ import java.util.ArrayList;
 public class PlaylistVerwalter {
 
     public Playlist getPlaylist(String name){
-        Playlist playListe= new Playlist();
+        Playlist playListe= new Playlist(name);
 
         return playListe;
     }
 
-    public Playlist getAllTracks (){
+    /*public Playlist getAllTracks (){
 
         Playlist playListe= new Playlist();
 
         return playListe;
-    }
+    }*/
 
     public ArrayList<Playlist> findPlaylist(String name){
         ArrayList<Playlist> liste = new ArrayList<Playlist>();
