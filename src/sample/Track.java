@@ -26,6 +26,9 @@ public class Track {
             if (song.hasId3v2Tag()){
                 ID3v2 iDv2tag = song.getId3v2Tag();
                 this.title = iDv2tag.getTitle();
+                this.length = iDv2tag.getLength();
+                this.albumTitle = iDv2tag.getAlbum();
+                this.interpret = iDv2tag.getArtist();
 
             }
         } catch (IOException e) {
