@@ -20,7 +20,7 @@ public class Track {
 
     public Track(String titel){
         Mp3File song;
-        soundFile = "tracks\\" + titel + ".mp3";
+        soundFile = "tracks\\" + titel;
         try {
             song = new Mp3File(soundFile);
             if (song.hasId3v2Tag()){
@@ -38,6 +38,7 @@ public class Track {
         } catch (InvalidDataException e) {
             e.printStackTrace();
         }
+        System.out.println(title + length + albumTitle + interpret);
 
 
     }

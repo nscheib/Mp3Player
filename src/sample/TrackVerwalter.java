@@ -9,12 +9,13 @@ public class TrackVerwalter {
     private File [] fileArray = f.listFiles();
     private ArrayList<String> songs = new ArrayList<String>();
 
-    public void songListe(){
+    public TrackVerwalter(){
 
         if (fileArray != null) {
             for (int i = 0; i < fileArray.length; i++) {
                 if (fileArray[i].getName().endsWith(".mp3")){
                     songs.add(fileArray[i].getName());
+                    Track lied = new Track(fileArray[i].getName());
                 }
             }
         }

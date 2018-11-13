@@ -13,6 +13,7 @@ public class Controller {
         while (anAus == false) {
             String eingabe = StaticScanner.nextString();
             String[] parts = eingabe.split(" ");
+            TrackVerwalter trackList = new TrackVerwalter();
             for (int i = 0; i < BEFEHLE.length; i++) {
                 if (BEFEHLE[i].equals(parts[0])) {
                     switch (i) {
