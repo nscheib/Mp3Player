@@ -2,12 +2,17 @@ package sample;
 
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
+import de.hsrm.mi.prog.util.StaticScanner;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class Mp3Player {
 
+    private ArrayList<String> liste = new ArrayList<String>();
+
     SimpleMinim minim = new SimpleMinim(true);
     SimpleAudioPlayer audioPlayer ;
-
 
 
     public void play (String titel){

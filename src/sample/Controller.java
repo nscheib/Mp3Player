@@ -6,7 +6,7 @@ public class Controller {
 
     private Mp3Player mp3Player = new Mp3Player();
     private PlaylistVerwalter playlistVerwalter = new PlaylistVerwalter();
-    private final String [] BEFEHLE = {"", "play", "pause", "stop", "volume", "quit", "bearbeiten"};
+    private final String [] BEFEHLE = {"", "play", "pause", "stop", "volume", "quit", "playlist" , "bearbeiten"};
 
     public void start(){
 
@@ -50,6 +50,11 @@ public class Controller {
                             anAus = true;
                             break;
                         case 6:
+                            System.out.println("playlist");
+                            System.out.println("Welche Playlist möchten Sie laden?: ");
+
+
+                        case 7:
 
                             System.out.println("bearbeiten");
                             bearbeiten();
@@ -72,48 +77,34 @@ public class Controller {
             System.out.println("Wie soll die Playlist heißen?");
             eingabe = StaticScanner.nextString();
             eingabe = eingabeAbfrage(eingabe);
-            playlistVerwalter.addPlaylist(eingabe);
+            String playlistFile = playlistVerwalter.createPlaylist(eingabe);
+            System.out.println("Welches Lied wollen sie hinzufügen?");
+            for (int i = 0; i < playlistVerwalter.getAllSongs().size(); i++) {
+                System.out.println("Song " + (i + 1) + ": " + playlistVerwalter.getAllSongs().get(i));
+            }
+            eingabe= StaticScanner.nextString();
+            eingabeAbfrage(eingabe);
+            playlistVerwalter.hinzufügenLied(playlistFile, eingabe);
 
-            hinzufügenLied(eingabe);
+
 
         }
 
     }
 
-    private void hinzufügenLied(String playlist){
-
-        System.out.println("Welchen Song möchtest du zur Playlist hinzufügen? :");
 
 
 
-        for (int i = 0; i < playlistVerwalter.getAllSongs().size(); i++){
 
-            System.out.println("Song "+ (i+1)+": "+ playlistVerwalter.getAllSongs().get(i));
 
-        }
 
+
+    private void playlist(){
+
+        System.out.println("Welche Playlist möchten Sie laden?: ");
+        playlistVerwalter.loadFromFile("ausgabe");
         String eingabe = StaticScanner.nextString();
-
-
-        int position = playlistVerwalter.findPlaylist(playlist);
-
-       playlistVerwalter.getPlaylist(position).trackHinzufügen(eingabe);
-
-
-       löschenLied(playlist);
-
-    }
-
-    private void löschenLied(String playlist){
-
-        System.out.println("Welchen Song möchtest du aus der Playlist löschen? :");
-
-        String eingabe = StaticScanner.nextString();
-
-        int position = playlistVerwalter.findPlaylist(playlist);
-
-        playlistVerwalter.getPlaylist(position).trackLöschen(eingabe);
-
+        playlistVerwalter.loadFromFile(eingabe);
 
     }
 
