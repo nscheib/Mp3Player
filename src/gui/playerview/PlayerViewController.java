@@ -1,6 +1,6 @@
 package gui.playerview;
 
-import businessLogic.Mp3Player;
+import sample.Mp3Player;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
