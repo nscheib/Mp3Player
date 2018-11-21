@@ -144,9 +144,24 @@ public class Controller {
                 System.out.println("Welches Lied soll gel�scht werden?");
                 eingabe = StaticScanner.nextString();
                 playlistVerwalter.loeschenLied(playlistFile, eingabe); // Immer noch dieselbe playlistFile
+                System.out.println("\n\n");
+                playlistVerwalter.printPlaylistSongs(playlistFile);
 
 
             } else System.out.println("Ja gut, dann net. Viel Spass mit deiner Playlist.");
+
+
+            //____________________________________________________________________________________
+
+            System.out.println("Möchtest du diese Playlist löschen? (y/n)");
+            eingabe = StaticScanner.nextString();
+            if (eingabe.equals("y")) {
+
+                playlistVerwalter.deletePlaylist(playlistFile);
+
+
+            } else System.out.println("Ja gut, dann net. Viel Spass mit deiner Playlist.");
+
 
         }
 

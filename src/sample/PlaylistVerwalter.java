@@ -84,7 +84,7 @@ public class PlaylistVerwalter {
         File newFile = new File (playlistFile);
         try {
             newFile.createNewFile();
-            fileBeschreiben(playlistFile,"#EXTM3U \n");
+            fileBeschreiben(playlistFile,"#EXTM3U\n");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -151,7 +151,16 @@ public class PlaylistVerwalter {
     public void loeschenLied(String playlistFile, String song) {
 
         File inputFile = new File(playlistFile);
-        File tempFile = new File("temp_"+playlistFile);
+
+        String string = playlistFile;
+
+        // Playlist String teilen und _temp hinzufügen
+        String[] parts = string.split("\\.");
+        String part1 = parts[0]; // playlisten/name
+        String part2 = parts[1]; // txt
+        System.out.println(part1 + part2);
+        String playlistFileTemp = part1 + "_temp."+ part2;
+        File tempFile = new File(playlistFileTemp);
 
 
         // pretty much just copy paste from stackoverflow...
@@ -173,8 +182,9 @@ public class PlaylistVerwalter {
 
             while((currentLine = reader.readLine()) != null) {
                 // trim newline when comparing with lineToRemove
-                String trimmedLine = currentLine.trim();
-                if(trimmedLine.equals(lineToRemove)) continue;
+                //String trimmedLine = currentLine.trim();
+                //if(trimmedLine.equals(lineToRemove)) continue;
+                if (currentLine.equals(lineToRemove)) continue;
                 writer.write(currentLine ); // + System.getProperty("line.separator")
 
 
@@ -182,7 +192,7 @@ public class PlaylistVerwalter {
             writer.close();
             reader.close();
             inputFile.delete(); // löscht alte Playlist
-            boolean successful = tempFile.renameTo(inputFile);
+            boolean successful = tempFile.renameTo(inputFile); // nennt tempfile um in original
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -202,7 +212,13 @@ public class PlaylistVerwalter {
 
     }
 
-    public void deletePlaylist(Playlist actPlaylist){
+    public void deletePlaylist(String playlist){
+
+        File file = new File(playlist);
+        if(file.delete()){
+            System.out.println(playlist + " deleted");
+        }else System.out.println(playlist + " doesn't exists");
+
 
     }
 
