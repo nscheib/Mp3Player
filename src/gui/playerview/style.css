@@ -1,0 +1,104 @@
+.ground {
+    -fx-background-color: #000000;
+}
+
+.text {
+    -fx-font-family: Verdana, sans-serif;
+    -fx-font-weight: lighter;
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-text-align: center;
+    -fx-padding: 10, 0 , 10 , 0;
+}
+
+.timeslider {
+    -fx-min-width: 250px;
+    -fx-max-width: 250px;
+}
+
+.time {
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+}
+
+.stopbutton {
+    -fx-background-color: #A9A9A9;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 75px;
+    -fx-border-color: black;
+    -fx-border-width: .7px;
+    -fx-background-image: url('../../images/stop.png');
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 20%;
+
+}
+
+.stopbutton:hover {
+    -fx-border-color: green;
+    -fx-border-width: .7px;
+    -fx-text-decoration: none;
+}
+
+.playbutton {
+    -fx-background-color: #A9A9A9;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 75px;
+    -fx-border-color: black;
+    -fx-border-width: .7px;
+    -fx-background-image: url('../../images/play.png');
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 20%;
+}
+
+.playbutton:hover {
+    -fx-border-color: green;
+    -fx-border-width: .7px;
+    -fx-text-decoration: none;
+}
+
+.skipright {
+    -fx-background-color: #A9A9A9;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 75px;
+    -fx-border-color: black;
+    -fx-border-width: .7px;
+    -fx-background-image: url('../../images/play.png');
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 20%;
+}
+
+.skipright:hover {
+    -fx-border-color: green;
+    -fx-border-width: .7px;
+    -fx-text-decoration: none;
+}
+
+.skipleft {
+    -fx-background-color: #A9A9A9;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 75px;
+    -fx-border-color: black;
+    -fx-border-width: .7px;
+    -fx-background-image: url('../../images/play.png');
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 20%;
+}
+
+.skipleft:hover {
+    -fx-border-color: green;
+    -fx-border-width: .7px;
+    -fx-text-decoration: none;
+}
+
+.hbox {
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+}
