@@ -29,7 +29,7 @@ public class Playlist {
         return tracklist.get(number);
     }
 
-    public void trackHinzufügen(String lied){
+    public void trackHinzufuegen(String lied){
         Track song = new Track (lied);
         tracklist.add(song);
     }
@@ -40,7 +40,7 @@ public class Playlist {
 
     }
 
-    public void trackLöschen(String song){
+    public void trackLoeschen(String song){
 
         tracklist.remove(song); // Geht das ???
     }

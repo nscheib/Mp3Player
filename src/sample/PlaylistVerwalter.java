@@ -2,11 +2,14 @@ package sample;
 
 import de.hsrm.mi.prog.util.StaticScanner;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,11 +18,17 @@ public class PlaylistVerwalter {
 
 
 
-   private ArrayList<String> songs = new ArrayList<String>();
+    private ArrayList<String> availableSongs = new ArrayList<String>();
+    // Stringarray mit songs als NAMEN
+    // groove.mp3
 
-   //private  HashMap songs = new HashMap();
+    //private  HashMap songs = new HashMap();
 
     private ArrayList<String> liste = new ArrayList<String>();
+    // Stringarray mit allen playlists gespeicherten standorten
+    // playlisten\playlist1
+
+
 
     public PlaylistVerwalter() {
         updateAllSongs();
@@ -33,19 +42,53 @@ public class PlaylistVerwalter {
         if (fileArray != null) {
             for (int i = 0; i < fileArray.length; i++) {
                 if (fileArray[i].getName().endsWith(".mp3")){
-                    songs.add(fileArray[i].getName());
+                    availableSongs.add(fileArray[i].getName());
                 }
             }
         }
     }
     public ArrayList<String> getAllSongs() {
-        return songs;
+        return availableSongs;
+    }
+
+    public void printPlaylistSongs(String playlistFile) {
+
+
+
+        File file = new File(playlistFile);
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader(playlistFile));
+            String zeile = null;
+            while ((zeile = in.readLine()) != null) {
+                System.out.println(zeile);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null)
+                try {
+                    in.close();
+                } catch (IOException e) {
+                }
+        }
+
+
+
     }
 
 
+
     public String createPlaylist(String name){
-        String playlistFile = "playlisten\\"+name+".m3u";
-        File file = new File (playlistFile);
+        String playlistFile = "playlisten/"+name+".txt"; // Ort wo gespeichert
+        File newFile = new File (playlistFile);
+        try {
+            newFile.createNewFile();
+            fileBeschreiben(playlistFile,"#EXTM3U \n");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return playlistFile;
     }
 
@@ -55,7 +98,7 @@ public class PlaylistVerwalter {
         File[] fileArray = f.listFiles();
         if (fileArray != null) {
             for (int i = 0; i < fileArray.length; i++) {
-                if (fileArray[i].getName().endsWith(".m3u")) {
+                if (fileArray[i].getName().endsWith(".txt")) {
                     liste.add(fileArray[i].getName());
                     // Namen in array speichern
                 }
@@ -76,21 +119,79 @@ public class PlaylistVerwalter {
     }
 
 
-        public void hinzufügenLied(String playlistFile, String song) {
+    public void fileBeschreiben(String playlistFile, String text) {
+        //playlistFile ist �bergebene position der playlist und �bergeben mit dem erstellen der playlist
+        // Sonst m�sste man noch ein Array mit den positionen der playlisten erstellen (auch filereader)
 
-            try {
-                FileWriter playlistLiedhinzufügen = new FileWriter(playlistFile);
-                BufferedWriter playlistFileBeschreiber = new BufferedWriter (playlistLiedhinzufügen);
+        FileWriter addSong;
+        BufferedWriter writeFile;
 
-                //Hier beschreiben
-                playlistFileBeschreiber.write(song + "\n");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+
+            addSong = new FileWriter(playlistFile, true);
+            //writeFile = new BufferedWriter (addSong);
+
+            //Hier beschreiben
+            addSong.write(text); // runtime, title
+            addSong.flush();
+            addSong.close();
+            // in der playlist stehen eigentlich die LINKS, nicht NUR die namen ?!
 
 
-            //löschenLied(playlist);
+        } catch (IOException e) {
+            System.out.println("help");
+            e.printStackTrace();
         }
+
+
+        //löschenLied(playlist);
+    }
+
+
+    public void loeschenLied(String playlistFile, String song) {
+
+        File inputFile = new File(playlistFile);
+        File tempFile = new File("temp_"+playlistFile);
+
+
+        // pretty much just copy paste from stackoverflow...
+        // Also noch bearbeiten sheesh
+
+
+        try {
+
+            tempFile.createNewFile();
+
+            BufferedReader reader;
+
+            reader = new BufferedReader(new FileReader(inputFile));
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String lineToRemove = "#EXTINF:"+song;
+            String currentLine;
+
+            while((currentLine = reader.readLine()) != null) {
+                // trim newline when comparing with lineToRemove
+                String trimmedLine = currentLine.trim();
+                if(trimmedLine.equals(lineToRemove)) continue;
+                writer.write(currentLine ); // + System.getProperty("line.separator")
+
+
+            }
+            writer.close();
+            reader.close();
+            inputFile.delete(); // löscht alte Playlist
+            boolean successful = tempFile.renameTo(inputFile);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
 
     /*private void löschenLied(String playlist){
         int position = findPlaylist(playlist);
@@ -119,6 +220,9 @@ public class PlaylistVerwalter {
 
 
     }
+
+
+
 
 
 
