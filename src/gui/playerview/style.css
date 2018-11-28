@@ -1,3 +1,17 @@
+.changewindow {
+    -fx-background-color: #A1A1A1;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 75px;
+    -fx-border-color: black;
+    -fx-border-width: .7px;
+    -fx-background-image: url('../../images/play.png');
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 20%;
+}
+
+
 .ground {
     -fx-background-color: #000000;
 }

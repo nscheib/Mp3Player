@@ -80,6 +80,9 @@ public class PlaylistVerwalter {
 
 
     public String createPlaylist(String name){
+        // HIER NOCH UMWANDELN IN M3U DATEI
+
+
         String playlistFile = "playlisten/"+name+".txt"; // Ort wo gespeichert
         File newFile = new File (playlistFile);
         try {
@@ -155,11 +158,10 @@ public class PlaylistVerwalter {
         String string = playlistFile;
 
         // Playlist String teilen und _temp hinzufügen
-        String[] parts = string.split("\\.");
+        String[] parts = string.split("\\."); // Teilt bei PUNKT
         String part1 = parts[0]; // playlisten/name
         String part2 = parts[1]; // txt
-        System.out.println(part1 + part2);
-        String playlistFileTemp = part1 + "_temp."+ part2;
+        String playlistFileTemp = part1 + "_temp."+ part2; // fügt part1 + PUNKT + part2 zusammen für tempFile die aber gleich heißt
         File tempFile = new File(playlistFileTemp);
 
 
@@ -203,39 +205,27 @@ public class PlaylistVerwalter {
 
     }
 
-    /*private void löschenLied(String playlist){
-        int position = findPlaylist(playlist);
-        getPlaylist(position).trackLöschen(eingabe);
-    }*/
 
-    public void savePlaylist(Playlist actPlaylist){
 
-    }
+
 
     public void deletePlaylist(String playlist){
 
         File file = new File(playlist);
         if(file.delete()){
+
+
             System.out.println(playlist + " deleted");
         }else System.out.println(playlist + " doesn't exists");
 
 
     }
 
-    public void updateList(Playlist actPlaylist){
 
 
 
-    }
 
 
-
-    private void createFile(){
-
-        File f = new File("playlisten");
-
-
-    }
 
 
 

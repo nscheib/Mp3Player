@@ -1,10 +1,5 @@
 package sample;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
 import de.hsrm.mi.prog.util.StaticScanner;
 
 public class Controller {
@@ -74,6 +69,7 @@ public class Controller {
 
     private void bearbeiten(){
 
+
         System.out.println("Wollen sie eine Playlist erstellen? <y/n>");
         String eingabe = StaticScanner.nextString();
         if (eingabe.equals("y")){
@@ -102,36 +98,6 @@ public class Controller {
             // In eine andere Methode auslagern / gar nicht erst im Controller machen...
 
             playlistVerwalter.printPlaylistSongs(playlistFile);
-
-
-//            File file = new File(playlistFile);
-//            BufferedReader in = null;
-//            try {
-//                in = new BufferedReader(new FileReader(playlistFile));
-//                String zeile = null;
-//                while ((zeile = in.readLine()) != null) {
-//                    System.out.println("Gelesene Zeile: " + zeile);
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } finally {
-//                if (in != null)
-//                    try {
-//                        in.close();
-//                    } catch (IOException e) {
-//                    }
-//            }
-
-            // System.out.println("M�chtest du einen anderen Song hinzuf�gen ?");
-            // CODE HIER SCHREIBEN
-
-//            System.out.println("Welches der zur verfuegung stehenden Lieder m�chten Sie der Playlist hinzuf�gen?");
-//            for (int i = 0; i < playlistVerwalter.getAllSongs().size(); i++) {
-//                System.out.println("Song " + (i + 1) + ": " + playlistVerwalter.getAllSongs().get(i));
-//            } // Ausgabe der Daten
-//            eingabe= StaticScanner.nextString();
-//            eingabeAbfrage(eingabe);
-//            playlistVerwalter.hinzufuegenLied(playlistFile, eingabe);
 
             //____________________________________________________________________________________
 
@@ -166,6 +132,8 @@ public class Controller {
         }
 
     }
+
+
 
 
 
