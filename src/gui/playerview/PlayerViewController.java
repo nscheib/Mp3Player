@@ -26,24 +26,25 @@ public class PlayerViewController extends Application implements EventHandler<Ac
 
 
     private Label interpret, title, information;
+    private Label label1;
     private BorderPane ground;
+    private BorderPane ground2;
     private VBox topVBox, centerVBox;
+    private VBox topVBox2, centerVBoxZwei;
     private HBox buttonHBox, centerHBox;
+    private HBox centerHBoxZwei, buttonHBox2;
     private Slider timeslider;
     private Button stop, skipleft, skipright;
+    private Button changeWindow, changeWindow2, choose;
     private ToggleButton play; // kann mit einer Aktion belegt werden Play/Pause
     private Image img;
     private ImageView imgview;
     private Mp3Player player;
     private final DateFormat TIMEFORMAT = new SimpleDateFormat(("mm:ss"));
 
-    //_______________________________________________HANS SHIT
-    private VBox topVBox2, centerVBox2, layout1;
     private Stage window;
     private Scene scene1,scene2;
-    private Button changeWindow, changeWindow2;
-    private BorderPane ground2;
-    //_______________________________________________HANS SHIT
+
 
     // zum testen
     private double value = 30;
@@ -88,24 +89,10 @@ public class PlayerViewController extends Application implements EventHandler<Ac
         timeslider.setMax(100);
         timeslider.setShowTickLabels(false);
 
-        // Change Scene ___________HANS
-        changeWindow = new Button("Go to Scene 2");
-        changeWindow.setOnAction(e ->window.setScene(scene2));
-
-        changeWindow2 = new Button("Go to Scene 1");
-        changeWindow.setOnAction(e->window.setScene(scene1));
-
-        Label label1 = new Label("Fenster2");
-        VBox layout1 = new VBox(20);
-        layout1.getChildren().addAll(label1, changeWindow2);
-
         // Top
-        topVBox.getChildren().addAll(title, interpret, information, changeWindow); //______________________ HANS SHIT
+        topVBox.getChildren().addAll(changeWindow, title, interpret, information );
+        changeWindow.setOnAction(e ->window.setScene(scene2));
         topVBox.setAlignment(Pos.CENTER);
-
-
-
-
 
         // Center
         centerHBox.setAlignment(Pos.CENTER);
@@ -113,20 +100,9 @@ public class PlayerViewController extends Application implements EventHandler<Ac
         centerVBox.setAlignment(Pos.CENTER);
         centerVBox.getChildren().addAll(centerHBox);
 
-        // Bottom and Button
-        //_______________________________________________HANS SHIT
-        stop.getStyleClass().add("stopbutton");
-//            stop.setOnAction(e -> window.setScene(scene2));
-
-//        changeWindow.getStyleClass().add("changewindow");
-//            changeWindow.setOnAction(e-> window.setScene(scene2));
-        //_______________________________________________HANS SHIT
-
-
-
-
 
         play.getStyleClass().add("playbutton");
+        stop.getStyleClass().add("stopbutton");
         skipleft.getStyleClass().add("skipleft");
         skipright.getStyleClass().add("skipright");
         buttonHBox.getChildren().addAll(skipleft, stop, play, skipright);
@@ -141,27 +117,38 @@ public class PlayerViewController extends Application implements EventHandler<Ac
         ground.setMaxSize(600,600);
 
 
-        layout1.setTop(topVBox);
-        ground.setCenter(centerVBox);
-        ground.setBottom(buttonHBox);
-        ground.getStyleClass().add("ground");
-        ground.setMaxSize(600,600);
+
+        //___for Scene 2
+
+        // Top
+        topVBox2.getChildren().addAll(changeWindow2, title, interpret );
+        changeWindow2.setOnAction(e->window.setScene(scene1));
+        topVBox2.setAlignment(Pos.CENTER);
+
+        // Center
+        centerHBoxZwei.setAlignment(Pos.CENTER);
+        centerHBoxZwei.getChildren().addAll(information,timeslider);
+        centerVBoxZwei.setAlignment(Pos.CENTER);
+        centerVBoxZwei.getChildren().addAll(centerHBox);
+
+
+        choose.getStyleClass().add("choose");
+        buttonHBox2.getChildren().addAll(choose);
+        buttonHBox2.getStyleClass().add("hbox2");
+        buttonHBox2.setAlignment(Pos.CENTER);
+
+        // Background Scene
+        ground2.setTop(topVBox2);
+        ground2.setCenter(centerVBoxZwei);
+        ground2.setBottom(buttonHBox2);
+        ground2.getStyleClass().add("ground2");
+        ground2.setMaxSize(600,600);
+
+
+
         // create scene with width and height
-
-
-        Scene scene1 = new Scene(ground, 500,500);
         scene1.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
-
-
-        Scene scene2 = new Scene(layout1, 500,500);
         scene2.getStylesheets().add(getClass().getResource("style2.css").toExternalForm());
-
-
-//        scene2.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
-
-
 
 
 
@@ -242,18 +229,31 @@ public class PlayerViewController extends Application implements EventHandler<Ac
 
         ground = new BorderPane();
         topVBox = new VBox();
+        topVBox2 = new VBox(20);
 
-        topVBox2 = new VBox();
-        centerVBox2 = new VBox();
+        label1 = new Label("Fenster2");
+        ground2 = new BorderPane();
+        changeWindow2 = new Button("Go to Scene 1");
+        changeWindow = new Button("Go to Scene 2");
+
+        centerVBoxZwei = new VBox();
+        centerHBoxZwei = new HBox();
+        buttonHBox2 = new HBox();
 
         centerVBox = new VBox();
         buttonHBox = new HBox();
         centerHBox = new HBox();
         timeslider = new Slider(0,100, value);
+        choose = new Button();
         stop = new Button();
         play = new ToggleButton();
         skipleft = new Button();
         skipright = new Button();
+        changeWindow = new Button();
+        changeWindow2 = new Button();
+
+        scene1 = new Scene(ground, 500,500);
+        scene2 = new Scene(ground2, 500,500);
 
     }
 

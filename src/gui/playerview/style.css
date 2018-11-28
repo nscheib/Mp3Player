@@ -55,6 +55,19 @@
     -fx-text-decoration: none;
 }
 
+.changeWindow {
+    -fx-background-color: GREEN;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 75px;
+    -fx-border-color: black;
+    -fx-border-width: .7px;
+    -fx-background-image: url('../../images/play.png');
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 20%;
+}
+
 .playbutton {
     -fx-background-color: #A9A9A9;
     -fx-pref-height: 24px;
