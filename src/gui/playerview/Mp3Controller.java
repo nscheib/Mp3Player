@@ -1,14 +1,70 @@
-package sample;
+package gui.playerview;
 
 import de.hsrm.mi.prog.util.StaticScanner;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import sample.Main;
+import sample.Mp3Player;
+import sample.PlaylistVerwalter;
 
-public class Controller {
 
-    private Mp3Player mp3Player = new Mp3Player();
+public class Mp3Controller {
+
+    private Mp3Player mp3Player;
     private PlaylistVerwalter playlistVerwalter = new PlaylistVerwalter();
     private final String [] BEFEHLE = {"", "play", "pause", "stop", "volume", "quit", "playlist"};
+    private int time = 0;
+    private Mp3ControllerView view;
+    private boolean pause = false;
 
-    public void start(){
+    public Mp3Controller(Main application, Mp3Player mp3Player){
+        this.mp3Player = mp3Player;
+        view = new Mp3ControllerView();
+        view.changeWindow.setOnAction(e->application.switchScene("PlaylistEditor"));
+        //view.changeWindow2.setOnAction(e->application.switchScene("Playlistwahl"));
+        view.stop.setOnAction(e->mp3Player.pause());
+        view.play.setOnAction(e->play());
+        view.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+    }
+
+    public Pane getView(){
+        return view;
+    }
+
+    public void play(){
+        if (!pause){
+            mp3Player.play(time);
+            view.play.getStyleClass().add("pauseButton");
+        }else{
+            mp3Player.pause();
+            view.play.getStyleClass().add("playbutton");
+        }
+
+    }
+
+    public void setStart(int time){
+           this.time = time;
+    }
+
+    public void pause(){
+        mp3Player.pause();
+    }
+
+    public void stop(){
+
+        time = 0;
+    }
+
+    public void volume(float lautstaerke){
+        mp3Player.volume(lautstaerke);
+    }
+
+
+
+
+
+
+    /*public void console(){
 
         boolean anAus = false;
         while (anAus == false) {
@@ -25,7 +81,7 @@ public class Controller {
                                 System.out.println(parts[1]);
                                 mp3Player.play(parts[1]);
                             }else{
-                                mp3Player.play();
+                                mp3Player.play(0);
                             }
                             break;
                         case 2:
@@ -65,7 +121,7 @@ public class Controller {
         }
         System.out.println("Ende");
     }
-
+*/
 
     private void bearbeiten(){
 
@@ -132,14 +188,6 @@ public class Controller {
         }
 
     }
-
-
-
-
-
-
-
-
 
 
     private void playlist(){

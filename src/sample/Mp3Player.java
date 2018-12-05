@@ -22,13 +22,13 @@ public class Mp3Player {
         audioPlayer.play(0);
     }
 
-    public void play(){
+    public void play(int time){
         // Hier noch eine Auswahl implementieren
         System.out.print("play");
 
         audioPlayer = minim.loadMP3File("tracks/groove.mp3");
         System.out.println("play1");
-        audioPlayer.play();
+        audioPlayer.play(time);
         System.out.println("play2");
     }
 
