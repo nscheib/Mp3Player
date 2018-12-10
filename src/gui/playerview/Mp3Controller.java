@@ -15,6 +15,7 @@ public class Mp3Controller {
     private final String [] BEFEHLE = {"", "play", "pause", "stop", "volume", "quit", "playlist"};
     private int time = 0;
     private Mp3ControllerView view;
+
     private boolean pause = false;
 
     public Mp3Controller(Main application, Mp3Player mp3Player){
@@ -25,7 +26,13 @@ public class Mp3Controller {
         view.stop.setOnAction(e->mp3Player.pause());
         view.play.setOnAction(e->play());
         view.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
+
+
+
     }
+
+
 
     public Pane getView(){
         return view;

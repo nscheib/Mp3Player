@@ -1,26 +1,28 @@
-.changewindow {
-    -fx-background-color: #A1A1A1;
+.changeWindow {
+    -fx-background-color: #969696;
     -fx-pref-height: 24px;
     -fx-max-height: 24px;
     -fx-pref-width: 75px;
-    -fx-border-color: black;
-    -fx-border-width: .7px;
-    -fx-background-image: url('../../images/play.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 20%;
+    -fx-background-size: 50%;
+    -fx-background-radius: 0, 0;
 }
 
+.changeWindow:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #737373;
+}
 
 .ground {
-    -fx-background-color: #000000;
+    -fx-background-color: #afafaf;
 }
 
 .text {
-    -fx-font-family: Verdana, sans-serif;
+    -fx-font-family: Helvetica, sans-serif;
     -fx-font-weight: lighter;
     -fx-font-size: 12px;
-    -fx-text-fill: white;
+    -fx-text-fill: BLACK;
     -fx-text-align: center;
     -fx-padding: 10, 0 , 10 , 0;
 }
@@ -31,113 +33,81 @@
 }
 
 .time {
-    -fx-text-fill: white;
+    -fx-text-fill: #000000;
     -fx-text-alignment: center;
 }
 
 .stopbutton {
-    -fx-background-color: #A9A9A9;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 75px;
-    -fx-border-color: black;
-    -fx-border-width: .7px;
-    -fx-background-image: url('../../images/stop.png');
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url('/images/stop.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 20%;
+    -fx-background-size: 90%;
+    -fx-background-radius: 5, 5;
+    -fx-border-color: #464646;
+    -fx-border-radius: 5;
 
 }
 
 .stopbutton:hover {
-    -fx-border-color: green;
-    -fx-border-width: .7px;
     -fx-text-decoration: none;
-}
-
-.changeWindow {
-    -fx-background-color: GREEN;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 75px;
-    -fx-border-color: black;
-    -fx-border-width: .7px;
-    -fx-background-image: url('../../images/play.png');
-    -fx-background-repeat: stretch;
-    -fx-background-position: center;
-    -fx-background-size: 20%;
-}
-
-.pauseButton{
-    -fx-background-color: #A9A9A9;
-    -fx-pref-height: 28px;
-    -fx-max-height: 28px;
-    -fx-pref-width: 75px;
-    -fx-border-color: black;
-    -fx-border-width: .7px;
-    /*
-    -fx-background-image: url('../../images/pause.png');
-    */
-    -fx-background-repeat: stretch;
-    -fx-background-position: center;
-    -fx-background-size: 20%;
+    -fx-background-color: #969696;
 }
 
 .playbutton {
-    -fx-background-color: #A9A9A9;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 75px;
     -fx-pref-width: 75px;
-    -fx-border-color: black;
-    -fx-border-width: .7px;
-    -fx-background-image: url('../../images/play.png');
+    -fx-background-image: url('/images/play.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 20%;
+    -fx-background-size: 60%;
+    -fx-background-radius: 50, 50;
+    -fx-border-color: #464646;
+    -fx-border-radius: 50;
 }
 
 .playbutton:hover {
-    -fx-border-color: green;
-    -fx-border-width: .7px;
     -fx-text-decoration: none;
+    -fx-background-color: #969696;
 }
 
 .skipright {
-    -fx-background-color: #A9A9A9;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 75px;
-    -fx-border-color: black;
-    -fx-border-width: .7px;
-    -fx-background-image: url('../../images/play.png');
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url('/images/skipright.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 20%;
+    -fx-background-size: 30%;
+    -fx-background-radius: 50, 50;
+    -fx-border-color: #464646;
+    -fx-border-radius: 50;
 }
 
 .skipright:hover {
-    -fx-border-color: green;
-    -fx-border-width: .7px;
     -fx-text-decoration: none;
+    -fx-background-color: #969696;
 }
 
 .skipleft {
-    -fx-background-color: #A9A9A9;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 75px;
-    -fx-border-color: black;
-    -fx-border-width: .7px;
-    -fx-background-image: url('../../images/play.png');
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url('/images/skipleft.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 20%;
+    -fx-background-size: 30%;
+    -fx-background-radius: 50, 50;
+    -fx-border-color: #464646;
+    -fx-border-radius: 50;
 }
 
 .skipleft:hover {
-    -fx-border-color: green;
-    -fx-border-width: .7px;
     -fx-text-decoration: none;
+    -fx-background-color: #969696;
 }
 
 .hbox {

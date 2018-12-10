@@ -34,6 +34,9 @@ public class PlaylistVerwalter {
         updateAllSongs();
     }
 
+    public ArrayList<String> getPlaylists(){
+        return liste;
+    }
 
     public void updateAllSongs (){
 

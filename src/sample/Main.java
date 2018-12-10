@@ -31,7 +31,19 @@ public class Main extends Application {
 
     public void switchScene(String sceneName){
 
-        window.getScene().setRoot(playlistEditorController.getView());
+        switch (sceneName){
+
+            case "PlaylistEditor": window.getScene().setRoot(playlistEditorController.getView());
+                    break;
+
+            case "MP3player": window.getScene().setRoot(mp3Controller.getView());
+                    break;
+
+
+        }
+
+
+
     }
 
     public static void main(String[] args) {

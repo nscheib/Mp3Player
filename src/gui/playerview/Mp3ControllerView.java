@@ -59,9 +59,13 @@ public class Mp3ControllerView extends BorderPane {
         //loading all elements
         guiElemente();
 
+        /*InputStream input2 = clazz.getResourceAsStream("/org/o7planning/javafx/icon/java-48.png");
+        Image image2 = new Image(input2, 100, 200, false, true);
+        ImageView imageView2 = new ImageView(image2);*/
+
         // Textlabel - top for title
         title = new Label();
-        title.getStyleClass().add("titel");
+        title.getStyleClass().add("text");
 
         // Textlabel - top for interpret
         interpret = new Label();
@@ -78,8 +82,10 @@ public class Mp3ControllerView extends BorderPane {
         timeslider.setShowTickLabels(false);
 
         // Top
-        topVBox.getChildren().addAll(changeWindow, title, interpret, information );
-        topVBox.setAlignment(Pos.CENTER);
+        topVBox.getChildren().addAll(changeWindow, title, interpret );
+        changeWindow.getStyleClass().add("changeWindow");
+
+        topVBox.setAlignment(Pos.CENTER_LEFT);
 
         // Center
         centerHBox.setAlignment(Pos.CENTER);
@@ -87,15 +93,13 @@ public class Mp3ControllerView extends BorderPane {
         centerVBox.setAlignment(Pos.CENTER);
         centerVBox.getChildren().addAll(centerHBox);
 
+
         play.getStyleClass().add("playbutton");
-
-
         stop.getStyleClass().add("stopbutton");
-
-
         skipleft.getStyleClass().add("skipleft");
         skipright.getStyleClass().add("skipright");
         buttonHBox.getChildren().addAll(skipleft, stop, play, skipright);
+
         buttonHBox.getStyleClass().add("hbox");
         buttonHBox.setAlignment(Pos.CENTER);
 
@@ -104,6 +108,7 @@ public class Mp3ControllerView extends BorderPane {
         this.setCenter(centerVBox);
         this.setBottom(buttonHBox);
         this.getStyleClass().add("ground");
+        this.setMaxSize(600,600);
 
 
 
