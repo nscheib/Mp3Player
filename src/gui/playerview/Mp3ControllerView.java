@@ -15,14 +15,13 @@ import javax.swing.text.html.ImageView;
 import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 
 public class Mp3ControllerView extends BorderPane {
 
 
-    private PlaylistVerwalter verwalter;
-
-    private Label interpret, title, information;
+        private Label interpret, title, information;
     private Label label1;
     private VBox topVBox, centerVBox;
     private VBox topVBox2, centerVBoxZwei;
@@ -56,7 +55,7 @@ public class Mp3ControllerView extends BorderPane {
 
         //loading all elements
         guiElemente();
-        verwalter = new PlaylistVerwalter();
+        //verwalter = new PlaylistVerwalter();
         /*InputStream input2 = clazz.getResourceAsStream("/org/o7planning/javafx/icon/java-48.png");
         Image image2 = new Image(input2, 100, 200, false, true);
         ImageView imageView2 = new ImageView(image2);*/

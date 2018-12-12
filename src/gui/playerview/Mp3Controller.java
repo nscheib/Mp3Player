@@ -22,7 +22,7 @@ public class Mp3Controller {
         view = new Mp3ControllerView();
         view.changeWindow.setOnAction(e->application.switchScene("PlaylistEditor"));
         //view.changeWindow2.setOnAction(e->application.switchScene("Playlistwahl"));
-        view.stop.setOnAction(e->mp3Player.pause());
+        view.stop.setOnAction(e->mp3Player.stop());
         view.play.setOnAction(e->play());
         view.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
@@ -38,31 +38,32 @@ public class Mp3Controller {
     }
 
     public void play(){
-        if (!pause){
-            mp3Player.play(time);
-            view.play.getStyleClass().add("pauseButton");
-
-            pause = true;
+        if (!mp3Player.getPlaying()){
+            mp3Player.play();
             System.out.println("abspielen");
+            view.play.getStyleClass().remove("playbutton");
+            view.play.getStyleClass().add("pauseButton");
         }else{
-            time = mp3Player.getTime();
             mp3Player.pause();
-
-            view.play.getStyleClass().add("playbutton");
-            pause = false;
             System.out.println("pause");
+            view.play.getStyleClass().remove("pauseButton");
+            view.play.getStyleClass().add("playbutton");
+        }
+        System.out.println("play2");
+
+    }
+
+    public void setStart(int time){ //Slider info nötig
+
+        if (!mp3Player.getPlaying()){
+            mp3Player.play(time);
+            mp3Player.pause();
+        }else{
+            mp3Player.play(time);
         }
 
-    }
-
-    public void setStart(int time){
-           this.time = time;
+        this.time = time;
     } //Slider benötigt
-
-    public void stop(){
-
-        time = 0;
-    }
 
     public void volume(float lautstaerke){
         mp3Player.volume(lautstaerke);

@@ -11,8 +11,9 @@ public class Mp3Player {
 
     private ArrayList<String> liste = new ArrayList<String>();
 
+
     SimpleMinim minim = new SimpleMinim(true);
-    SimpleAudioPlayer audioPlayer ;
+    SimpleAudioPlayer audioPlayer = minim.loadMP3File("tracks/laenger.mp3");;
 
 
     public void play (String titel, int time){
@@ -22,18 +23,24 @@ public class Mp3Player {
         audioPlayer.play(time);
     }
 
-    public void play(int time){
-        // Hier noch eine Auswahl implementieren
-        System.out.print("play");
+    public void play (int time){
+        audioPlayer.play();
+    }
 
-        audioPlayer = minim.loadMP3File("tracks/laenger.mp3");
-        System.out.println("play1");
-        audioPlayer.play(time);
-        System.out.println("play2");
+    public void play(){
+        // Hier noch eine Auswahl implementieren
+        audioPlayer.play();
+
     }
 
     public void pause(){
         audioPlayer.pause();
+    }
+
+    public void stop(){
+        audioPlayer.rewind();
+        audioPlayer.pause();
+
 
     }
 
@@ -46,6 +53,10 @@ public class Mp3Player {
         System.out.println(lautstaerke);
         lautstaerke = lautstaerke - 60;
         audioPlayer.setGain(lautstaerke);
+    }
+
+    public boolean getPlaying(){
+        return audioPlayer.isPlaying();
     }
 
 }

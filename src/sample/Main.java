@@ -12,7 +12,7 @@ public class Main extends Application {
 
     Mp3Controller mp3Controller;
     PlaylistEditorController playlistEditorController;
-    private Mp3Player mp3Player ;
+    private Mp3Player mp3Player;
     Stage window;
 
 
