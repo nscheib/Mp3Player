@@ -9,6 +9,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import sample.PlaylistVerwalter;
+
 import javax.swing.text.html.ImageView;
 import java.awt.*;
 import java.text.DateFormat;
@@ -17,6 +19,8 @@ import java.text.SimpleDateFormat;
 
 public class Mp3ControllerView extends BorderPane {
 
+
+    private PlaylistVerwalter verwalter;
 
     private Label interpret, title, information;
     private Label label1;
@@ -52,7 +56,7 @@ public class Mp3ControllerView extends BorderPane {
 
         //loading all elements
         guiElemente();
-
+        verwalter = new PlaylistVerwalter();
         /*InputStream input2 = clazz.getResourceAsStream("/org/o7planning/javafx/icon/java-48.png");
         Image image2 = new Image(input2, 100, 200, false, true);
         ImageView imageView2 = new ImageView(image2);*/

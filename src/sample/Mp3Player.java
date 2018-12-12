@@ -15,11 +15,11 @@ public class Mp3Player {
     SimpleAudioPlayer audioPlayer ;
 
 
-    public void play (String titel){
+    public void play (String titel, int time){
         System.out.print("play titel");
 
         audioPlayer = minim.loadMP3File("tracks/" + titel + ".mp3");
-        audioPlayer.play(0);
+        audioPlayer.play(time);
     }
 
     public void play(int time){
@@ -35,6 +35,10 @@ public class Mp3Player {
     public void pause(){
         audioPlayer.pause();
 
+    }
+
+    public int getTime(){
+        return audioPlayer.position();
     }
 
     public void volume(float lautstaerke){

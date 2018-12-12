@@ -1,7 +1,6 @@
 package gui.playerview;
 
 import de.hsrm.mi.prog.util.StaticScanner;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import sample.Main;
 import sample.Mp3Player;
@@ -12,7 +11,7 @@ public class Mp3Controller {
 
     private Mp3Player mp3Player;
     private PlaylistVerwalter playlistVerwalter = new PlaylistVerwalter();
-    private final String [] BEFEHLE = {"", "play", "pause", "stop", "volume", "quit", "playlist"};
+    //private final String [] BEFEHLE = {"", "play", "pause", "stop", "volume", "quit", "playlist"};
     private int time = 0;
     private Mp3ControllerView view;
 
@@ -46,6 +45,7 @@ public class Mp3Controller {
             pause = true;
             System.out.println("abspielen");
         }else{
+            time = mp3Player.getTime();
             mp3Player.pause();
 
             view.play.getStyleClass().add("playbutton");
@@ -57,11 +57,7 @@ public class Mp3Controller {
 
     public void setStart(int time){
            this.time = time;
-    }
-
-    public void pause(){
-        mp3Player.pause();
-    }
+    } //Slider benötigt
 
     public void stop(){
 
@@ -70,7 +66,7 @@ public class Mp3Controller {
 
     public void volume(float lautstaerke){
         mp3Player.volume(lautstaerke);
-    }
+    } // zweiter Slider benötigt
 
 
 

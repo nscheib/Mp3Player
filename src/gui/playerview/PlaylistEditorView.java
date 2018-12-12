@@ -55,11 +55,9 @@ public class PlaylistEditorView extends BorderPane {
         // hier werden nur STRINGS eingespeichert in listview
 
 
-        for (int i = 0; i < playlistVerwalter.getAllSongs().size(); i++){
+        listViewR.getItems().addAll( playlistVerwalter.getAllSongs()); // aus availableSongs
 
-            listViewR.getItems().add( playlistVerwalter.getAllSongs().get(i)); // aus availableSongs
 
-        }
 
 
 
