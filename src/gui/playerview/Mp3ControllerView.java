@@ -1,11 +1,7 @@
 package gui.playerview;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import sample.Mp3Player;
-import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -13,8 +9,6 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
 import javax.swing.text.html.ImageView;
 import java.awt.*;
 import java.text.DateFormat;

@@ -42,9 +42,15 @@ public class Mp3Controller {
         if (!pause){
             mp3Player.play(time);
             view.play.getStyleClass().add("pauseButton");
+
+            pause = true;
+            System.out.println("abspielen");
         }else{
             mp3Player.pause();
+
             view.play.getStyleClass().add("playbutton");
+            pause = false;
+            System.out.println("pause");
         }
 
     }

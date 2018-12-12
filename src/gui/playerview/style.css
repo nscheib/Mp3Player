@@ -74,6 +74,25 @@
     -fx-background-color: #969696;
 }
 
+
+.pauseButton {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 75px;
+    -fx-pref-width: 75px;
+    -fx-background-image: url('/images/play.png');
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 60%;
+    -fx-background-radius: 50, 50;
+    -fx-border-color: #464646;
+    -fx-border-radius: 50;
+}
+
+.pauseButton:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #969696;
+}
+
 .skipright {
     -fx-background-color: #afafaf;
     -fx-pref-height: 50px;
@@ -91,6 +110,7 @@
     -fx-text-decoration: none;
     -fx-background-color: #969696;
 }
+
 
 .skipleft {
     -fx-background-color: #afafaf;

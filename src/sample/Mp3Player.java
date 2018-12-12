@@ -26,7 +26,7 @@ public class Mp3Player {
         // Hier noch eine Auswahl implementieren
         System.out.print("play");
 
-        audioPlayer = minim.loadMP3File("tracks/groove.mp3");
+        audioPlayer = minim.loadMP3File("tracks/laenger.mp3");
         System.out.println("play1");
         audioPlayer.play(time);
         System.out.println("play2");
