@@ -1,6 +1,9 @@
 package sample;
 
 import de.hsrm.mi.prog.util.StaticScanner;
+import gui.playerview.Mp3ControllerView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,15 +21,19 @@ public class PlaylistVerwalter {
 
 
 
+
     private ArrayList<String> availableSongs = new ArrayList<String>();
     // Stringarray mit songs als NAMEN
     // groove.mp3
+    private ObservableList<String> obsListe = FXCollections.observableArrayList();
+
 
     //private  HashMap songs = new HashMap();
 
     private ArrayList<String> liste = new ArrayList<String>();
     // Stringarray mit allen playlists gespeicherten standorten
     // playlisten\playlist1
+
 
 
 
@@ -49,7 +56,13 @@ public class PlaylistVerwalter {
                 }
             }
         }
+        obsListe.addAll(availableSongs);
     }
+
+    public ObservableList<String> getObsListe(){
+        return obsListe;
+    }
+
     public ArrayList<String> getAllSongs() {
         return availableSongs;
     }

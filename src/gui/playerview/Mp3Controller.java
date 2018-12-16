@@ -1,6 +1,11 @@
 package gui.playerview;
 
 import de.hsrm.mi.prog.util.StaticScanner;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 import sample.Main;
 import sample.Mp3Player;
@@ -16,16 +21,48 @@ public class Mp3Controller {
     private Mp3ControllerView view;
 
     private boolean pause = false;
+    // Gibt NOCH NICHT ausgewähltes Element aus  als String zurück, aber auch immer wieder neu ???
+
+
+    // ListView kack
+    String auswahlSong;
+    int aktPosition;
+    String previousSong,nextSong;
+
 
     public Mp3Controller(Main application, Mp3Player mp3Player){
         this.mp3Player = mp3Player;
         view = new Mp3ControllerView();
         view.changeWindow.setOnAction(e->application.switchScene("PlaylistEditor"));
         //view.changeWindow2.setOnAction(e->application.switchScene("Playlistwahl"));
-        view.stop.setOnAction(e->mp3Player.pause());
-        view.play.setOnAction(e->play());
+        view.stop.setOnAction(e->mp3Player.stop());
+        view.play.setOnAction(e->mp3Player.play());
+        view.skipleft.setOnAction(e->mp3Player.play(previousSong, 0));
+        view.skipright.setOnAction(e->mp3Player.play(nextSong, 0));
         view.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
+        // changelistener bei listview
+
+
+        view.allSongsList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                auswahlSong = newValue;
+                aktPosition = playlistVerwalter.getAllSongs().indexOf(auswahlSong);
+//                previousSong = playlistVerwalter.getAllSongs().get(aktPosition-1);
+//                nextSong = playlistVerwalter.getAllSongs().get(aktPosition+1);
+
+                // Noch nicht so ganz klar ob beim skippen der aktuelle Song auch noch gespeichert wird und man immer weiter skippen kann..
+                // Also hier auch noch den Fall beachten, dass beim ersten Song kein previous sond existiert und deshalb das lied einfach gestoppt wird...
+            }
+        });
+
+
+
+        System.out.println(auswahlSong);
+
+        view.playSong.setOnAction(e->mp3Player.playSelected(auswahlSong));
+        // hier eigentlich groove ersetzen durch observable list aktuell ausgewähltes von mp3controllerview
 
 
 
@@ -37,23 +74,23 @@ public class Mp3Controller {
         return view;
     }
 
-    public void play(){
-        if (!pause){
-            mp3Player.play(time);
-            view.play.getStyleClass().add("pauseButton");
-
-            pause = true;
-            System.out.println("abspielen");
-        }else{
-            time = mp3Player.getTime();
-            mp3Player.pause();
-
-            view.play.getStyleClass().add("playbutton");
-            pause = false;
-            System.out.println("pause");
-        }
-
-    }
+//    public void play(){
+//        if (!pause){
+//            mp3Player.play();
+//            view.play.getStyleClass().add("pauseButton");
+//
+//            pause = true;
+//            System.out.println("abspielen");
+//        }else{
+//            time = mp3Player.getTime();
+//            mp3Player.pause();
+//
+//            view.play.getStyleClass().add("playbutton");
+//            pause = false;
+//            System.out.println("pause");
+//        }
+//
+//    }
 
     public void setStart(int time){
            this.time = time;

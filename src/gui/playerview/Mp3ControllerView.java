@@ -1,11 +1,14 @@
 package gui.playerview;
 
-import sample.Mp3Player;
-import javafx.geometry.Pos;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ListView;
+import sample.Mp3Player;
+import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,11 +26,8 @@ public class Mp3ControllerView extends BorderPane {
     private PlaylistVerwalter verwalter;
 
     private Label interpret, title, information;
-    private Label label1;
     private VBox topVBox, centerVBox;
-    private VBox topVBox2, centerVBoxZwei;
     private HBox buttonHBox, centerHBox;
-    private HBox centerHBoxZwei, buttonHBox2;
     private Slider timeslider;
     Button stop;
     Button skipleft;
@@ -38,6 +38,16 @@ public class Mp3ControllerView extends BorderPane {
     private ImageView imgview;
     private Mp3Player player;
     private final DateFormat TIMEFORMAT = new SimpleDateFormat(("mm:ss"));
+
+
+    // Alle Songs anzeigen und auswählen
+    ObservableList<String> inhaltAllSongs;
+    ListView<String> allSongsList ;
+
+    PlaylistVerwalter playlistVerwalter = new PlaylistVerwalter();
+    Button playSong;
+    // Hier noch ohne Observable List alles geklärt
+    // Man könnte in playlistverwalter die playlist durch observable ersetzen...
 
     // zum testen
     private double value = 30;
@@ -79,8 +89,25 @@ public class Mp3ControllerView extends BorderPane {
         timeslider.setMax(100);
         timeslider.setShowTickLabels(false);
 
+        // AllsongsList
+
+
+        for (int i = 0; i < playlistVerwalter.getAllSongs().size() ; i++){
+            inhaltAllSongs.add(playlistVerwalter.getAllSongs().get(i));
+        }
+
+        // hier nicht mehr daten in allsongslist laden, sondern die observable list
+
+        // allSongsList.getItems().addAll(playlistVerwalter.getAllSongs());
+        allSongsList = new ListView<String>(inhaltAllSongs);
+        allSongsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        allSongsList.setMaxSize(400,100);
+        allSongsList.getStyleClass().add("allSongsList");
+
+        //playSong
+
         // Top
-        topVBox.getChildren().addAll(changeWindow, title, interpret );
+        topVBox.getChildren().addAll(changeWindow, allSongsList,playSong, title, interpret );
         changeWindow.getStyleClass().add("changeWindow");
 
         topVBox.setAlignment(Pos.CENTER_LEFT);
@@ -111,41 +138,15 @@ public class Mp3ControllerView extends BorderPane {
 
 
 
-        //___for Scene 2
 
-        // Top
-        topVBox2.getChildren().addAll(changeWindow2, title, interpret );
-
-        topVBox2.setAlignment(Pos.CENTER);
-
-        // Center
-        centerHBoxZwei.setAlignment(Pos.CENTER);
-        centerHBoxZwei.getChildren().addAll(information,timeslider);
-        centerVBoxZwei.setAlignment(Pos.CENTER);
-        centerVBoxZwei.getChildren().addAll(centerHBox);
-
-
-        choose.getStyleClass().add("choose");
-        buttonHBox2.getChildren().addAll(choose);
-        buttonHBox2.getStyleClass().add("hbox2");
-        buttonHBox2.setAlignment(Pos.CENTER);
-
-        // Background Scene
 
     }
 
 
     public void guiElemente(){
 
-        topVBox = new VBox();
-        topVBox2 = new VBox(20);
-
+        topVBox = new VBox(20);
         changeWindow = new Button("Go to Scene 2");
-
-        centerVBoxZwei = new VBox();
-        centerHBoxZwei = new HBox();
-        buttonHBox2 = new HBox();
-
         centerVBox = new VBox();
         buttonHBox = new HBox();
         centerHBox = new HBox();
@@ -157,6 +158,11 @@ public class Mp3ControllerView extends BorderPane {
         skipright = new Button();
         changeWindow = new Button();
         changeWindow2 = new Button();
+
+
+//        allSongsList = new ListView<String>(inhaltAllSongs);
+        inhaltAllSongs = FXCollections.observableArrayList();
+        playSong = new Button("Play Song");
 
 
 

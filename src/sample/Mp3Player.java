@@ -3,38 +3,58 @@ package sample;
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import de.hsrm.mi.prog.util.StaticScanner;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class Mp3Player {
 
+
+
     private ArrayList<String> liste = new ArrayList<String>();
 
-    SimpleMinim minim = new SimpleMinim(true);
-    SimpleAudioPlayer audioPlayer ;
 
+
+    SimpleMinim minim = new SimpleMinim(true);
+    SimpleAudioPlayer audioPlayer = minim.loadMP3File("tracks/laenger.mp3");
+
+    public void playSelected(String titel){
+        if (audioPlayer.isPlaying()){
+            audioPlayer.pause();
+        }
+        audioPlayer = minim.loadMP3File("tracks/" + titel ); // + ".mp3"
+        audioPlayer.play(); // hier eigentlich noch time
+    }
 
     public void play (String titel, int time){
-        System.out.print("play titel");
-
-        audioPlayer = minim.loadMP3File("tracks/" + titel + ".mp3");
-        audioPlayer.play(time);
+        audioPlayer = minim.loadMP3File("tracks/" + titel ); // + ".mp3"
+        audioPlayer.play(); // hier eigentlich noch time
     }
 
-    public void play(int time){
+    public void play (int time){
+        audioPlayer.pause();
+        audioPlayer.play(time); // hier eigentlich noch time
+    }
+
+    public void play(){
         // Hier noch eine Auswahl implementieren
-        System.out.print("play");
+        if (audioPlayer.isPlaying()){
+            audioPlayer.pause();
+        }else audioPlayer.play();
 
-        audioPlayer = minim.loadMP3File("tracks/laenger.mp3");
-        System.out.println("play1");
-        audioPlayer.play(time);
-        System.out.println("play2");
     }
+
 
     public void pause(){
         audioPlayer.pause();
 
+    }
+
+    public void stop(){
+        audioPlayer.pause();
+        audioPlayer.rewind();
     }
 
     public int getTime(){

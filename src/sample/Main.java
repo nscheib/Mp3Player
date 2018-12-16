@@ -33,17 +33,14 @@ public class Main extends Application {
 
         switch (sceneName){
 
-            case "PlaylistEditor": window.getScene().setRoot(playlistEditorController.getView());
-                    break;
+            case "PlaylistEditor":
+                window.getScene().setRoot(playlistEditorController.getView());
+                break;
 
-            case "MP3player": window.getScene().setRoot(mp3Controller.getView());
-                    break;
-
-
+            case "MP3player":
+                window.getScene().setRoot(mp3Controller.getView());
+                break;
         }
-
-
-
     }
 
     public static void main(String[] args) {
