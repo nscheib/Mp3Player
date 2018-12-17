@@ -1,5 +1,7 @@
 package gui.playerview;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
@@ -12,6 +14,9 @@ public class PlaylistEditorController {
 
     private PlaylistEditorView view;
     private PlaylistVerwalter playlistVerwalter = new PlaylistVerwalter();
+
+    private String auswahlPlaylist;
+    private int aktPosition;
 
 
 
@@ -33,6 +38,23 @@ public class PlaylistEditorController {
         view.delete2.setOnAction(e -> buttonClicked(4));
         view.changeWindow2.setOnAction(e->application.switchScene("MP3player"));
         view.getStylesheets().add(getClass().getResource("style2.css").toExternalForm());
+
+
+
+
+        view.listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                auswahlPlaylist = newValue;
+                aktPosition = playlistVerwalter.getAllSongs().indexOf(auswahlPlaylist);
+//                previousSong = playlistVerwalter.getAllSongs().get(aktPosition-1);
+//                nextSong = playlistVerwalter.getAllSongs().get(aktPosition+1);
+
+                // Noch nicht so ganz klar ob beim skippen der aktuelle Song auch noch gespeichert wird und man immer weiter skippen kann..
+                // Also hier auch noch den Fall beachten, dass beim ersten Song kein previous sond existiert und deshalb das lied einfach gestoppt wird...
+            }
+        });
+
 
 
     }
@@ -59,8 +81,7 @@ public class PlaylistEditorController {
         if (befehl == 1){
             // Playlist löschen
             //playlistVerwalter.deletePlaylist(playlists.get(0));
-
-            String ort = "playlisten/"+playlists.get(0);
+            String ort = "playlists/"+auswahlPlaylist;
             File delete = new File(ort);
             delete.delete();
             // listViewListe.remove(playlists); // löscht das auch wirklich ???
@@ -78,6 +99,13 @@ public class PlaylistEditorController {
                 view.listViewR.getItems().remove(i);
                 // Ist es sinnvoll alles zu löschen ???
             }
+
+
+
+            // Hier dann listviewR inhalt neu laden und somit ersetzen...
+            // Somit muss die in listviewR geladene liste eine OBSERVABLE sein, da sonst die sachen nicht aktuell geladen werden können...
+            //view.listViewR.getItems().addAll();
+
 
             //listView.setItems(playlists);
 
@@ -105,7 +133,7 @@ public class PlaylistEditorController {
             // Hier Liedauswähler implementieren
         }
 
-        if (befehl == 2){
+        if (befehl == 4){
             System.out.println("Lied "+ playlists + " wurde gelöscht");
         }
 

@@ -28,7 +28,7 @@ public class Mp3ControllerView extends BorderPane {
     private Label interpret, title, information;
     private VBox topVBox, centerVBox;
     private HBox buttonHBox, centerHBox;
-    private Slider timeslider;
+    Slider timeslider;  // war vorher private ... macht es
     Button stop;
     Button skipleft;
     Button skipright;
@@ -46,6 +46,7 @@ public class Mp3ControllerView extends BorderPane {
 
     PlaylistVerwalter playlistVerwalter = new PlaylistVerwalter();
     Button playSong;
+
     // Hier noch ohne Observable List alles geklärt
     // Man könnte in playlistverwalter die playlist durch observable ersetzen...
 
@@ -87,7 +88,7 @@ public class Mp3ControllerView extends BorderPane {
         timeslider.getStyleClass().add("timeslider");
         timeslider.setMin(0);
         timeslider.setMax(100);
-        timeslider.setShowTickLabels(false);
+        timeslider.setShowTickLabels(false); // hier später true um die länge des songs anzeigen zu lassen...
 
         // AllsongsList
 

@@ -43,7 +43,6 @@ public class Mp3Controller {
 
         // changelistener bei listview
 
-
         view.allSongsList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -56,13 +55,15 @@ public class Mp3Controller {
                 // Also hier auch noch den Fall beachten, dass beim ersten Song kein previous sond existiert und deshalb das lied einfach gestoppt wird...
             }
         });
-
-
-
-        System.out.println(auswahlSong);
-
         view.playSong.setOnAction(e->mp3Player.playSelected(auswahlSong));
         // hier eigentlich groove ersetzen durch observable list aktuell ausgewähltes von mp3controllerview
+
+
+
+        // changelistener bei timeslider oder irgendwie sowas
+
+
+//        view.timeslider.blo
 
 
 

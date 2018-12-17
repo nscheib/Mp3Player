@@ -39,6 +39,7 @@ public class PlaylistVerwalter {
 
     public PlaylistVerwalter() {
         updateAllSongs();
+//        loadFromFile("nichts tun");
     }
 
     public ArrayList<String> getPlaylists(){
@@ -58,6 +59,7 @@ public class PlaylistVerwalter {
         }
         obsListe.addAll(availableSongs);
     }
+
 
     public ObservableList<String> getObsListe(){
         return obsListe;
@@ -93,8 +95,6 @@ public class PlaylistVerwalter {
 
     }
 
-
-
     public String createPlaylist(String name){
         // HIER NOCH UMWANDELN IN M3U DATEI
 
@@ -113,7 +113,7 @@ public class PlaylistVerwalter {
 
     public void loadFromFile(String befehl) {
 
-        File f = new File("playlisten");
+        File f = new File("playlists");
         File[] fileArray = f.listFiles();
         if (fileArray != null) {
             for (int i = 0; i < fileArray.length; i++) {
@@ -136,7 +136,6 @@ public class PlaylistVerwalter {
             }
         }
     }
-
 
     public void fileBeschreiben(String playlistFile, String text) {
         //playlistFile ist �bergebene position der playlist und �bergeben mit dem erstellen der playlist
@@ -165,7 +164,6 @@ public class PlaylistVerwalter {
 
         //löschenLied(playlist);
     }
-
 
     public void loeschenLied(String playlistFile, String song) {
 
@@ -220,10 +218,6 @@ public class PlaylistVerwalter {
         }
 
     }
-
-
-
-
 
     public void deletePlaylist(String playlist){
 

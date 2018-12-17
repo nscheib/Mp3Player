@@ -1,5 +1,7 @@
 package gui.playerview;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,7 +26,7 @@ public class PlaylistEditorView extends BorderPane {
     private PlaylistVerwalter playlistVerwalter;
 
 
-
+    ObservableList<String> inhaltListView, inhaltListViewR;
     ListView<String> listView,listViewR;                // kann das public bleiben oder ist das kacke?
 
 
@@ -44,22 +46,19 @@ public class PlaylistEditorView extends BorderPane {
         playlistVerwalter.loadFromFile("nichtstun"); // nichtstun siehe methode...
         // speichert playlisten in liste ...
 
-        for (int i = 0; i < playlistVerwalter.getPlaylists().size(); i++){
 
-            listView.getItems().add(playlistVerwalter.getPlaylists().get(i)); // aus liste
 
+        for (int i = 0; i < playlistVerwalter.getPlaylists().size() ; i++){
+            inhaltListView.add(playlistVerwalter.getPlaylists().get(i));
         }
-        //listViewListe.add(playlistVerwalter.getPlaylists().get(i)); // aus liste
 
-        //listView.getItems().addAll("Peeeeda", "ur mum gwy", "ASS","Surrogates"); // hier dann die playlistnamen
-        // hier werden nur STRINGS eingespeichert in listview
-
-
-        listViewR.getItems().addAll( playlistVerwalter.getAllSongs()); // aus availableSongs
+//        for (int i = 0; i < playlistVerwalter.getAllSongs().size() ; i++){
+//            inhaltListViewR.add(playlistVerwalter.getAllSongs().get(i));
+//        }
 
 
-
-
+        listView.getItems().addAll(inhaltListView);     // Alle playlists und dann auch immer aktuell nice so geregelt...
+//        listViewR.getItems().addAll(inhaltListViewR);   // Alle Songs // MUSS NOCH GEÄNDERT WERDEN
 
 
 
@@ -134,6 +133,8 @@ public class PlaylistEditorView extends BorderPane {
 
         listView = new ListView<>();
         listViewR = new ListView<>();
+
+        inhaltListView = FXCollections.observableArrayList();
 
 
 
