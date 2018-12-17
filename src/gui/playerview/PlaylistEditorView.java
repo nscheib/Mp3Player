@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -19,7 +18,7 @@ public class PlaylistEditorView extends BorderPane {
     private Button addPlaylist,deletePlaylist;
 
     //VBox playlistWahl;
-    Button add, delete, loadPlaylist, add2,delete2;
+    Button add, delete, loadPlaylist, add2,delete2,play;
     private HBox centerHBoxZwei, buttonHBox2;
 
     Button changeWindow2;
@@ -27,8 +26,8 @@ public class PlaylistEditorView extends BorderPane {
 
 
     ObservableList<String> inhaltListView, inhaltListViewR;
-    ListView<String> listView,listViewR;                // kann das public bleiben oder ist das kacke?
-
+    ListView<String> listView;                // kann das public bleiben oder ist das kacke?
+    ListView<String> listViewR;
 
 
     public PlaylistEditorView(PlaylistVerwalter playlistVerwalter){
@@ -43,22 +42,14 @@ public class PlaylistEditorView extends BorderPane {
 
 
 
-        playlistVerwalter.loadFromFile("nichtstun"); // nichtstun siehe methode...
+        playlistVerwalter.loadPlaylists("nichtstun"); // nichtstun siehe methode...
         // speichert playlisten in liste ...
 
 
-
-        for (int i = 0; i < playlistVerwalter.getPlaylists().size() ; i++){
-            inhaltListView.add(playlistVerwalter.getPlaylists().get(i));
-        }
-
-//        for (int i = 0; i < playlistVerwalter.getAllSongs().size() ; i++){
-//            inhaltListViewR.add(playlistVerwalter.getAllSongs().get(i));
-//        }
-
-
+        //Laden aller bis jetzt erstellten Playlists in Observable
+        inhaltListView.addAll(playlistVerwalter.getPlaylists());
         listView.getItems().addAll(inhaltListView);     // Alle playlists und dann auch immer aktuell nice so geregelt...
-//        listViewR.getItems().addAll(inhaltListViewR);   // Alle Songs // MUSS NOCH GEÄNDERT WERDEN
+
 
 
 
@@ -74,12 +65,12 @@ public class PlaylistEditorView extends BorderPane {
         topVBox2.getStyleClass().add("topVBox2");
 
         // Center
-        centerVBoxZwei.getChildren().addAll(listView,add,delete);
+        centerVBoxZwei.getChildren().addAll(listView,delete,loadPlaylist);
         centerVBoxZwei.setAlignment(Pos.CENTER);
-        centerVBoxZwei2.getChildren().addAll(listViewR,add2,delete2);
+        centerVBoxZwei2.getChildren().addAll(listViewR,play);
         centerVBoxZwei2.setAlignment(Pos.CENTER);
         centerHBoxZwei.setAlignment(Pos.CENTER);
-        centerHBoxZwei.getChildren().addAll(centerVBoxZwei,loadPlaylist,centerVBoxZwei2);
+        centerHBoxZwei.getChildren().addAll(centerVBoxZwei,centerVBoxZwei2);
 
 
 //        besser das hier noch dazu oder buttons so lassen wie sie sind ??
@@ -125,6 +116,7 @@ public class PlaylistEditorView extends BorderPane {
 
         add = new Button("Add New");
         delete = new Button("Delete");
+        play = new Button("Play");
         add2 = new Button("Add New");
         delete2 = new Button("Delete");
         changeWindow2 = new Button("Player");
@@ -135,6 +127,7 @@ public class PlaylistEditorView extends BorderPane {
         listViewR = new ListView<>();
 
         inhaltListView = FXCollections.observableArrayList();
+        inhaltListViewR = FXCollections.observableArrayList();
 
 
 

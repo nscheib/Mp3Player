@@ -1,7 +1,5 @@
 package sample;
 
-import de.hsrm.mi.prog.util.StaticScanner;
-import gui.playerview.Mp3ControllerView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,8 +11,6 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class PlaylistVerwalter {
@@ -22,24 +18,23 @@ public class PlaylistVerwalter {
 
 
 
-    private ArrayList<String> availableSongs = new ArrayList<String>();
+    private ArrayList<String> everyAvailableSong = new ArrayList<String>();
     // Stringarray mit songs als NAMEN
     // groove.mp3
-    private ObservableList<String> obsListe = FXCollections.observableArrayList();
 
 
     //private  HashMap songs = new HashMap();
 
     private ArrayList<String> liste = new ArrayList<String>();
-    // Stringarray mit allen playlists gespeicherten standorten
-    // playlisten\playlist1
+    // Stringarray mit allen playlistnamen
+
 
 
 
 
     public PlaylistVerwalter() {
         updateAllSongs();
-//        loadFromFile("nichts tun");
+//        loadPlaylists("nichts tun");
     }
 
     public ArrayList<String> getPlaylists(){
@@ -53,20 +48,22 @@ public class PlaylistVerwalter {
         if (fileArray != null) {
             for (int i = 0; i < fileArray.length; i++) {
                 if (fileArray[i].getName().endsWith(".mp3")){
-                    availableSongs.add(fileArray[i].getName());
+                    everyAvailableSong.add(fileArray[i].getName());
                 }
             }
         }
-        obsListe.addAll(availableSongs);
     }
 
+    public ObservableList<String> getSongs(String playlist){
+        ObservableList<String> obsList = FXCollections.observableArrayList();
 
-    public ObservableList<String> getObsListe(){
-        return obsListe;
+
+        obsList.addAll(playlist);
+        return obsList;
     }
 
     public ArrayList<String> getAllSongs() {
-        return availableSongs;
+        return everyAvailableSong;
     }
 
     public void printPlaylistSongs(String playlistFile) {
@@ -111,7 +108,7 @@ public class PlaylistVerwalter {
         return playlistFile;
     }
 
-    public void loadFromFile(String befehl) {
+    public void loadPlaylists(String befehl) {
 
         File f = new File("playlists");
         File[] fileArray = f.listFiles();
@@ -119,7 +116,7 @@ public class PlaylistVerwalter {
             for (int i = 0; i < fileArray.length; i++) {
                 if (fileArray[i].getName().endsWith(".txt")) {
                     liste.add(fileArray[i].getName());
-                    // Namen in array speichern
+                    // Namen der Playlists in array speichern
                 }
             }
         }
@@ -135,6 +132,33 @@ public class PlaylistVerwalter {
 
             }
         }
+    }
+
+    public ObservableList<String> returnPlaylistSongs(String playlist){
+
+        ObservableList<String> songsInPlaylist = FXCollections.observableArrayList();
+
+
+        File f = new File("playlists/"+playlist);
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader("playlists/" + playlist));
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                if (line.contains("#EXTM3U")){
+                    // erste Zeile ignorieren
+                    // hier könnte man die anzahl der lieder counten...
+                    continue;
+                }
+                songsInPlaylist.add( line.substring(8) ); // , line.length() - 4 nach 8 wenn ohne .mp3 gewollt
+            }
+            reader.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return songsInPlaylist;
     }
 
     public void fileBeschreiben(String playlistFile, String text) {

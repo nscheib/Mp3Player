@@ -1,11 +1,8 @@
 package gui.playerview;
 
 import de.hsrm.mi.prog.util.StaticScanner;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 import sample.Main;
 import sample.Mp3Player;
@@ -74,24 +71,6 @@ public class Mp3Controller {
     public Pane getView(){
         return view;
     }
-
-//    public void play(){
-//        if (!pause){
-//            mp3Player.play();
-//            view.play.getStyleClass().add("pauseButton");
-//
-//            pause = true;
-//            System.out.println("abspielen");
-//        }else{
-//            time = mp3Player.getTime();
-//            mp3Player.pause();
-//
-//            view.play.getStyleClass().add("playbutton");
-//            pause = false;
-//            System.out.println("pause");
-//        }
-//
-//    }
 
     public void setStart(int time){
            this.time = time;
@@ -240,9 +219,9 @@ public class Mp3Controller {
     private void playlist(){
 
         System.out.println("Welche Playlist moechten Sie laden?: ");
-        playlistVerwalter.loadFromFile("ausgabe");
+        playlistVerwalter.loadPlaylists("ausgabe");
         String eingabe = StaticScanner.nextString();
-        playlistVerwalter.loadFromFile(eingabe);
+        playlistVerwalter.loadPlaylists(eingabe);
 
     }
 

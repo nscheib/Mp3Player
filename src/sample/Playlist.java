@@ -17,10 +17,9 @@ public class Playlist {
 
 
     public Playlist(String name){
-
-
         this.title = name;
     }
+
     private int numberOfTracks(){
         return trackanzahl;
     }
