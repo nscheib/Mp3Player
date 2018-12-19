@@ -151,7 +151,7 @@ public class Mp3ControllerView extends BorderPane {
         buttonHBox = new HBox();
         centerHBox = new HBox();
 
-        timeslider = new Slider(0,100, value);
+        timeslider = new Slider();
         volumeslider = new Slider(0,100,value2);
 
         choose = new Button();

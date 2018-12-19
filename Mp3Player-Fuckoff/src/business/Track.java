@@ -20,6 +20,10 @@ public class Track {
     private String soundFile;
     private byte[] image;
 
+
+    public Track() {}
+
+
     public Track(String title)
     {
         Mp3File song;
@@ -43,4 +47,6 @@ public class Track {
         }
         System.out.println(this.title + length + albumTitle + interpret + image);
     }
+
+
 }

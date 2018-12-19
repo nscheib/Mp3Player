@@ -1,5 +1,7 @@
 package presentation;
 
+import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Pane;
@@ -14,13 +16,15 @@ public class Mp3Controller {
     static Mp3Player mp3Player;
     private int time = 0;
     Mp3ControllerView view;
+    private SimpleIntegerProperty timeProperty = new SimpleIntegerProperty();
+
 
     //private PlaylistManager playlistManager = new PlaylistManager();
     //private final String [] BEFEHLE = {"", "play", "pause", "stop", "volume", "quit", "playlist"};
     //private boolean pause = false;
 
     public Mp3Controller(Main application, Mp3Player mp3Player) {
-        this.mp3Player = mp3Player;
+        Mp3Controller.mp3Player = mp3Player;
         view = new Mp3ControllerView();
         view.changeWindow.setOnAction(e -> application.switchScene("PlaylistEditor"));
         //view.changeWindow2.setOnAction(e->application.switchScene("Playlistwahl"));
@@ -33,6 +37,7 @@ public class Mp3Controller {
             }
         });
         view.getStylesheets().add(getClass().getResource("playerview.css").toExternalForm());
+
     }
 
     public static Mp3Player getMp3Player() {

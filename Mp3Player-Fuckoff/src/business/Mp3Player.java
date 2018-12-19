@@ -3,8 +3,11 @@ package business;
 import ddf.minim.AudioMetaData;
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
+import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Verwaltet die typischen Funktionen eines MP3-Players
@@ -17,6 +20,9 @@ public class Mp3Player {
     SimpleAudioPlayer audioPlayer = minim.loadMP3File("tracks/animadrop.mp3");
     private AudioMetaData meta;
     private ArrayList<String> liste = new ArrayList<String>();
+    private SimpleIntegerProperty timeProperty = new SimpleIntegerProperty();
+    Track track = new Track();
+    private int milliS;
 
     public void playSelected(String titel){
         if (audioPlayer.isPlaying()){
@@ -95,6 +101,12 @@ public class Mp3Player {
 
     public Mp3Player getMp3Player () {
         return getMp3Player();
+    }
+
+
+
+    public SimpleIntegerProperty getTimeProperty() {
+        return timeProperty;
     }
 
 
