@@ -1,3 +1,0 @@
-#EXTM3U
-#EXTINF:groove.mp3
-#EXTINF:laenger.mp3

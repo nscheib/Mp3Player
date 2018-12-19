@@ -143,6 +143,10 @@ public class Mp3ControllerView extends BorderPane {
 
     }
 
+    public HBox getButtonHBox(){
+        return buttonHBox;
+    }
+
 
     public void guiElemente(){
 

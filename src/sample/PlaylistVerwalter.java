@@ -114,8 +114,9 @@ public class PlaylistVerwalter {
         File[] fileArray = f.listFiles();
         if (fileArray != null) {
             for (int i = 0; i < fileArray.length; i++) {
-                if (fileArray[i].getName().endsWith(".txt")) {
-                    liste.add(fileArray[i].getName());
+                if (fileArray[i].getName().endsWith(".m3u")) {
+                    String name = fileArray[i].getName();
+                    liste.add(name.substring(0,name.length()-4));
                     // Namen der Playlists in array speichern
                 }
             }
@@ -142,16 +143,16 @@ public class PlaylistVerwalter {
         File f = new File("playlists/"+playlist);
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader("playlists/" + playlist));
+            reader = new BufferedReader(new FileReader("playlists/" + playlist+".m3u"));
             String line;
             while ((line = reader.readLine()) != null)
             {
-                if (line.contains("#EXTM3U")){
-                    // erste Zeile ignorieren
-                    // hier könnte man die anzahl der lieder counten...
-                    continue;
-                }
-                songsInPlaylist.add( line.substring(8) ); // , line.length() - 4 nach 8 wenn ohne .mp3 gewollt
+//                if (line.contains("#EXTM3U")){
+//                    // erste Zeile ignorieren
+//                    // hier könnte man die anzahl der lieder counten...
+//                    continue;
+//                }
+                songsInPlaylist.add( line ); // , line.length() - 4 nach 8 wenn ohne .mp3 gewollt
             }
             reader.close();
         }catch (IOException e) {

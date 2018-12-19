@@ -3,10 +3,13 @@ package gui.playerview;
 import de.hsrm.mi.prog.util.StaticScanner;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import sample.Main;
 import sample.Mp3Player;
 import sample.PlaylistVerwalter;
+
+import java.util.ArrayList;
 
 
 public class Mp3Controller {
@@ -27,6 +30,8 @@ public class Mp3Controller {
     String previousSong,nextSong;
 
 
+
+
     public Mp3Controller(Main application, Mp3Player mp3Player){
         this.mp3Player = mp3Player;
         view = new Mp3ControllerView();
@@ -34,8 +39,8 @@ public class Mp3Controller {
         //view.changeWindow2.setOnAction(e->application.switchScene("Playlistwahl"));
         view.stop.setOnAction(e->mp3Player.stop());
         view.play.setOnAction(e->mp3Player.play());
-        view.skipleft.setOnAction(e->mp3Player.play(previousSong, 0));
-        view.skipright.setOnAction(e->mp3Player.play(nextSong, 0));
+        //view.skipleft.setOnAction(e->mp3Player.playSelected(previousSong()));
+        //view.skipright.setOnAction(e->mp3Player.play(nextSong(), 0));
         view.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
         // changelistener bei listview
@@ -67,6 +72,26 @@ public class Mp3Controller {
     }
 
 
+    private String previousSong(){
+
+        // aus arraylist der playlist den aktuell gespielten song suchen und schauen ob es einen vorherigen gibt
+        // wenn ja, dann diesen abspielen
+
+        // also bräcuhte man eine playlist arraylist oder so
+        // das muss man besprechen... also wie reichen wir die daten rum
+
+        // arraylist mit string mit den playlistorten
+
+        int positionAktSong = playlistVerwalter.getAllSongs().indexOf(mp3Player.aktSong);
+
+        // Hier wird nur in der allsongs liste gesucht, nicht in der aktuellen playlist
+
+        if (playlistVerwalter.getAllSongs().get(positionAktSong) == playlistVerwalter.getAllSongs().get(0)){
+            return mp3Player.aktSong;
+        } else return playlistVerwalter.getAllSongs().get(playlistVerwalter.getAllSongs().indexOf(mp3Player.aktSong)-1);
+
+
+    }
 
     public Pane getView(){
         return view;

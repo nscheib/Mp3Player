@@ -73,6 +73,7 @@ public class PlaylistEditorView extends BorderPane {
         centerHBoxZwei.getChildren().addAll(centerVBoxZwei,centerVBoxZwei2);
 
 
+
 //        besser das hier noch dazu oder buttons so lassen wie sie sind ??
 
 //        buttonHBox2.getChildren().addAll(choose);

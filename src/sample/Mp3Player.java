@@ -5,6 +5,7 @@ import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import de.hsrm.mi.prog.util.StaticScanner;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.HBox;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,12 +16,13 @@ public class Mp3Player {
 
     private ArrayList<String> liste = new ArrayList<String>();
 
-
+    public String aktSong;
 
     SimpleMinim minim = new SimpleMinim(true);
     SimpleAudioPlayer audioPlayer = minim.loadMP3File("tracks/laenger.mp3");
 
     public void playSelected(String titel){
+        aktSong = titel;
         if (audioPlayer.isPlaying()){
             audioPlayer.pause();
         }
@@ -29,6 +31,7 @@ public class Mp3Player {
     }
 
     public void play (String titel, int time){
+        aktSong = titel;
         audioPlayer = minim.loadMP3File("tracks/" + titel ); // + ".mp3"
         audioPlayer.play(); // hier eigentlich noch time
     }
