@@ -22,7 +22,7 @@ public class Main extends Application {
         window = primaryStage;
         mp3Controller = new Mp3Controller(this, mp3Player);
         playlistEditorController = new PlaylistEditorController(this, mp3Player);
-        window.setScene(new Scene (mp3Controller.getView(), 400, 400));
+        window.setScene(new Scene (mp3Controller.getView(), 600, 600));
         window.show();
     }
 
