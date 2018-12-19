@@ -24,7 +24,7 @@ public class Main extends Application {
     public void start(Stage primaryStage){
         window = primaryStage;
         mp3Controller = new Mp3Controller(this, mp3Player);
-        playlistEditorController = new PlaylistEditorController(this);
+        playlistEditorController = new PlaylistEditorController(this,mp3Player);
         window.setScene(new Scene (mp3Controller.getView(), 400, 400));
         window.show();
     }

@@ -21,14 +21,7 @@ public class PlaylistEditorController {
 
     private ObservableList<String> songsInPlaylist = FXCollections.observableArrayList(); // für buttonclicked 2
 
-    // Braucht man das hier ??
-    private Mp3Player mp3Player;
-
-    public PlaylistEditorController(Main application){
-
-        mp3Player = new Mp3Player();
-
-        // Komplett neu erstellen ???!?!
+    public PlaylistEditorController(Main application, Mp3Player mp3Player){
 
         view = new PlaylistEditorView(playlistVerwalter);
         //view.add.setOnAction(e -> buttonClicked(0));            //Add Playlist
