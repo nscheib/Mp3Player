@@ -1,5 +1,6 @@
 package business;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -16,10 +17,14 @@ public class Playlist {
     private int amount = 0;
     private ArrayList<Track> songlist = new ArrayList<Track>();
 
+    public ArrayList<Track> getSonglist(){
+        return songlist;
+    }
+
     /**
      * Konstruktor
      */
-    public Playlist()
+    public Playlist(String title)
     {
         this.title = title;
     }

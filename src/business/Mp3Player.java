@@ -17,7 +17,7 @@ import static java.lang.Thread.sleep;
 public class Mp3Player {
 
     SimpleMinim minim = new SimpleMinim(true);
-    SimpleAudioPlayer audioPlayer = minim.loadMP3File("tracks/animadrop.mp3");
+    SimpleAudioPlayer audioPlayer = minim.loadMP3File("tracks/01_LastMembrane.mp3");
     private AudioMetaData meta;
     private ArrayList<String> liste = new ArrayList<String>();
     private SimpleIntegerProperty timeProperty = new SimpleIntegerProperty();
@@ -28,7 +28,7 @@ public class Mp3Player {
         if (audioPlayer.isPlaying()){
             audioPlayer.pause();
         }
-        audioPlayer = minim.loadMP3File("tracks/" + titel ); // + ".mp3"
+        audioPlayer = minim.loadMP3File("tracks/" + titel +".mp3"); // + ".mp3"
         audioPlayer.play(); // hier eigentlich noch time
     }
 
@@ -38,7 +38,7 @@ public class Mp3Player {
     }
 
     public void play (String titel, int time){
-        audioPlayer = minim.loadMP3File("tracks/" + titel ); // + ".mp3"
+        audioPlayer = minim.loadMP3File("tracks/" + titel + ".mp3"); //
         audioPlayer.play(); // hier eigentlich noch time
     }
 

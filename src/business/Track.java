@@ -4,7 +4,9 @@ import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
+import javafx.scene.image.Image;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 /**
@@ -19,6 +21,7 @@ public class Track {
     private String interpret;
     private String soundFile;
     private byte[] image;
+    private String fileName;
 
 
     public Track() {}
@@ -27,7 +30,8 @@ public class Track {
     public Track(String title)
     {
         Mp3File song;
-        soundFile = "tracks\\" + title + ".mp3";
+        soundFile = "tracks/" + title + ".mp3";
+        fileName = title;
         try {
             song = new Mp3File(soundFile);
             if (song.hasId3v2Tag()){
@@ -48,5 +52,11 @@ public class Track {
         System.out.println(this.title + length + albumTitle + interpret + image);
     }
 
-
+    public String getFileName(){return fileName;}
+    public String getTitle(){return title;}
+    public String getInterpret(){return interpret;}
+    public Image getImage(){
+        Image imageOutput = new Image(new ByteArrayInputStream(image));
+        return imageOutput;
+    }
 }

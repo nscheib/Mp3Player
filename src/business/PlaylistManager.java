@@ -21,10 +21,11 @@ public class PlaylistManager {
 
     //private  HashMap songs = new HashMap();
 
-    private ArrayList<String> liste = new ArrayList<String>();
+    private ArrayList<String> listePlaylistNamen = new ArrayList<String>();
     // Stringarray mit allen playlistnamen
 
 
+    private ArrayList<Playlist> listePlaylist = new ArrayList<>();
 
 
 
@@ -33,8 +34,8 @@ public class PlaylistManager {
 //        loadPlaylists("nichts tun");
     }
 
-    public ArrayList<String> getPlaylists(){
-        return liste;
+    public ArrayList<Playlist> getPlaylists(){
+        return listePlaylist;
     }
 
     public void updateAllSongs (){
@@ -112,18 +113,22 @@ public class PlaylistManager {
             for (int i = 0; i < fileArray.length; i++) {
                 if (fileArray[i].getName().endsWith(".m3u")) {
                     String name = fileArray[i].getName();
-                    liste.add(name.substring(0,name.length()-4));
+                    listePlaylistNamen.add(name.substring(0,name.length()-4));
                     // Namen der Playlists in array speichern
+                    listePlaylist.add( new Playlist(name.substring(0,name.length()-4)) );
+                    loadSongsInPlaylist(listePlaylist.get(i));
+                    // Playlists komplett speichern
+
                 }
             }
         }
         if (befehl.equals("ausgabe")) {
-            for (int i = 0; i < liste.size(); i++) {
-                System.out.println(liste.get(i));
+            for (int i = 0; i < listePlaylistNamen.size(); i++) {
+                System.out.println(listePlaylistNamen.get(i));
             }
         } else {
-            for (int i = 0; i < liste.size(); i++) {
-                if (liste.get(i).equals(befehl)) {
+            for (int i = 0; i < listePlaylistNamen.size(); i++) {
+                if (listePlaylistNamen.get(i).equals(befehl)) {
 
                 }
 
@@ -131,15 +136,12 @@ public class PlaylistManager {
         }
     }
 
-    public ObservableList<String> returnPlaylistSongs(String playlist){
+    private void loadSongsInPlaylist(Playlist playlist) {
 
-        ObservableList<String> songsInPlaylist = FXCollections.observableArrayList();
-
-
-        File f = new File("playlists/"+playlist);
+        File f = new File("playlists/"+playlist.getTitle()+".m3u");
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader("playlists/" + playlist+".m3u"));
+            reader = new BufferedReader(new FileReader("playlists/" + playlist.getTitle()+".m3u"));
             String line;
             while ((line = reader.readLine()) != null)
             {
@@ -148,13 +150,26 @@ public class PlaylistManager {
 //                    // hier könnte man die anzahl der lieder counten...
 //                    continue;
 //                }
-                songsInPlaylist.add( line ); // , line.length() - 4 nach 8 wenn ohne .mp3 gewollt
+                playlist.getSonglist().add(new Track(line.substring(0,line.length()-4)));
             }
             reader.close();
         }catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public ObservableList<Track> returnPlaylistSongs(String playlist){
+
+        ObservableList<Track> songsInPlaylist = FXCollections.observableArrayList();
+
+
+        for (int i = 0; i < listePlaylist.size(); i++){
+
+            if(listePlaylist.get(i).getTitle() == playlist){
+                songsInPlaylist.addAll(listePlaylist.get(i).getSonglist());
+            }
+        }
         return songsInPlaylist;
     }
 
@@ -182,8 +197,6 @@ public class PlaylistManager {
             e.printStackTrace();
         }
 
-
-        //löschenLied(playlist);
     }
 
     public void loeschenLied(String playlistFile, String song) {

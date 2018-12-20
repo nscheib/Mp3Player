@@ -1,14 +1,18 @@
 package presentation;
 
+import business.Playlist;
+import business.Track;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import business.PlaylistManager;
+import javafx.scene.text.Text;
 
 public class PlaylistEditorView extends BorderPane {
 
@@ -25,9 +29,14 @@ public class PlaylistEditorView extends BorderPane {
     private PlaylistManager playlistVerwalter;
 
 
-    ObservableList<String> inhaltListView, inhaltListViewR;
+    ObservableList<String> inhaltListView ;
+    ObservableList<Playlist> inhaltListViewR;
     ListView<String> listView;                // kann das public bleiben oder ist das kacke?
-    ListView<String> listViewR;
+    ListView<Track> listViewR;
+
+    //Cells
+    private Label titleLable,artistLabel;
+
 
 
     public PlaylistEditorView(PlaylistManager playlistVerwalter){
@@ -47,7 +56,14 @@ public class PlaylistEditorView extends BorderPane {
 
 
         //Laden aller bis jetzt erstellten Playlists in Observable
-        inhaltListView.addAll(playlistVerwalter.getPlaylists());
+        for (int i = 0 ;i < playlistVerwalter.getPlaylists().size();i++){
+            inhaltListView.add(playlistVerwalter.getPlaylists().get(i).getTitle());
+        }
+//        inhaltListView.addAll(playlistVerwalter.getPlaylists());
+
+//        for (int i = 0; i < inhaltListView.size();i++){
+//            listView.getItems().add(inhaltListView.get(i));
+//        }
         listView.getItems().addAll(inhaltListView);     // Alle playlists und dann auch immer aktuell nice so geregelt...
 
 
@@ -93,6 +109,7 @@ public class PlaylistEditorView extends BorderPane {
         //this.setCenter(new Label("Hallo WoScene"));
 
     }
+
 
 
     public void guiElemente(){
