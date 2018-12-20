@@ -14,9 +14,9 @@ import business.Mp3Player;
 public class Mp3Controller {
 
     static Mp3Player mp3Player;
-    private int time = 0;
+    //private int time = 0;
     Mp3ControllerView view;
-    private SimpleIntegerProperty timeProperty = new SimpleIntegerProperty();
+    //private SimpleIntegerProperty timeProperty = new SimpleIntegerProperty();
 
 
     //private PlaylistManager playlistManager = new PlaylistManager();
@@ -37,7 +37,6 @@ public class Mp3Controller {
             }
         });
         view.getStylesheets().add(getClass().getResource("playerview.css").toExternalForm());
-
     }
 
     public static Mp3Player getMp3Player() {
@@ -68,8 +67,6 @@ public class Mp3Controller {
         }
         System.out.println("play2");
     }
-
-
 }
 
     /*

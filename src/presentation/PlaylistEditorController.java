@@ -23,17 +23,14 @@ public class PlaylistEditorController {
 
     private ObservableList<Track> songsInPlaylist = FXCollections.observableArrayList(); // für buttonclicked 2
 
-
-
     public PlaylistEditorController(Main application, Mp3Player mp3Player ){
 
         view = new PlaylistEditorView(playlistVerwalter);
-        //view.add.setOnAction(e -> buttonClicked(0));            //Add Playlist
-        view.delete.setOnAction(e -> buttonClicked(1));         //Delete chosen Playlist
-        view.loadPlaylist.setOnAction(e-> buttonClicked(2));    //Load Playlist in listViewR
-        //view.add2.setOnAction(e -> buttonClicked(3));           //Add Song to Playlist
-        //view.delete2.setOnAction(e -> buttonClicked(4));        //Delete Song from Playlist
-
+        //view.add.setOnAction(e -> buttonClicked(0));                  //Add Playlist
+        view.delete.setOnAction(e -> buttonClicked(1));           //Delete chosen Playlist
+        view.loadPlaylist.setOnAction(e-> buttonClicked(2));      //Load Playlist in listViewR
+        //view.add2.setOnAction(e -> buttonClicked(3));                 //Add Song to Playlist
+        //view.delete2.setOnAction(e -> buttonClicked(4));              //Delete Song from Playlist
 
         view.play.setOnAction(e -> mp3Player.playSelected(auswahlTrackPlaylist.getFileName()));
 

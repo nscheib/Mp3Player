@@ -115,8 +115,8 @@ public class Mp3ControllerView extends BorderPane {
         centerVBox.getChildren().addAll(centerHBox);
 
         //Bottom Box mit Buttons
-        play.getStyleClass().add("playbutton");
-        stop.getStyleClass().add("stopbutton");
+        play.getStyleClass().add("play");
+        stop.getStyleClass().add("stop");
         skipleft.getStyleClass().add("skipleft");
         skipright.getStyleClass().add("skipright");
         shuffle.getStyleClass().add("shuffle");
@@ -139,13 +139,13 @@ public class Mp3ControllerView extends BorderPane {
     public void guiElemente(){
 
         topVBox = new VBox(20);
-        topVBox2 = new VBox(20);
+        //topVBox2 = new VBox(20);
 
         changeWindow = new Button("Go to Scene 2");
 
-        centerVBoxZwei = new VBox();
-        centerHBoxZwei = new HBox();
-        buttonHBox2 = new HBox();
+        //centerVBoxZwei = new VBox();
+        //centerHBoxZwei = new HBox();
+        //buttonHBox2 = new HBox();
 
         centerVBox = new VBox();
         buttonHBox = new HBox();
@@ -154,7 +154,7 @@ public class Mp3ControllerView extends BorderPane {
         timeslider = new Slider();
         volumeslider = new Slider(0,100,value2);
 
-        choose = new Button();
+        //choose = new Button();
         stop = new Button();
         play = new ToggleButton();
         skipleft = new Button();
@@ -163,7 +163,7 @@ public class Mp3ControllerView extends BorderPane {
         repeat = new Button();
         changeWindow2 = new Button();
 
-        //        allSongsList = new ListView<String>(inhaltAllSongs);
+        //allSongsList = new ListView<String>(inhaltAllSongs);
         inhaltAllSongs = FXCollections.observableArrayList();
         playSong = new Button("Play Song");
     }
