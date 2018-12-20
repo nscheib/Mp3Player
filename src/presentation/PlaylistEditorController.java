@@ -61,16 +61,20 @@ public class PlaylistEditorController {
         view.listViewR.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Track>() {
             @Override
             public void changed(ObservableValue<? extends Track> observable, Track oldValue, Track newValue) {
-                auswahlTrackPlaylist = newValue;
-                aktPositionTrack = view.listViewR.getItems().indexOf(auswahlTrackPlaylist);
-                //playlistVerwalter.getPlaylists().indexOf(auswahlPlaylist);
-                System.out.println("Test: "+auswahlTrackPlaylist.getFileName());
-                System.out.println("Test2: "+aktPositionTrack);
+
+                try {
+                    auswahlTrackPlaylist = newValue;
+                    aktPositionTrack = view.listViewR.getItems().indexOf(auswahlTrackPlaylist);
+                    //playlistVerwalter.getPlaylists().indexOf(auswahlPlaylist);
+                    System.out.println("Test: " + auswahlTrackPlaylist.getFileName());
+                    System.out.println("Test2: " + aktPositionTrack);
 //                previousSong = playlistVerwalter.getAllSongs().get(aktPosition-1);
 //                nextSong = playlistVerwalter.getAllSongs().get(aktPosition+1);
 
-                // Noch nicht so ganz klar ob beim skippen der aktuelle Song auch noch gespeichert wird und man immer weiter skippen kann..
-                // Also hier auch noch den Fall beachten, dass beim ersten Song kein previous sond existiert und deshalb das lied einfach gestoppt wird...
+                    // Noch nicht so ganz klar ob beim skippen der aktuelle Song auch noch gespeichert wird und man immer weiter skippen kann..
+                    // Also hier auch noch den Fall beachten, dass beim ersten Song kein previous sond existiert und deshalb das lied einfach gestoppt wird...
+                }catch(NullPointerException e){
+                    System.out.println("Playlist geladen, aber NullPointerException, da in zweiter standardmäßig nichts ausgewählt ist");}
             }
         });
     }
