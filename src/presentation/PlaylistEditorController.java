@@ -96,7 +96,7 @@ public class PlaylistEditorController {
             // Playlist löschen
 
             if (aktPosition == -1){
-                System.out.println("Keine Playlist zu löschen da...");;
+                System.out.println("Keine Playlist zu löschen da...");
             }
             String ort = "playlists/"+auswahlPlaylist;
             File delete = new File(ort);
