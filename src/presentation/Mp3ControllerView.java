@@ -2,16 +2,21 @@ package presentation;
 
 import business.Mp3Player;
 import business.PlaylistManager;
+import business.Track;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -32,13 +37,20 @@ public class Mp3ControllerView extends BorderPane {
     Slider volumeslider;
     private double value2 = 0;
 
+
+    ImageView image;
+
     private final DateFormat TIMEFORMAT = new SimpleDateFormat(("mm:ss"));
 
     Button stop, skipleft, skipright, shuffle, repeat;
     Button changeWindow, changeWindow2, choose;
-    ToggleButton play;                                                      // kann mit einer Aktion belegt werden Play/Pause
+    ToggleButton play;// kann mit einer Aktion belegt werden Play/Pause
 
     Mp3Player Mp3player;
+
+
+    // Aktueller Song
+    Track aktuellerSong;
 
     // Alle Songs anzeigen und auswählen
     ObservableList<String> inhaltAllSongs;
@@ -84,7 +96,12 @@ public class Mp3ControllerView extends BorderPane {
         //Lautstaerkeregler
         volumeslider.getStyleClass().add("volumeslider");
         volumeslider.setOrientation(Orientation.VERTICAL);
+        volumeslider.setValue(50);
 
+        // Image
+        image.setImage(image.getImage());
+        image.setFitHeight(100);
+        image.setFitWidth(100);
 
         // AllsongsList
 
@@ -104,15 +121,16 @@ public class Mp3ControllerView extends BorderPane {
         //playSong
 
         // Top
-        topVBox.getChildren().addAll(changeWindow, allSongsList, playSong, title, interpret );
+        topVBox.getChildren().addAll(changeWindow);
         changeWindow.getStyleClass().add("changeWindow");
-        topVBox.setAlignment(Pos.CENTER_LEFT);
+        topVBox.setAlignment(Pos.CENTER);
 
         // Center
         centerHBox.setAlignment(Pos.CENTER);
         centerHBox.getChildren().addAll(information,timeslider);
         centerVBox.setAlignment(Pos.CENTER);
-        centerVBox.getChildren().addAll(centerHBox);
+        centerVBox.getChildren().addAll(title, interpret,image, centerHBox);
+
 
         //Bottom Box mit Buttons
         play.getStyleClass().add("play");
@@ -166,5 +184,10 @@ public class Mp3ControllerView extends BorderPane {
         //allSongsList = new ListView<String>(inhaltAllSongs);
         inhaltAllSongs = FXCollections.observableArrayList();
         playSong = new Button("Play Song");
+
+
+        image = new ImageView();
     }
+
+
 }

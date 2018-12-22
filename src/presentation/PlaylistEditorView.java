@@ -31,7 +31,7 @@ public class PlaylistEditorView extends BorderPane {
     //Cells
     private Label titleLable,artistLabel;
 
-    public PlaylistEditorView(PlaylistManager playlistVerwalter, Mp3Controller mp3Controller){
+    public PlaylistEditorView(PlaylistManager playlistVerwalter){
         this.playlistVerwalter = playlistVerwalter;
         guiElemente();
         playlistVerwalter.loadPlaylists("nichtstun"); // nichtstun siehe methode...
@@ -67,14 +67,16 @@ public class PlaylistEditorView extends BorderPane {
         //centerHBoxZwei.getChildren().addAll(centerVBoxZwei,centerVBoxZwei2);
 
         // Buttonleiste
-        mp3Controller.view.shuffle.getStyleClass().add("shuffle");
-        mp3Controller.view.skipleft.getStyleClass().add("skipleft");
-        mp3Controller.view.play.getStyleClass().add("play");
-        mp3Controller.view.stop.getStyleClass().add("stop");
-        mp3Controller.view.skipright.getStyleClass().add("skipright");
-        mp3Controller.view.repeat.getStyleClass().add("repeat");
-
-        buttonHbox.getChildren().addAll(mp3Controller.view.shuffle, mp3Controller.view.skipleft, mp3Controller.view.play, mp3Controller.view.stop, mp3Controller.view.skipright, mp3Controller.view.repeat);
+//        Mp3Controller newController = mp3Controller;
+//
+//        newController.view.shuffle.getStyleClass().add("shuffle");
+//        newController.view.skipleft.getStyleClass().add("skipleft");
+//        newController.view.play.getStyleClass().add("play");
+//        newController.view.stop.getStyleClass().add("stop");
+//        newController.view.skipright.getStyleClass().add("skipright");
+//        newController.view.repeat.getStyleClass().add("repeat");
+//
+//        buttonHbox.getChildren().addAll(newController.view.shuffle, newController.view.skipleft, newController.view.play, newController.view.stop, newController.view.skipright, newController.view.repeat);
         buttonHbox.setAlignment(Pos.BOTTOM_CENTER);
         buttonHbox.getStyleClass().add("hbox");
         buttonHbox.setPadding(new Insets(10));

@@ -20,8 +20,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage){
         window = primaryStage;
+        playlistEditorController = new PlaylistEditorController(this, mp3Player);
         mp3Controller = new Mp3Controller(this, mp3Player);
-        playlistEditorController = new PlaylistEditorController(this, mp3Player,mp3Controller);
         window.setScene(new Scene (mp3Controller.getView(), 600, 600));
         window.setMinHeight(600);
         window.setMinWidth(600);
