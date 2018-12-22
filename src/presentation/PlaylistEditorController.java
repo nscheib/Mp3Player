@@ -23,9 +23,9 @@ public class PlaylistEditorController {
 
     private ObservableList<Track> songsInPlaylist = FXCollections.observableArrayList(); // für buttonclicked 2
 
-    public PlaylistEditorController(Main application, Mp3Player mp3Player ){
+    public PlaylistEditorController(Main application, Mp3Player mp3Player, Mp3Controller mp3Controller){
 
-        view = new PlaylistEditorView(playlistVerwalter);
+        view = new PlaylistEditorView(playlistVerwalter,mp3Controller);
         //view.add.setOnAction(e -> buttonClicked(0));                  //Add Playlist
         view.delete.setOnAction(e -> buttonClicked(1));           //Delete chosen Playlist
         view.loadPlaylist.setOnAction(e-> buttonClicked(2));      //Load Playlist in listViewR
@@ -44,8 +44,8 @@ public class PlaylistEditorController {
                 auswahlPlaylist = newValue;
                 aktPosition = view.listView.getItems().indexOf(auswahlPlaylist);
                 //playlistVerwalter.getPlaylists().indexOf(auswahlPlaylist);
-                System.out.println("Test: "+auswahlPlaylist);
-                System.out.println("Test2: "+aktPosition);
+                System.out.println("Playlist: "+auswahlPlaylist);
+                System.out.println("PlaylistPosition: "+aktPosition);
 //                previousSong = playlistVerwalter.getAllSongs().get(aktPosition-1);
 //                nextSong = playlistVerwalter.getAllSongs().get(aktPosition+1);
 
@@ -63,8 +63,8 @@ public class PlaylistEditorController {
                     auswahlTrackPlaylist = newValue;
                     aktPositionTrack = view.listViewR.getItems().indexOf(auswahlTrackPlaylist);
                     //playlistVerwalter.getPlaylists().indexOf(auswahlPlaylist);
-                    System.out.println("Test: " + auswahlTrackPlaylist.getFileName());
-                    System.out.println("Test2: " + aktPositionTrack);
+                    System.out.println("Track: " + auswahlTrackPlaylist.getFileName());
+                    System.out.println("Trackposition: " + aktPositionTrack);
 //                previousSong = playlistVerwalter.getAllSongs().get(aktPosition-1);
 //                nextSong = playlistVerwalter.getAllSongs().get(aktPosition+1);
 

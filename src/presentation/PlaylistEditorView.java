@@ -1,5 +1,6 @@
 package presentation;
 
+import business.Mp3Player;
 import business.Playlist;
 import business.Track;
 import javafx.collections.FXCollections;
@@ -26,11 +27,11 @@ public class PlaylistEditorView extends BorderPane {
     ObservableList<Playlist> inhaltListViewR;
     ListView<String> listView;                // kann das public bleiben oder ist das kacke?
     ListView<Track> listViewR;
-    Mp3ControllerView view = new Mp3ControllerView();
+
     //Cells
     private Label titleLable,artistLabel;
 
-    public PlaylistEditorView(PlaylistManager playlistVerwalter){
+    public PlaylistEditorView(PlaylistManager playlistVerwalter, Mp3Controller mp3Controller){
         this.playlistVerwalter = playlistVerwalter;
         guiElemente();
         playlistVerwalter.loadPlaylists("nichtstun"); // nichtstun siehe methode...
@@ -66,13 +67,14 @@ public class PlaylistEditorView extends BorderPane {
         //centerHBoxZwei.getChildren().addAll(centerVBoxZwei,centerVBoxZwei2);
 
         // Buttonleiste
-        view.shuffle.getStyleClass().add("shuffle");
-        view.skipleft.getStyleClass().add("skipleft");
-        view.play.getStyleClass().add("play");
-        view.stop.getStyleClass().add("stop");
-        view.skipright.getStyleClass().add("skipright");
-        view.repeat.getStyleClass().add("repeat");
-        buttonHbox.getChildren().addAll(view.shuffle, view.skipleft, view.play, view.stop, view.skipright, view.repeat);
+        mp3Controller.view.shuffle.getStyleClass().add("shuffle");
+        mp3Controller.view.skipleft.getStyleClass().add("skipleft");
+        mp3Controller.view.play.getStyleClass().add("play");
+        mp3Controller.view.stop.getStyleClass().add("stop");
+        mp3Controller.view.skipright.getStyleClass().add("skipright");
+        mp3Controller.view.repeat.getStyleClass().add("repeat");
+
+        buttonHbox.getChildren().addAll(mp3Controller.view.shuffle, mp3Controller.view.skipleft, mp3Controller.view.play, mp3Controller.view.stop, mp3Controller.view.skipright, mp3Controller.view.repeat);
         buttonHbox.setAlignment(Pos.BOTTOM_CENTER);
         buttonHbox.getStyleClass().add("hbox");
         buttonHbox.setPadding(new Insets(10));
