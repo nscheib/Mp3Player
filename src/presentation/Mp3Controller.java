@@ -1,12 +1,7 @@
 package presentation;
 
-import business.Playlist;
-import business.Track;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import business.Main;
@@ -33,12 +28,12 @@ public class Mp3Controller {
 //        this.playlistEditorController = playlistEditorController;
         Mp3Controller.mp3Player = mp3Player;
         view = new Mp3ControllerView();
-        view.changeWindow.setOnAction(e -> application.switchScene("PlaylistEditor"));
+        view.getChangeWindowButton().setOnAction(e -> application.switchScene("PlaylistEditor"));
         //view.changeWindow2.setOnAction(e->application.switchScene("Playlistwahl"));
-        view.stop.setOnAction(e -> mp3Player.stop());
-        view.play.setOnAction(e -> play());
+        view.getStopButton().setOnAction(e -> mp3Player.stop());
+        view.getPlayButton().setOnAction(e -> play());
 //        view.skipright.setOnAction(e -> playNext());
-        view.volumeslider.valueProperty().addListener(new ChangeListener<Number>() {
+        view.getVolumeslider().valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 mp3Player.volume(newValue.floatValue());
@@ -46,11 +41,11 @@ public class Mp3Controller {
         });
         view.getStylesheets().add(getClass().getResource("playerview.css").toExternalForm());
 
-        view.image.imageProperty().addListener(new ChangeListener<Image>() {
+        view.getImgview().imageProperty().addListener(new ChangeListener<Image>() {
             @Override
             public void changed(ObservableValue<? extends Image> observable, Image oldValue, Image newValue) {
 
-                view.image.setImage(newValue);
+                view.getImgview().setImage(newValue);
             }
         });
 
@@ -105,13 +100,13 @@ public class Mp3Controller {
         if (!mp3Player.getPlaying()) {
             mp3Player.play();
             System.out.println("abspielen");
-            view.play.getStyleClass().remove("playbutton");
-            view.play.getStyleClass().add("pauseButton");
+            view.getPlayButton().getStyleClass().remove("playbutton");
+            view.getPlayButton().getStyleClass().add("pauseButton");
         } else {
             mp3Player.pause();
             System.out.println("pause");
-            view.play.getStyleClass().remove("pauseButton");
-            view.play.getStyleClass().add("playbutton");
+            view.getPlayButton().getStyleClass().remove("pauseButton");
+            view.getPlayButton().getStyleClass().add("playbutton");
         }
         System.out.println("play2");
     }

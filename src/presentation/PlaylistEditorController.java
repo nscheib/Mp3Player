@@ -39,7 +39,7 @@ public class PlaylistEditorController {
 
         view.play.setOnAction(e-> playAndSwitch(application,mp3Player));
 
-        view.changeWindow2.setOnAction(e->application.switchScene("MP3player"));
+        view.changeButton.setOnAction(e->application.switchScene("MP3player"));
         view.getStylesheets().add(getClass().getResource("playlistview.css").toExternalForm());
 
         //Listener für Liedauswahl beim Player
