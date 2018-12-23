@@ -102,7 +102,7 @@ public class PlaylistEditorView extends BorderPane {
         changeButton = new Button();
         changeButtonPlay = new Button();
         changeButtonZwei = new Button();
-        loadPlaylist = new Button("Load Playlist");
+        loadPlaylist = new Button("Load ");
 
         playlist = new Label("Playlisten");
         songs = new Label("Songs");

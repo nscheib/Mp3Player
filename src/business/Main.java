@@ -24,7 +24,9 @@ public class Main extends Application {
         mp3Controller = new Mp3Controller(this, mp3Player);
         window.setScene(new Scene (mp3Controller.getView(), 700, 800));
         window.setMinHeight(800);
-        window.setMinWidth(550);
+        window.setMaxHeight(900);
+        window.setMinWidth(500);
+        window.setMaxWidth(700);
         window.show();
         window.setOnCloseRequest(e -> {
             Platform.exit();

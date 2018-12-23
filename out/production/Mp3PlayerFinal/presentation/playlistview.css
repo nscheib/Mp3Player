@@ -1,0 +1,141 @@
+/*___GROUND_____________________________________*/
+.ground {
+    -fx-background-color: #afafaf;
+}
+/*___GROUND_____________________________________*/
+
+
+
+/*----------------------------------------------------------------------------------------------*/
+
+
+
+/*___BOXEN_____________________________________*/
+.topVBox {
+    -fx-background-color: #afafaf;
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+}
+
+.hbox {
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+}
+/*___BOXEN_____________________________________*/
+
+
+
+/*-----------------------------------------------------------------------------------------------*/
+
+
+
+/*____BUTTONS___________________________________*/
+.changeButton {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 30px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/images/player.png");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 70%;
+    -fx-border-color: #464646;
+    -fx-padding: 10, 10, 10, 10;
+}
+
+.changeButton:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #737373;
+}
+
+.changeButtonPlay {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 30px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/images/game.png");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 70%;
+    -fx-border-color: #464646;
+    -fx-padding: 10, 10, 10, 10;
+}
+
+.changeButtonPlay:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #737373;
+}
+
+.changeButtonZwei {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 30px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/images/settings.png");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 70%;
+    -fx-border-color: #464646;
+    -fx-padding: 10, 10, 10, 10;
+}
+
+.changeButtonZwei:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #737373;
+}
+
+.playbutton {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 20px;
+    -fx-pref-width: 100px;
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 60%;
+    -fx-background-radius: 2, 2;
+    -fx-border-color: #464646;
+    -fx-border-radius: 2;
+    -fx-padding: 35, 10, 10, 10;
+}
+
+.playbutton:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #969696;
+}
+
+.loadPlaylist {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 20px;
+    -fx-pref-width: 100px;
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 60%;
+    -fx-background-radius: 2, 2;
+    -fx-border-color: #464646;
+    -fx-border-radius: 2;
+    -fx-padding: 10, 10, 10, 10;
+}
+
+.loadPlaylist:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #969696;
+}
+
+.delete {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 20px;
+    -fx-pref-width: 100px;
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 60%;
+    -fx-background-radius: 2, 2;
+    -fx-border-color: #464646;
+    -fx-border-radius: 2;
+    -fx-padding: 10, 10, 10, 10;
+}
+
+.delete:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #969696;
+}
+/*____BUTTONS___________________________________*/
+
+
+
+/*-----------------------------------------------------------------------------------------------*/

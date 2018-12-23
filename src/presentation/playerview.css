@@ -60,8 +60,9 @@
 }
 
 .changeButton:hover {
-    -fx-text-decoration: none;
-    -fx-background-color: #737373;
+    -fx-background-color: darkgrey;
+    -fx-border-color: darkgrey;
+    -fx-border-width: .3px;
 }
 .changeButtonPlay{
     -fx-background-color: #afafaf;
@@ -76,8 +77,9 @@
 }
 
 .changeButtonPlay:hover {
-    -fx-text-decoration: none;
-    -fx-background-color: #737373;
+    -fx-background-color: darkgrey;
+    -fx-border-color: darkgrey;
+    -fx-border-width: .3px;
 }
 
 .changeButtonZwei {
@@ -93,136 +95,145 @@
 }
 
 .changeButtonZwei:hover {
-    -fx-text-decoration: none;
-    -fx-background-color: #737373;
+    -fx-background-color: darkgrey;
+    -fx-border-color: darkgrey;
+    -fx-border-width: .3px;
 }
 
 .playbutton {
-    -fx-background-color: #afafaf;
-    -fx-pref-height: 75px;
-    -fx-pref-width: 75px;
-    -fx-background-image: url("/images/play.png");
+    -fx-background-color: lightgrey;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 60px;
+    -fx-border-color: black;
+    -fx-border-width: .3px;
+    -fx-background-image: url('/images/play.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 60%;
-    -fx-background-radius: 50, 50;
-    -fx-border-color: #464646;
-    -fx-border-radius: 50;
-    -fx-padding: 10, 10, 10, 10;
+    -fx-background-size: 25%;
 }
 
 .playbutton:hover {
-    -fx-text-decoration: none;
-    -fx-background-color: #969696;
+    -fx-background-color: darkgrey;
+    -fx-border-color: darkgrey;
+    -fx-border-width: .3px;
 }
 
 .pauseButton {
-    -fx-background-color: #afafaf;
-    -fx-pref-height: 75px;
-    -fx-pref-width: 75px;
-    -fx-background-image: url("/images/pause.png");
+    -fx-background-color: lightgrey;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 60px;
+    -fx-border-color: black;
+    -fx-border-width: .3px;
+    -fx-background-image: url('/images/pause.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 60%;
-    -fx-background-radius: 50, 50;
-    -fx-border-color: #464646;
-    -fx-border-radius: 50;
+    -fx-background-size: 25%;
 }
 
 .pauseButton:hover {
-    -fx-text-decoration: none;
-    -fx-background-color: #969696;
+    -fx-background-color: darkgrey;
+    -fx-border-color: darkgrey;
+    -fx-border-width: .3px;
 }
 
 .stopbutton {
-    -fx-background-color: #afafaf;
-    -fx-pref-height: 50px;
-    -fx-pref-width: 50px;
-    -fx-background-image: url("/images/stop.png");
+    -fx-background-color: lightgrey;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 60px;
+    -fx-border-color: black;
+    -fx-border-width: .3px;
+    -fx-background-image: url('/images/stop.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 90%;
-    -fx-background-radius: 5, 5;
-    -fx-border-color: #464646;
-    -fx-border-radius: 5;
+    -fx-background-size: 25%;
 
 }
 
 .stopbutton:hover {
-    -fx-text-decoration: none;
-    -fx-background-color: #969696;
+    -fx-background-color: darkgrey;
+    -fx-border-color: darkgrey;
+    -fx-border-width: .3px;
 }
 
 .skipright {
-    -fx-background-color: #afafaf;
-    -fx-pref-height: 50px;
-    -fx-pref-width: 50px;
-    -fx-background-image: url("/images/skipright.png");
+    -fx-background-color: lightgrey;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 60px;
+    -fx-border-color: black;
+    -fx-border-width: .3px;
+    -fx-background-image: url('/images/skipright.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 30%;
-    -fx-background-radius: 50, 50;
-    -fx-border-color: #464646;
-    -fx-border-radius: 50;
+    -fx-background-size: 25%;
 }
 
 .skipright:hover {
-    -fx-text-decoration: none;
-    -fx-background-color: #969696;
+    -fx-background-color: darkgrey;
+    -fx-border-color: darkgrey;
+    -fx-border-width: .3px;
 }
 
 .skipleft {
-    -fx-background-color: #afafaf;
-    -fx-pref-height: 50px;
-    -fx-pref-width: 50px;
-    -fx-background-image: url("/images/skipleft.png");
+    -fx-background-color: lightgrey;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 60px;
+    -fx-border-color: black;
+    -fx-border-width: .3px;
+    -fx-background-image: url('/images/skipleft.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 30%;
-    -fx-background-radius: 50, 50;
-    -fx-border-color: #464646;
-    -fx-border-radius: 50;
+    -fx-background-size: 25%;
 }
 
 .skipleft:hover {
-    -fx-text-decoration: none;
-    -fx-background-color: #969696;
+    -fx-background-color: darkgrey;
+    -fx-border-color: darkgrey;
+    -fx-border-width: .3px;
 }
 
 .shufflebutton {
-    -fx-background-color: #afafaf;
-    -fx-pref-height: 50px;
-    -fx-pref-width: 50px;
-    -fx-background-image: url("/images/shuffle.png");
+    -fx-background-color: lightgrey;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 60px;
+    -fx-border-color: black;
+    -fx-border-width: .3px;
+    -fx-background-image: url('/images/shuffle.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 30%;
-    -fx-background-radius: 50, 50;
-    -fx-border-color: #464646;
-    -fx-border-radius: 50;
+    -fx-background-size: 25%;
 }
 
 .shufflebutton:hover {
-    -fx-text-decoration: none;
-    -fx-background-color: #969696;
+    -fx-background-color: darkgrey;
+    -fx-border-color: darkgrey;
+    -fx-border-width: .3px;
 }
 .repeatbutton {
-    -fx-background-color: #afafaf;
-    -fx-pref-height: 50px;
-    -fx-pref-width: 50px;
-    -fx-background-image: url("/images/repeat.png");
+    -fx-background-color: lightgrey;
+    -fx-pref-height: 24px;
+    -fx-max-height: 24px;
+    -fx-pref-width: 60px;
+    -fx-border-color: black;
+    -fx-border-width: .3px;
+    -fx-background-image: url('/images/repeat.png');
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 30%;
-    -fx-background-radius: 50, 50;
-    -fx-border-color: #464646;
-    -fx-border-radius: 50;
+    -fx-background-size: 25%;
 }
 
 .repeatbutton:hover {
-    -fx-text-decoration: none;
-    -fx-background-color: #969696;
+    -fx-background-color: darkgrey;
+    -fx-border-color: darkgrey;
+    -fx-border-width: .3px;
 }
+
+
 /*____BUTTONS___________________________________*/
 
 
@@ -260,7 +271,16 @@
     -fx-max-width: 250px;
     -fx-background-color: #afafaf;
     -fx-padding: 20, 0 , 20 , 0;
+}
 
+.volume {
+    -fx-background-image: url("/images/volume.png");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 30%;
+    -fx-background-radius: 50, 50;
+    -fx-border-color: #464646;
+    -fx-border-radius: 50;
 }
 /*___SLIDER_______________________________________*/
 

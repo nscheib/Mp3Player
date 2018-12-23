@@ -13,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -48,7 +49,7 @@ public class Mp3ControllerView extends BorderPane {
         verwalter = new PlaylistManager();
 
         // Textlabel - top for title
-        title = new Label("Titel: " +  Mp3Controller.getMp3Player().getData().author());
+        title = new Label("Titel: " +  Mp3Controller.getMp3Player().getData().title());
         title.getStyleClass().add("text");
 
 
@@ -69,18 +70,16 @@ public class Mp3ControllerView extends BorderPane {
 
         //Lautstaerkeregler
         volumeslider.getStyleClass().add("volumeslider");
-
-
-        //volumeslider.setOrientation(Orientation.VERTICAL);
         volumeslider.setValue(50);
 
-
-        //title.setText(track.getSoundfile());
+        // Effekt
+        Glow glow = new Glow(1);
 
         // Image
         imgview.setImage(img);
         imgview.setFitHeight(100);
         imgview.setFitWidth(100);
+        imgview.setEffect(glow);
 
 
         // Alignment

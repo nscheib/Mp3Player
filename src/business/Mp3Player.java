@@ -21,7 +21,7 @@ import static java.lang.Thread.sleep;
 public class Mp3Player {
 
     SimpleMinim minim = new SimpleMinim(true);
-    SimpleAudioPlayer audioPlayer = minim.loadMP3File("tracks/01_LastMembrane.mp3");
+    SimpleAudioPlayer audioPlayer = minim.loadMP3File("tracks/hurt.mp3");
     private AudioMetaData meta;
     private ArrayList<String> liste = new ArrayList<String>();
     private SimpleIntegerProperty timeProperty = new SimpleIntegerProperty();
