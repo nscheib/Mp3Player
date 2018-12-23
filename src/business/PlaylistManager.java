@@ -40,35 +40,6 @@ public class PlaylistManager {
         }
     }
 
-    public ObservableList<String> getSongs(String playlist) {
-        ObservableList<String> obsList = FXCollections.observableArrayList();
-        obsList.addAll(playlist);
-        return obsList;
-    }
-
-    public ArrayList<String> getAllSongs() {
-        return everyAvailableSong;
-    }
-
-    public void printPlaylistSongs(String playlistFile) {
-        //File file = new File(playlistFile);
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new FileReader(playlistFile));
-            String zeile = null;
-            while ((zeile = in.readLine()) != null) {
-                System.out.println(zeile);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (in != null)
-                try {
-                    in.close();
-                } catch (IOException e) {
-                }
-        }
-    }
 
     public String createPlaylist(String name) {
         String playlistFile = "playlisten/" + name + ".txt"; // Ort wo gespeichert
@@ -118,11 +89,6 @@ public class PlaylistManager {
             reader = new BufferedReader(new FileReader("playlists/" + playlist.getTitle() + ".m3u"));
             String line;
             while ((line = reader.readLine()) != null) {
-//                if (line.contains("#EXTM3U")){
-//                    // erste Zeile ignorieren
-//                    // hier könnte man die anzahl der lieder counten...
-//                    continue;
-//                }
                 playlist.getSonglist().add(new Track(line.substring(0, line.length() - 4)));
             }
             reader.close();
@@ -148,67 +114,13 @@ public class PlaylistManager {
 
         try {
             addSong = new FileWriter(playlistFile, true);
-            //writeFile = new BufferedWriter (addSong);
-
-            //Hier beschreiben
             addSong.write(text); // runtime, title
             addSong.flush();
             addSong.close();
-            // in der playlist stehen eigentlich die LINKS, nicht NUR die namen ?!
         } catch (IOException e) {
             System.out.println("help");
             e.printStackTrace();
         }
     }
+
 }
-/*
-    public void loeschenLied(String playlistFile, String song) {
-        File inputFile = new File(playlistFile);
-        String string = playlistFile;
-        // Playlist String teilen und _temp hinzufügen
-        String[] parts = string.split("\\."); // Teilt bei PUNKT
-        String part1 = parts[0]; // playlisten/name
-        String part2 = parts[1]; // txt
-        String playlistFileTemp = part1 + "_temp."+ part2; // fügt part1 + PUNKT + part2 zusammen für tempFile die aber gleich heißt
-        File tempFile = new File(playlistFileTemp);
-        try {
-
-            tempFile.createNewFile();
-
-            BufferedReader reader;
-
-            reader = new BufferedReader(new FileReader(inputFile));
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-
-            String lineToRemove = "#EXTINF:"+song;
-            String currentLine;
-
-            while((currentLine = reader.readLine()) != null) {
-                // trim newline when comparing with lineToRemove
-                //String trimmedLine = currentLine.trim();
-                //if(trimmedLine.equals(lineToRemove)) continue;
-                if (currentLine.equals(lineToRemove)) continue;
-                writer.write(currentLine ); // + System.getProperty("line.separator")
-            }
-            writer.close();
-            reader.close();
-            inputFile.delete(); // löscht alte Playlist
-            boolean successful = tempFile.renameTo(inputFile); // nennt tempfile um in original
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    public void deletePlaylist(String playlist){
-
-        File file = new File(playlist);
-        if(file.delete()){
-            System.out.println(playlist + " deleted");
-        }else System.out.println(playlist + " doesn't exists");
-    }
-}*/

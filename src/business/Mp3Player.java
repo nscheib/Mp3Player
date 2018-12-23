@@ -1,9 +1,11 @@
 package business;
 
+import com.mpatric.mp3agic.Mp3File;
 import ddf.minim.AudioMetaData;
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
@@ -23,41 +25,49 @@ public class Mp3Player {
     private AudioMetaData meta;
     private ArrayList<String> liste = new ArrayList<String>();
     private SimpleIntegerProperty timeProperty = new SimpleIntegerProperty();
-    private int milliS;
     private ObservableList<Track> aktuellePlaylist;
     private Track aktuellerTrack;
     private int aktPositionTrack;
     private boolean repeat = false;
     private boolean shuffle = false;
+    private SimpleIntegerProperty currentTime;
 
 
-
-
-
+    public Mp3Player() { currentTime = new SimpleIntegerProperty();}
 
     public void playSelected(String titel){
         if (audioPlayer.isPlaying()){
+            currentTime = null;
             audioPlayer.pause();
         }
+
+        Thread timer = new Thread() {
+            public void run() {
+
+                for (int i = 0; i < 2000; i++) {
+                    currentTime.set(i);
+                    try {
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        timer.setDaemon(true);
+        timer.start();
+
         audioPlayer = minim.loadMP3File("tracks/" + titel +".mp3"); // + ".mp3"
-        audioPlayer.play(); // hier eigentlich noch time
-
-    }
-
-
-    public void play (int time)
-    {
         audioPlayer.play();
     }
 
-    public void play (String titel, int time){
-        audioPlayer = minim.loadMP3File("tracks/" + titel + ".mp3"); //
-        audioPlayer.play(); // hier eigentlich noch time
-    }
 
-    public void play()
-    {
+    public void play() {
+
         audioPlayer.play();
+
+
     }
 
     public void pause()
@@ -65,8 +75,7 @@ public class Mp3Player {
         audioPlayer.pause();
     }
 
-    public void stop()
-    {
+    public void stop() {
         audioPlayer.rewind();
         audioPlayer.pause();
     }
@@ -77,13 +86,13 @@ public class Mp3Player {
     }
 
 
-    public void setShuffle(){
+    public void setShuffle() {
         if (shuffle){
             shuffle = false;
         } else shuffle = true;
     }
 
-    public void setRepeat(){
+    public void setRepeat() {
         if (repeat){
             repeat = false;
         }else repeat = true;
@@ -130,13 +139,6 @@ public class Mp3Player {
     }
 
 
-
-
-    public SimpleIntegerProperty getTimeProperty() {
-        return timeProperty;
-    }
-
-
     public void setAktuellePlaylist(ObservableList<Track> inhaltListViewR) {
         this.aktuellePlaylist = inhaltListViewR;
     }
@@ -145,15 +147,7 @@ public class Mp3Player {
         this.aktuellerTrack = newValue;
     }
 
-    public ObservableList<Track> getAktuellePlaylist() {return aktuellePlaylist; }
-
-    public Track getAktuellerTrack() { return aktuellerTrack; }
-
     public void playNext() {
-
-//        System.out.println("AKTTRACK: "+aktuellerTrack.getFileName());
-//        System.out.println("AKTPOSTRACK: "+aktPositionTrack);
-//        System.out.println("GROESSEPLAYLIT: "+ (aktuellePlaylist.size() -1)); // size zeigt richtige größe an, also 2 für 2 elemente anstatt 1...
 
         // Randomizer an ?
         if (shuffle == true ){
@@ -194,18 +188,9 @@ public class Mp3Player {
                         break;
 
                     }
-
-
                 }
             }
         }
-
-
-
-
-//        System.out.println("AKTTRACK2: "+aktuellerTrack.getFileName());
-//        System.out.println("AKTPOSTRACK2: "+aktPositionTrack);
-        
     }
 
     public void playPrevious() {
@@ -246,23 +231,16 @@ public class Mp3Player {
                     break;
 
                 }
-
-
             }
         }
-        
     }
 
     public void setAktuellePosition(int aktPositionTrack) {
         this.aktPositionTrack = aktPositionTrack;
     }
+
+    public SimpleIntegerProperty currentTimeProperty() {
+        return currentTime;
+    }
 }
 
-/*
-public void play (String titel, int time)
-    {
-        System.out.print("play titel");
-        audioPlayer = minim.loadMP3File("tracks/" + titel + ".mp3");
-        audioPlayer.play(time);
-    }
- */

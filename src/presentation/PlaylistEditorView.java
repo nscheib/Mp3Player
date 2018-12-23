@@ -16,41 +16,30 @@ import business.PlaylistManager;
 import javafx.scene.text.Text;
 
 public class PlaylistEditorView extends BorderPane {
+
     private VBox topVBox,topVBox2, centerVBoxZwei, centerVBoxZwei2;
-    private Button addPlaylist,deletePlaylist;
     private HBox buttonHbox, topHBox, centerHBoxZwei;
     private PlaylistManager playlistVerwalter;
+    private Label playlist, songs;
 
     Button add, delete, loadPlaylist, add2,delete2,play;
     Button changeButton, changeButtonPlay, changeButtonZwei;
     ObservableList<String> inhaltListView ;
     ObservableList<Playlist> inhaltListViewR;
-    ListView<String> listView;                // kann das public bleiben oder ist das kacke?
+    ListView<String> listView;
     ListView<Track> listViewR;
 
-    //Cells
-    private Label titleLable,artistLabel;
 
     public PlaylistEditorView(PlaylistManager playlistVerwalter){
         this.playlistVerwalter = playlistVerwalter;
         guiElemente();
-        playlistVerwalter.loadPlaylists("nichtstun"); // nichtstun siehe methode...
-        // speichert playlisten in liste ...
+        playlistVerwalter.loadPlaylists("nichtstun");
 
-        //Laden aller bis jetzt erstellten Playlists in Observable
         for (int i = 0 ;i < playlistVerwalter.getPlaylists().size();i++){
             inhaltListView.add(playlistVerwalter.getPlaylists().get(i).getTitle());
         }
-//        inhaltListView.addAll(playlistVerwalter.getPlaylists());
 
-//        for (int i = 0; i < inhaltListView.size();i++){
-//            listView.getItems().add(inhaltListView.get(i));
-//        }
-        listView.getItems().addAll(inhaltListView);     // Alle playlists und dann auch immer aktuell nice so geregelt...
-
-        //listViewR.getItems().addAll("Song1","Song2","Song3");
-        //listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
+        listView.getItems().addAll(inhaltListView);
 
         // Alignment
         topVBox2.setAlignment(Pos.TOP_LEFT);
@@ -75,9 +64,9 @@ public class PlaylistEditorView extends BorderPane {
         // Children
         topHBox.getChildren().addAll(changeButton, changeButtonPlay, changeButtonZwei);
         topVBox.getChildren().addAll(topHBox);
-        centerVBoxZwei.getChildren().addAll(listView,delete,loadPlaylist);
-        centerVBoxZwei2.getChildren().addAll(listViewR,play);
-        centerHBoxZwei.getChildren().addAll(centerVBoxZwei,centerVBoxZwei2);
+        centerVBoxZwei.getChildren().addAll(playlist, listView, delete, loadPlaylist);
+        centerVBoxZwei2.getChildren().addAll(songs, listViewR, play);
+        centerHBoxZwei.getChildren().addAll(centerVBoxZwei, centerVBoxZwei2);
 
 
         buttonHbox.setPadding(new Insets(10));
@@ -88,7 +77,7 @@ public class PlaylistEditorView extends BorderPane {
         this.setCenter(centerHBoxZwei);
         this.setBottom(buttonHbox);
         this.getStyleClass().add("ground");
-        this.setMinSize(500,700);
+        this.setMinSize(500,800);
         this.setMaxSize(700,900);
     }
 
@@ -114,6 +103,10 @@ public class PlaylistEditorView extends BorderPane {
         changeButtonPlay = new Button();
         changeButtonZwei = new Button();
         loadPlaylist = new Button("Load Playlist");
+
+        playlist = new Label("Playlisten");
+        songs = new Label("Songs");
+
         listView = new ListView<>();
         listViewR = new ListView<>();
         inhaltListView = FXCollections.observableArrayList();

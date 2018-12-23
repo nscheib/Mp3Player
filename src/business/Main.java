@@ -1,6 +1,5 @@
 package business;
 
-import ddf.minim.AudioListener;
 import javafx.application.Platform;
 import presentation.Mp3Controller;
 import presentation.PlaylistEditorController;
@@ -24,17 +23,13 @@ public class Main extends Application {
         playlistEditorController = new PlaylistEditorController(this, mp3Player);
         mp3Controller = new Mp3Controller(this, mp3Player);
         window.setScene(new Scene (mp3Controller.getView(), 700, 800));
-        window.setMinHeight(700);
+        window.setMinHeight(800);
         window.setMinWidth(550);
         window.show();
-        //beendet alles sobald das x gedrückt wird um das Fenster zu schließen
         window.setOnCloseRequest(e -> {
             Platform.exit();
             System.exit(0);
         });
-
-
-
     }
 
     public void switchScene(String sceneName)
