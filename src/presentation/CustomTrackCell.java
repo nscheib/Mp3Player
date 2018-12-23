@@ -25,7 +25,6 @@ public class CustomTrackCell extends ListCell<Track> {
             content = new HBox((new ImageView(image.getImage())),vBox);
 
             content.setSpacing(10);
-            //Mp3Controller.getMp3Player().getData().title();
         }
 
         @Override

@@ -1,8 +1,10 @@
 package presentation;
 
+import business.Main;
 import business.Mp3Player;
 import business.PlaylistManager;
 import business.Track;
+import com.sun.corba.se.impl.interceptors.SlotTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -22,6 +24,8 @@ import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import static presentation.Mp3Controller.mp3Player;
+
 
 public class Mp3ControllerView extends BorderPane {
 
@@ -33,13 +37,8 @@ public class Mp3ControllerView extends BorderPane {
     private HBox topHBox, centerHBox, centerZweiHBox, buttonHBox, buttonHBoxZwei, centerPicHBox;
     private Label title, interpret, time, vol;
 
-
     private Image img;
     private ImageView imgview;
-
-    private final DateFormat TIMEFORMAT = new SimpleDateFormat(("mm:ss"));
-
-
 
 
     public Mp3ControllerView() {
@@ -49,7 +48,7 @@ public class Mp3ControllerView extends BorderPane {
         verwalter = new PlaylistManager();
 
         // Textlabel - top for title
-        title = new Label("Titel: " + Mp3Controller.getMp3Player().getData().title());
+        title = new Label("Titel: " +  Mp3Controller.getMp3Player().getData().author());
         title.getStyleClass().add("text");
 
 
@@ -67,15 +66,22 @@ public class Mp3ControllerView extends BorderPane {
         timeslider.setMax(100);
         timeslider.setShowTickLabels(false);  // hier später true um die länge des songs anzeigen zu lassen...
 
+
         //Lautstaerkeregler
         volumeslider.getStyleClass().add("volumeslider");
+
+
         //volumeslider.setOrientation(Orientation.VERTICAL);
         volumeslider.setValue(50);
+
+
+        //title.setText(track.getSoundfile());
 
         // Image
         imgview.setImage(img);
         imgview.setFitHeight(100);
         imgview.setFitWidth(100);
+
 
         // Alignment
         topVBox.setAlignment(Pos.CENTER);
@@ -86,6 +92,7 @@ public class Mp3ControllerView extends BorderPane {
         buttonVBox.setAlignment(Pos.CENTER);
         buttonHBox.setAlignment(Pos.CENTER);
         buttonHBoxZwei.setAlignment(Pos.CENTER);
+
 
         //StyleClasses
         topVBox.getStyleClass().add("topVBox");
@@ -118,11 +125,10 @@ public class Mp3ControllerView extends BorderPane {
         // Volumeslider
         volumeslider.setValue(30);
 
-
         //Picture
         imgview.setImage(img);
-        imgview.setFitWidth(200);
-        imgview.setFitHeight(200);
+        imgview.setFitWidth(350);
+        imgview.setFitHeight(350);
 
         // Children
         topHBox.getChildren().addAll(changeButton, changeButtonPlay, changeButtonZwei);
@@ -137,15 +143,12 @@ public class Mp3ControllerView extends BorderPane {
         buttonVBox.getChildren().addAll(buttonHBox, buttonHBoxZwei);
 
 
-        //buttonHBox.setPadding(new Insets(10));
-        //buttonHBox.setAlignment(Pos.BOTTOM_CENTER);
-
         // Background Scene
         this.setTop(topVBox);
         this.setCenter(centerVBox);
         this.setBottom(buttonVBox);
         this.getStyleClass().add("ground");
-        this.setMinSize(500,700);
+        this.setMinSize(500,800);
         this.setMaxSize(700,900);
     }
 
@@ -182,7 +185,7 @@ public class Mp3ControllerView extends BorderPane {
         // Text
         title = new Label();
         interpret = new Label();
-        time = new Label("00:00");
+        time = new Label();
         vol = new Label("Vol:");
 
         // Slider
@@ -195,9 +198,7 @@ public class Mp3ControllerView extends BorderPane {
 
     }
 
-    public ToggleButton getChangeWindowButton() {
-        return changeButton;
-    }
+    public ToggleButton getChangeWindowButton() { return changeButton; }
 
     public ToggleButton getSkipRightButton(){return skipright;}
 
@@ -207,28 +208,17 @@ public class Mp3ControllerView extends BorderPane {
 
     public ToggleButton getRepeat(){return repeat;}
 
+    public ToggleButton getStopButton() { return stop; }
 
-    public ToggleButton getStopButton() {
-        return stop;
-    }
+    public ToggleButton getPlayButton() { return play; }
 
-    public ToggleButton getPlayButton() {
-        return play;
-    }
+    public Slider getVolumeslider() { return volumeslider; }
 
-    public Slider getTimeslider() {
-        return timeslider;
-    }
+    public ImageView getImgview() { return imgview; }
 
-    public Slider getVolumeslider() {
-        return volumeslider;
-    }
+    public Label getTitle() { return title; }
 
-    public void setTime(int time) {
-        this.time.setText(TIMEFORMAT.format(time));
-    }
+    public Label getTime() { return time; }
 
-    public ImageView getImgview() {
-        return imgview;
-    }
+    public Slider getTimeSlider() { return timeslider; }
 }

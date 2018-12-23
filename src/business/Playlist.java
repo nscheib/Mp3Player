@@ -37,42 +37,5 @@ public class Playlist {
         return title;
     }
 }
-    /*
-        /**
-         * Methode um die Anzahl aller Songs zu erhalten
-         *
-         * @return Songanzahl der Playlist
-         *
-    private int numberOfTracks() {
-        return amount;
-    }
-}
 
-    /**
-     * Methode um einen Song anhand seiner Nummer in der Liste zu erhalten
-     * @param number an welcher Stelle der Song in der Playlist steht
-     * @return
-     *
-    public Track getTrackByNumber(int number)
-    {
-        return songlist.get(number);
-    }
-
-    public void addTrack (String song)
-    {
-        Track track = new Track (song);
-        songlist.add(track);
-    }
-
-    public String getTitle()
-    {
-        return this.title;
-    }
-
-    public void deleteTrack(String song){
-
-        songlist.remove(song); // Geht das ???
-    }
-
-}*/
 
