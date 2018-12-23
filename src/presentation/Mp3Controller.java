@@ -34,6 +34,8 @@ public class Mp3Controller {
         view.getPlayButton().setOnAction(e -> play());
         view.getSkipRightButton().setOnAction(e -> mp3Player.playNext());
         view.getSkipLeftButton().setOnAction(e-> mp3Player.playPrevious());
+        view.getRepeat().setOnAction(e-> mp3Player.setRepeat());
+        view.getShuffle().setOnAction(e->mp3Player.setShuffle());
         view.getVolumeslider().valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {

@@ -203,6 +203,10 @@ public class Mp3ControllerView extends BorderPane {
 
     public ToggleButton getSkipLeftButton(){return skipleft;}
 
+    public ToggleButton getShuffle(){return shuffle;}
+
+    public ToggleButton getRepeat(){return repeat;}
+
 
     public ToggleButton getStopButton() {
         return stop;
