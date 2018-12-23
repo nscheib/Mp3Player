@@ -4,6 +4,8 @@ import ddf.minim.AudioMetaData;
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 
 import java.util.ArrayList;
 
@@ -21,18 +23,23 @@ public class Mp3Player {
     private AudioMetaData meta;
     private ArrayList<String> liste = new ArrayList<String>();
     private SimpleIntegerProperty timeProperty = new SimpleIntegerProperty();
-    Track track = new Track();
-    String aktuellerSong;
     private int milliS;
+    private ObservableList<Track> aktuellePlaylist;
+    private Track aktuellerTrack;
+    private int aktPositionTrack;
+
+
+
 
     public void playSelected(String titel){
         if (audioPlayer.isPlaying()){
             audioPlayer.pause();
         }
-        this.aktuellerSong = titel;
         audioPlayer = minim.loadMP3File("tracks/" + titel +".mp3"); // + ".mp3"
         audioPlayer.play(); // hier eigentlich noch time
+
     }
+
 
     public void play (int time)
     {
@@ -40,7 +47,6 @@ public class Mp3Player {
     }
 
     public void play (String titel, int time){
-        this.aktuellerSong = titel;
         audioPlayer = minim.loadMP3File("tracks/" + titel + ".mp3"); //
         audioPlayer.play(); // hier eigentlich noch time
     }
@@ -114,6 +120,89 @@ public class Mp3Player {
     }
 
 
+    public void setAktuellePlaylist(ObservableList<Track> inhaltListViewR) {
+        this.aktuellePlaylist = inhaltListViewR;
+    }
+
+    public void setAktuellerTrack(Track newValue) {
+        this.aktuellerTrack = newValue;
+    }
+
+    public ObservableList<Track> getAktuellePlaylist() {return aktuellePlaylist; }
+
+    public Track getAktuellerTrack() { return aktuellerTrack; }
+
+    public void playNext() {
+
+//        System.out.println("AKTTRACK: "+aktuellerTrack.getFileName());
+//        System.out.println("AKTPOSTRACK: "+aktPositionTrack);
+//        System.out.println("GROESSEPLAYLIT: "+ (aktuellePlaylist.size() -1)); // size zeigt richtige größe an, also 2 für 2 elemente anstatt 1...
+
+        if (aktPositionTrack == aktuellePlaylist.size() -1 ){
+            setAktuellerTrack(aktuellePlaylist.get(0));
+            setAktuellePosition(0);
+            stop();
+            playSelected(aktuellerTrack.getFileName());
+
+        }
+        else {
+
+            for (int i = 0; i <= aktuellePlaylist.size() -1;i++){
+
+                if (aktuellePlaylist.get(i).getFileName() == aktuellerTrack.getFileName()){
+
+                    setAktuellerTrack(aktuellePlaylist.get(i+1));
+                    setAktuellePosition(i+1);
+                    stop();
+                    playSelected(aktuellerTrack.getFileName());
+                    break;
+
+                }
+
+
+            }
+        }
+
+
+
+
+//        System.out.println("AKTTRACK2: "+aktuellerTrack.getFileName());
+//        System.out.println("AKTPOSTRACK2: "+aktPositionTrack);
+        
+    }
+
+    public void playPrevious() {
+
+        if (aktPositionTrack == 0 ){
+            setAktuellerTrack(aktuellePlaylist.get(aktuellePlaylist.size()-1));
+            setAktuellePosition(aktuellePlaylist.size()-1);
+            stop();
+            playSelected(aktuellerTrack.getFileName());
+
+        }
+        else {
+
+            for (int i = 0; i <= aktuellePlaylist.size() -1;i++){
+
+                if (aktuellePlaylist.get(i).getFileName() == aktuellerTrack.getFileName()){
+
+                    setAktuellerTrack(aktuellePlaylist.get(i-1));
+                    setAktuellePosition(i-1);
+                    stop();
+                    playSelected(aktuellerTrack.getFileName());
+                    break;
+
+                }
+
+
+            }
+        }
+        
+    }
+
+    public void setAktuellePosition(int aktPositionTrack) {
+        this.aktPositionTrack = aktPositionTrack;
+    }
 }
 
 /*

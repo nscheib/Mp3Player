@@ -1,5 +1,6 @@
 package business;
 
+import ddf.minim.AudioListener;
 import javafx.application.Platform;
 import presentation.Mp3Controller;
 import presentation.PlaylistEditorController;
@@ -31,6 +32,9 @@ public class Main extends Application {
             Platform.exit();
             System.exit(0);
         });
+
+
+
     }
 
     public void switchScene(String sceneName)

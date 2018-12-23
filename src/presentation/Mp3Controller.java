@@ -32,7 +32,8 @@ public class Mp3Controller {
         //view.changeWindow2.setOnAction(e->application.switchScene("Playlistwahl"));
         view.getStopButton().setOnAction(e -> mp3Player.stop());
         view.getPlayButton().setOnAction(e -> play());
-//        view.skipright.setOnAction(e -> playNext());
+        view.getSkipRightButton().setOnAction(e -> mp3Player.playNext());
+        view.getSkipLeftButton().setOnAction(e-> mp3Player.playPrevious());
         view.getVolumeslider().valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -48,6 +49,23 @@ public class Mp3Controller {
                 view.getImgview().setImage(newValue);
             }
         });
+
+
+        view.getTimeslider().valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                view.getTimeslider().setValue(newValue.intValue());
+//                view.timeslider.setMax(mp3Player.getAktuellerTrack().getLength());
+//                view.setInformation(mp3Player.getAktuellerTrack().getLength());
+            }
+        });
+
+//        mp3Player.getTimeProperty().addListener(new ChangeListener<Number>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//                view.setInformation(newValue);
+//            }
+//        });
 
 
 
