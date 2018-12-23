@@ -1,178 +1,279 @@
-.changeWindow {
-    -fx-background-color: lightgrey;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 60px;
-    -fx-border-color: black;
-    -fx-border-width: .3px;
-    -fx-background-image: url('/images/playlist.png');
-    -fx-background-repeat: stretch;
-    -fx-background-position: center;
-    -fx-background-size: 25%;
+/*___GROUND_____________________________________*/
+.ground {
+    -fx-background-color: #afafaf;
+}
+/*___GROUND_____________________________________*/
+
+
+
+/*----------------------------------------------------------------------------------------------*/
+
+
+
+/*___BOXEN_____________________________________*/
+.hbox {
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+    -fx-background-color: #afafaf;
 }
 
-.changeWindow:hover {
+.topVBox {
+    -fx-background-color: #afafaf;
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+}
+
+.centerHBoxZwei {
+    -fx-background-color: #afafaf;
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+}
+.centerHBox {
+    -fx-background-color: #afafaf;
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+}
+.buttonHBox {
+    -fx-background-color: #afafaf;
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+}
+/*___BOXEN_____________________________________*/
+
+
+
+/*-----------------------------------------------------------------------------------------------*/
+
+
+
+/*____BUTTONS___________________________________*/
+.changeButton {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 30px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/images/playlist.png");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 70%;
+    -fx-border-color: #464646;
+    -fx-padding: 10, 10, 10, 10;
+}
+
+.changeButton:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #737373;
+}
+.changeButtonPlay{
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 30px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/images/game.png");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 70%;
+    -fx-border-color: #464646;
+    -fx-padding: 10, 10, 10, 10;
+}
+
+.changeButtonPlay:hover {
     -fx-text-decoration: none;
     -fx-background-color: #737373;
 }
 
-.ground {
+.changeButtonZwei {
     -fx-background-color: #afafaf;
-}
-
-.text {
-    -fx-font-family: "Comic Sans MS";
-    -fx-font-size: 14px;
-    -fx-padding: 20,0,0,20;
-}
-
-.timeslider {
-    -fx-min-width: 300px;
-    -fx-max-width: 300px;
-}
-
-.time {
-    -fx-text-fill: black;
-    -fx-text-alignment: center;
-}
-
-.stop {
-    -fx-background-color: lightgrey;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 60px;
-    -fx-border-color: black;
-    -fx-border-width: .3px;
-    -fx-background-image: url('/images/stop.png');
+    -fx-pref-height: 30px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/images/settings.png");
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 25%;
-
+    -fx-background-size: 70%;
+    -fx-border-color: #464646;
+    -fx-padding: 10, 10, 10, 10;
 }
 
-.stop:hover {
-    -fx-background-color: darkgrey;
-    -fx-border-color: darkgrey;
-    -fx-border-width: .3px;
+.changeButtonZwei:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #737373;
 }
 
-.play {
-    -fx-background-color: lightgrey;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 60px;
-    -fx-border-color: black;
-    -fx-border-width: .3px;
-    -fx-background-image: url('/images/play.png');
+.playbutton {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 75px;
+    -fx-pref-width: 75px;
+    -fx-background-image: url("/images/play.png");
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 25%;
+    -fx-background-size: 60%;
+    -fx-background-radius: 50, 50;
+    -fx-border-color: #464646;
+    -fx-border-radius: 50;
+    -fx-padding: 10, 10, 10, 10;
 }
 
-.play:hover {
-    -fx-background-color: darkgrey;
-    -fx-border-color: darkgrey;
-    -fx-border-width: .3px;
+.playbutton:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #969696;
 }
-
 
 .pauseButton {
-    -fx-background-color: lightgrey;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 60px;
-    -fx-border-color: black;
-    -fx-border-width: .3px;
-    -fx-background-image: url('/images/pause.png');
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 75px;
+    -fx-pref-width: 75px;
+    -fx-background-image: url("/images/pause.png");
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 25%;
+    -fx-background-size: 60%;
+    -fx-background-radius: 50, 50;
+    -fx-border-color: #464646;
+    -fx-border-radius: 50;
 }
 
 .pauseButton:hover {
-    -fx-background-color: darkgrey;
-    -fx-border-color: darkgrey;
-    -fx-border-width: .3px;
+    -fx-text-decoration: none;
+    -fx-background-color: #969696;
+}
+
+.stopbutton {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/images/stop.png");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 90%;
+    -fx-background-radius: 5, 5;
+    -fx-border-color: #464646;
+    -fx-border-radius: 5;
+
+}
+
+.stopbutton:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #969696;
 }
 
 .skipright {
-    -fx-background-color: lightgrey;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 60px;
-    -fx-border-color: black;
-    -fx-border-width: .3px;
-    -fx-background-image: url('/images/skipright.png');
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/images/skipright.png");
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 25%;
+    -fx-background-size: 30%;
+    -fx-background-radius: 50, 50;
+    -fx-border-color: #464646;
+    -fx-border-radius: 50;
 }
 
 .skipright:hover {
-    -fx-background-color: darkgrey;
-    -fx-border-color: darkgrey;
-    -fx-border-width: .3px;
+    -fx-text-decoration: none;
+    -fx-background-color: #969696;
 }
 
-
 .skipleft {
-    -fx-background-color: lightgrey;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 60px;
-    -fx-border-color: black;
-    -fx-border-width: .3px;
-    -fx-background-image: url('/images/skipleft.png');
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/images/skipleft.png");
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 25%;
+    -fx-background-size: 30%;
+    -fx-background-radius: 50, 50;
+    -fx-border-color: #464646;
+    -fx-border-radius: 50;
 }
 
 .skipleft:hover {
-    -fx-background-color: darkgrey;
-    -fx-border-color: darkgrey;
-    -fx-border-width: .3px;
+    -fx-text-decoration: none;
+    -fx-background-color: #969696;
 }
 
-.shuffle{
-    -fx-background-color: lightgrey;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 60px;
-    -fx-border-color: black;
-    -fx-border-width: .3px;
-    -fx-background-image: url('/images/shuffle.png');
+.shufflebutton {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/images/shuffle.png");
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 25%;
+    -fx-background-size: 30%;
+    -fx-background-radius: 50, 50;
+    -fx-border-color: #464646;
+    -fx-border-radius: 50;
 }
 
-.shuffle:hover{
-    -fx-background-color: darkgrey;
-    -fx-border-color: darkgrey;
-    -fx-border-width: .3px;
+.shufflebutton:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #969696;
 }
-
-.repeat{
-    -fx-background-color: lightgrey;
-    -fx-pref-height: 24px;
-    -fx-max-height: 24px;
-    -fx-pref-width: 60px;
-    -fx-border-color: black;
-    -fx-border-width: .3px;
-    -fx-background-image: url('/images/repeat.png');
+.repeatbutton {
+    -fx-background-color: #afafaf;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/images/repeat.png");
     -fx-background-repeat: stretch;
     -fx-background-position: center;
-    -fx-background-size: 25%;
+    -fx-background-size: 30%;
+    -fx-background-radius: 50, 50;
+    -fx-border-color: #464646;
+    -fx-border-radius: 50;
 }
 
-.repeat:hover{
-    -fx-background-color: darkgrey;
-    -fx-border-color: darkgrey;
-    -fx-border-width: .3px;
+.repeatbutton:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #969696;
 }
+/*____BUTTONS___________________________________*/
 
-.hbox {
-    -fx-spacing: 15px;
-    -fx-padding: 20px;
+
+
+/*-----------------------------------------------------------------------------------------------*/
+
+
+
+/*___TEXT________________________________________*/
+.text {
+    -fx-font-family: Helvetica, sans-serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: BLACK;
+    -fx-text-align: center;
+    -fx-text-decoration: none;
+    -fx-padding: 20,0,0,20;
 }
+/*___TEXT________________________________________*/
+
+
+
+/*--------------------------------------------------------------------------------------------------*/
+
+
+
+/*___SLIDER_______________________________________*/
+.timeslider {
+    -fx-min-width: 250px;
+    -fx-max-width: 250px;
+    -fx-background-color: #afafaf;
+    -fx-padding: 25px;
+}
+.volumeslider {
+    -fx-min-width: 250px;
+    -fx-max-width: 250px;
+    -fx-background-color: #afafaf;
+    -fx-padding: 20, 0 , 20 , 0;
+
+}
+/*___SLIDER_______________________________________*/
+
+
+
+/*---------------------------------------------------------------------------------------------------*/
+
+
+
+/*___SONSTIGES____________________________________*/
+.imgview {
+    -fx-padding: 50, 50, 50 , 50;
+    -fx-border-color: BLACK;
+    -fx-border-radius: 1px;
+}
+/*___SONSTIGES____________________________________*/

@@ -1,5 +1,6 @@
 package presentation;
 
+import business.Mp3Player;
 import business.Playlist;
 import business.Track;
 import javafx.collections.FXCollections;
@@ -15,18 +16,18 @@ import business.PlaylistManager;
 import javafx.scene.text.Text;
 
 public class PlaylistEditorView extends BorderPane {
-    private VBox topVBox2, centerVBoxZwei, centerVBoxZwei2;
+    private VBox topVBox,topVBox2, centerVBoxZwei, centerVBoxZwei2;
     private Button addPlaylist,deletePlaylist;
-    private HBox buttonHbox;
-    private HBox centerHBoxZwei;
+    private HBox buttonHbox, topHBox, centerHBoxZwei;
     private PlaylistManager playlistVerwalter;
+
     Button add, delete, loadPlaylist, add2,delete2,play;
-    Button changeWindow2;
+    Button changeButton, changeButtonPlay, changeButtonZwei;
     ObservableList<String> inhaltListView ;
     ObservableList<Playlist> inhaltListViewR;
     ListView<String> listView;                // kann das public bleiben oder ist das kacke?
     ListView<Track> listViewR;
-    Mp3ControllerView view = new Mp3ControllerView();
+
     //Cells
     private Label titleLable,artistLabel;
 
@@ -50,47 +51,54 @@ public class PlaylistEditorView extends BorderPane {
         //listViewR.getItems().addAll("Song1","Song2","Song3");
         //listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        // Top
-        topVBox2.getChildren().addAll(changeWindow2);
-        changeWindow2.getStyleClass().add("changeWindow2");
 
+        // Alignment
         topVBox2.setAlignment(Pos.TOP_LEFT);
-        topVBox2.getStyleClass().add("topVBox2");
-
-        // Center
-        centerVBoxZwei.getChildren().addAll(listView,delete,loadPlaylist);
         centerVBoxZwei.setAlignment(Pos.CENTER);
-        centerVBoxZwei2.getChildren().addAll(listViewR,play);
         centerVBoxZwei2.setAlignment(Pos.CENTER);
         centerHBoxZwei.setAlignment(Pos.CENTER);
-        //centerHBoxZwei.getChildren().addAll(centerVBoxZwei,centerVBoxZwei2);
-
-        // Buttonleiste
-        view.shuffle.getStyleClass().add("shuffle");
-        view.skipleft.getStyleClass().add("skipleft");
-        view.play.getStyleClass().add("play");
-        view.stop.getStyleClass().add("stop");
-        view.skipright.getStyleClass().add("skipright");
-        view.repeat.getStyleClass().add("repeat");
-        buttonHbox.getChildren().addAll(view.shuffle, view.skipleft, view.play, view.stop, view.skipright, view.repeat);
         buttonHbox.setAlignment(Pos.BOTTOM_CENTER);
+
+        //StyleClasses
+        topHBox.getStyleClass().add("topHBox");
+        topVBox.getStyleClass().add("topVBox");
+        topVBox2.getStyleClass().add("topVBox2");
         buttonHbox.getStyleClass().add("hbox");
-        buttonHbox.setPadding(new Insets(10));
+
+        delete.getStyleClass().add("delete");
+        loadPlaylist.getStyleClass().add("loadPlaylist");
+        changeButton.getStyleClass().add("changeButton");
+        changeButtonPlay.getStyleClass().add("changeButtonPlay");
+        changeButtonZwei.getStyleClass().add("changeButtonZwei");
+        play.getStyleClass().add("playbutton");
+
+        // Children
+        topHBox.getChildren().addAll(changeButton, changeButtonPlay, changeButtonZwei);
+        topVBox.getChildren().addAll(topHBox);
+        centerVBoxZwei.getChildren().addAll(listView,delete,loadPlaylist);
+        centerVBoxZwei2.getChildren().addAll(listViewR,play);
         centerHBoxZwei.getChildren().addAll(centerVBoxZwei,centerVBoxZwei2);
 
+
+        buttonHbox.setPadding(new Insets(10));
+
+
         // Background Scene
-        this.setTop(topVBox2);
+        this.setTop(topVBox);
         this.setCenter(centerHBoxZwei);
         this.setBottom(buttonHbox);
-        this.getStyleClass().add("ground2");
-        this.setMaxSize(600,600);
+        this.getStyleClass().add("ground");
+        this.setMinSize(500,700);
+        this.setMaxSize(700,900);
     }
 
 
 
     public void guiElemente(){
+        topHBox = new HBox();
+        topVBox = new VBox();
         topVBox2 = new VBox(20);
-        changeWindow2 = new Button("Go to Scene 1");
+
         centerVBoxZwei = new VBox(10);
         centerVBoxZwei.setPadding(new Insets(10,10,10,10));
         centerVBoxZwei2 = new VBox(10);
@@ -102,7 +110,9 @@ public class PlaylistEditorView extends BorderPane {
         play = new Button("Play");
         add2 = new Button("Add New");
         delete2 = new Button("Delete");
-        changeWindow2 = new Button("Player");
+        changeButton = new Button();
+        changeButtonPlay = new Button();
+        changeButtonZwei = new Button();
         loadPlaylist = new Button("Load Playlist");
         listView = new ListView<>();
         listViewR = new ListView<>();

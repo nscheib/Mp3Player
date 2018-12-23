@@ -1,9 +1,8 @@
 package presentation;
 
-import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import business.Main;
 import business.Mp3Player;
@@ -16,28 +15,72 @@ public class Mp3Controller {
     static Mp3Player mp3Player;
     //private int time = 0;
     Mp3ControllerView view;
+
     //private SimpleIntegerProperty timeProperty = new SimpleIntegerProperty();
 
+//    PlaylistEditorController playlistEditorController;
 
     //private PlaylistManager playlistManager = new PlaylistManager();
     //private final String [] BEFEHLE = {"", "play", "pause", "stop", "volume", "quit", "playlist"};
     //private boolean pause = false;
 
     public Mp3Controller(Main application, Mp3Player mp3Player) {
+//        this.playlistEditorController = playlistEditorController;
         Mp3Controller.mp3Player = mp3Player;
         view = new Mp3ControllerView();
-        view.changeWindow.setOnAction(e -> application.switchScene("PlaylistEditor"));
+        view.getChangeWindowButton().setOnAction(e -> application.switchScene("PlaylistEditor"));
         //view.changeWindow2.setOnAction(e->application.switchScene("Playlistwahl"));
-        view.stop.setOnAction(e -> mp3Player.stop());
-        view.play.setOnAction(e -> play());
-        view.volumeslider.valueProperty().addListener(new ChangeListener<Number>() {
+        view.getStopButton().setOnAction(e -> mp3Player.stop());
+        view.getPlayButton().setOnAction(e -> play());
+//        view.skipright.setOnAction(e -> playNext());
+        view.getVolumeslider().valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 mp3Player.volume(newValue.floatValue());
             }
         });
         view.getStylesheets().add(getClass().getResource("playerview.css").toExternalForm());
+
+        view.getImgview().imageProperty().addListener(new ChangeListener<Image>() {
+            @Override
+            public void changed(ObservableValue<? extends Image> observable, Image oldValue, Image newValue) {
+
+                view.getImgview().setImage(newValue);
+            }
+        });
+
+
+
+
+
     }
+
+//    private void playNext() {
+//
+//        ObservableList<Track> inhalt = playlistEditorController.getListViewR().getItems();
+//        System.out.println("AKTPOSTITION: "+playlistEditorController.getAktPositionTrack());
+//
+//
+//        for (int i = 0; i <= inhalt.size();i++){
+//            System.out.println("SCHRITT: "+i);
+//
+//            if (i == playlistEditorController.getAktPositionTrack()) {
+//                if (i== inhalt.size()){
+//
+//                    String nextSong = (inhalt.get(0).getFileName());
+//                    mp3Player.playSelected(nextSong);
+//                    playlistEditorController.setAktPositionTrack(0);
+//                    break;
+//                }
+//                String nextSong = (inhalt.get(i + 1)).getFileName();
+//                playlistEditorController.setAktPositionTrack(i+1);
+//                mp3Player.playSelected(nextSong);
+//                break;
+//            }
+//        }
+//        System.out.println("NEUEPOS" + playlistEditorController.getAktPositionTrack());
+//
+//    }
 
     public static Mp3Player getMp3Player() {
         return mp3Player;
@@ -57,13 +100,13 @@ public class Mp3Controller {
         if (!mp3Player.getPlaying()) {
             mp3Player.play();
             System.out.println("abspielen");
-            view.play.getStyleClass().remove("playbutton");
-            view.play.getStyleClass().add("pauseButton");
+            view.getPlayButton().getStyleClass().remove("playbutton");
+            view.getPlayButton().getStyleClass().add("pauseButton");
         } else {
             mp3Player.pause();
             System.out.println("pause");
-            view.play.getStyleClass().remove("pauseButton");
-            view.play.getStyleClass().add("playbutton");
+            view.getPlayButton().getStyleClass().remove("pauseButton");
+            view.getPlayButton().getStyleClass().add("playbutton");
         }
         System.out.println("play2");
     }

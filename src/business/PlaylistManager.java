@@ -51,7 +51,7 @@ public class PlaylistManager {
     }
 
     public void printPlaylistSongs(String playlistFile) {
-        File file = new File(playlistFile);
+        //File file = new File(playlistFile);
         BufferedReader in = null;
         try {
             in = new BufferedReader(new FileReader(playlistFile));

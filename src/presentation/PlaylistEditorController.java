@@ -1,6 +1,7 @@
 package presentation;
 
 import business.*;
+import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -20,21 +21,25 @@ public class PlaylistEditorController {
     private String auswahlPlaylist;
     private Track auswahlTrackPlaylist,auswahlSongPlaylist;
     private int aktPosition,aktPositionTrack;
+    private ListView<Track> listViewR;
 
     private ObservableList<Track> songsInPlaylist = FXCollections.observableArrayList(); // für buttonclicked 2
 
-    public PlaylistEditorController(Main application, Mp3Player mp3Player ){
+    public int getAktPositionTrack(){return aktPositionTrack;}
+
+    public PlaylistEditorController(Main application, Mp3Player mp3Player){
 
         view = new PlaylistEditorView(playlistVerwalter);
+        this.listViewR = view.listViewR;
         //view.add.setOnAction(e -> buttonClicked(0));                  //Add Playlist
         view.delete.setOnAction(e -> buttonClicked(1));           //Delete chosen Playlist
         view.loadPlaylist.setOnAction(e-> buttonClicked(2));      //Load Playlist in listViewR
         //view.add2.setOnAction(e -> buttonClicked(3));                 //Add Song to Playlist
         //view.delete2.setOnAction(e -> buttonClicked(4));              //Delete Song from Playlist
 
-        view.play.setOnAction(e -> mp3Player.playSelected(auswahlTrackPlaylist.getFileName()));
+        view.play.setOnAction(e-> playAndSwitch(application,mp3Player));
 
-        view.changeWindow2.setOnAction(e->application.switchScene("MP3player"));
+        view.changeButton.setOnAction(e->application.switchScene("MP3player"));
         view.getStylesheets().add(getClass().getResource("playlistview.css").toExternalForm());
 
         //Listener für Liedauswahl beim Player
@@ -44,8 +49,8 @@ public class PlaylistEditorController {
                 auswahlPlaylist = newValue;
                 aktPosition = view.listView.getItems().indexOf(auswahlPlaylist);
                 //playlistVerwalter.getPlaylists().indexOf(auswahlPlaylist);
-                System.out.println("Test: "+auswahlPlaylist);
-                System.out.println("Test2: "+aktPosition);
+                System.out.println("Playlist: "+auswahlPlaylist);
+                System.out.println("PlaylistPosition: "+aktPosition);
 //                previousSong = playlistVerwalter.getAllSongs().get(aktPosition-1);
 //                nextSong = playlistVerwalter.getAllSongs().get(aktPosition+1);
 
@@ -63,8 +68,8 @@ public class PlaylistEditorController {
                     auswahlTrackPlaylist = newValue;
                     aktPositionTrack = view.listViewR.getItems().indexOf(auswahlTrackPlaylist);
                     //playlistVerwalter.getPlaylists().indexOf(auswahlPlaylist);
-                    System.out.println("Test: " + auswahlTrackPlaylist.getFileName());
-                    System.out.println("Test2: " + aktPositionTrack);
+                    System.out.println("Track: " + auswahlTrackPlaylist.getFileName());
+                    System.out.println("Trackposition: " + aktPositionTrack);
 //                previousSong = playlistVerwalter.getAllSongs().get(aktPosition-1);
 //                nextSong = playlistVerwalter.getAllSongs().get(aktPosition+1);
 
@@ -74,6 +79,15 @@ public class PlaylistEditorController {
                     System.out.println("Playlist geladen, aber NullPointerException, da in zweiter standardmäßig nichts ausgewählt ist");}
             }
         });
+    }
+
+    private void playAndSwitch(Main application, Mp3Player mp3Player) {
+        mp3Player.playSelected(auswahlTrackPlaylist.getFileName());
+        application.switchScene("MP3player");
+    }
+
+    public ListView<Track> getListViewR(){
+        return listViewR;
     }
 
     private void buttonClicked(int befehl){
@@ -142,5 +156,9 @@ public class PlaylistEditorController {
 
     public Pane getView(){
         return view;
+    }
+
+    public void setAktPositionTrack(int i) {
+        this.aktPositionTrack = i;
     }
 }

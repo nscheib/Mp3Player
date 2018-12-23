@@ -20,13 +20,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage){
         window = primaryStage;
-        mp3Controller = new Mp3Controller(this, mp3Player);
         playlistEditorController = new PlaylistEditorController(this, mp3Player);
-        window.setScene(new Scene (mp3Controller.getView(), 600, 600));
-        window.setMinHeight(600);
-        window.setMinWidth(600);
-        window.setMaxHeight(700);
-        window.setMaxWidth(700);
+        mp3Controller = new Mp3Controller(this, mp3Player);
+        window.setScene(new Scene (mp3Controller.getView(), 700, 800));
+        window.setMinHeight(700);
+        window.setMinWidth(550);
         window.show();
         //beendet alles sobald das x gedrückt wird um das Fenster zu schließen
         window.setOnCloseRequest(e -> {

@@ -22,12 +22,14 @@ public class Mp3Player {
     private ArrayList<String> liste = new ArrayList<String>();
     private SimpleIntegerProperty timeProperty = new SimpleIntegerProperty();
     Track track = new Track();
+    String aktuellerSong;
     private int milliS;
 
     public void playSelected(String titel){
         if (audioPlayer.isPlaying()){
             audioPlayer.pause();
         }
+        this.aktuellerSong = titel;
         audioPlayer = minim.loadMP3File("tracks/" + titel +".mp3"); // + ".mp3"
         audioPlayer.play(); // hier eigentlich noch time
     }
@@ -38,6 +40,7 @@ public class Mp3Player {
     }
 
     public void play (String titel, int time){
+        this.aktuellerSong = titel;
         audioPlayer = minim.loadMP3File("tracks/" + titel + ".mp3"); //
         audioPlayer.play(); // hier eigentlich noch time
     }
@@ -102,6 +105,7 @@ public class Mp3Player {
     public Mp3Player getMp3Player () {
         return getMp3Player();
     }
+
 
 
 
