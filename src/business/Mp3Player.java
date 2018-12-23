@@ -157,7 +157,8 @@ public class Mp3Player {
 
         // Randomizer an ?
         if (shuffle == true ){
-            int random_trackposition = new Random().nextInt(aktuellePlaylist.size()-1);
+            int random_trackposition = new Random().nextInt(aktuellePlaylist.size());
+            System.out.println(random_trackposition);
             Track random_track = aktuellePlaylist.get(random_trackposition);
             setAktuellerTrack(random_track);
             setAktuellePosition(random_trackposition);
