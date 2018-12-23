@@ -60,13 +60,20 @@ public class PlaylistEditorController {
         });
 
         //Listener für Liedauswahl bei der Playlist
+
         view.listViewR.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Track>() {
             @Override
             public void changed(ObservableValue<? extends Track> observable, Track oldValue, Track newValue) {
 
                 try {
+                    // Bei jedem Klick sicher gehen, dass aktuelle Playlist / Song immer richtig ist
+                    mp3Player.setAktuellePlaylist(view.listViewR.getItems());
+                    mp3Player.setAktuellerTrack(newValue);
+
+
                     auswahlTrackPlaylist = newValue;
                     aktPositionTrack = view.listViewR.getItems().indexOf(auswahlTrackPlaylist);
+                    mp3Player.setAktuellePosition(aktPositionTrack);
                     //playlistVerwalter.getPlaylists().indexOf(auswahlPlaylist);
                     System.out.println("Track: " + auswahlTrackPlaylist.getFileName());
                     System.out.println("Trackposition: " + aktPositionTrack);

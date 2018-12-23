@@ -59,4 +59,7 @@ public class Track {
         Image imageOutput = new Image(new ByteArrayInputStream(image));
         return imageOutput;
     }
+
+    public double getLength() { return length;
+    }
 }

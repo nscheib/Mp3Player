@@ -17,6 +17,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import javax.swing.*;
+import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -196,6 +198,11 @@ public class Mp3ControllerView extends BorderPane {
     public ToggleButton getChangeWindowButton() {
         return changeButton;
     }
+
+    public ToggleButton getSkipRightButton(){return skipright;}
+
+    public ToggleButton getSkipLeftButton(){return skipleft;}
+
 
     public ToggleButton getStopButton() {
         return stop;
