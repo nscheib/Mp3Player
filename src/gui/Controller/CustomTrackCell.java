@@ -1,6 +1,7 @@
 package gui.Controller;
 
 import businessLogic.Track;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
@@ -23,6 +24,7 @@ public class CustomTrackCell extends ListCell<Track> {
         title = new Label();
         interpret = new Label();
         vBox = new VBox(title, interpret);
+        vBox.setPadding(new Insets(0,10,0,10));
         content = new HBox();
         content.setSpacing(10);
         image = new ImageView();
@@ -41,8 +43,8 @@ public class CustomTrackCell extends ListCell<Track> {
         if (item != null && !empty) {
             title.setText(item.getTitle());
             interpret.setText(item.getInterpret());
-            image.setFitHeight(30);
-            image.setFitWidth(30);
+            image.setFitHeight(40);
+            image.setFitWidth(40);
             image.setImage(item.getImage());
         }
         content = new HBox(image,vBox);

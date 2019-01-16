@@ -52,6 +52,10 @@ public class PlayListView extends BorderPane {
         topHBox.setPadding(new Insets(10,10,10,10));
 
 
+        spaltenViewLeft.setPrefSize(500,900);
+        spaltenViewRight.setPrefSize(500,900);
+
+
         // Children
         topHBox.getChildren().addAll(mp3playerButton, playListButton, gameButton, settingButton);
         centerVBoxZwei.getChildren().addAll(playlist, spaltenViewLeft, delete, loadPlaylist);
