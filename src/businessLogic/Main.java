@@ -29,7 +29,7 @@ public class Main extends Application {
     public static void main(String[]args) { launch(args); }
 
     /**
-     * method initializes the mp3player
+     * Method initializes the mp3player
      */
     public void init() {
         player = new Mp3Player();

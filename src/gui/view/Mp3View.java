@@ -99,8 +99,8 @@ public class Mp3View extends BorderPane {
         this.setCenter(centerVBox);
         this.setBottom(buttonVBox);
         this.getStyleClass().add("background");
-        this.setMinSize(500,800);
-        this.setMaxSize(700,900);
+        this.setMinSize(500, 700);
+        this.setMaxSize(700, 700);
     }
 
     /**

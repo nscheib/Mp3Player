@@ -40,7 +40,8 @@ public class Mp3Controller {
 
         view.getSkipright().setOnAction(e -> skipright(player));
         view.getSkipleft().setOnAction(e -> skipleft(player));
-        view.getTimeslider().setOnMouseReleased(event -> player.skip((int) view.getTimeslider().getValue()));
+        Platform.runLater(() -> view.getTimeslider().setOnMouseReleased(event -> player.skip(view.getTimeslider().getValue())));
+
 
         view.getLoop().setOnAction(e -> player.loop());
         //view.getShuffle().setOnAction(e -> player.shuffle());

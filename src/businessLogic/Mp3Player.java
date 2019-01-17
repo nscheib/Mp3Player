@@ -57,10 +57,10 @@ public class Mp3Player extends Thread implements Runnable {
                 // Solange der Player spielt und nicht interrupted wurde, wird die Zeit gesetzt
                 while (player.isPlaying() && !playingThread.isInterrupted()) {
                     try {
-                        // Wird benötigt um die Zeit setzten zu können. 1000 setzt jede Sekunde die Zeit neu
-                        Thread.sleep((1000));
                         // Platfrom.runLater wird bei schnellen und einfachen Operationen benutzt
                         Platform.runLater(() -> currentTime.setValue(player.position()));
+                        // Wird benötigt um die Zeit setzten zu können. 1000 setzt jede Sekunde die Zeit neu
+                        Thread.sleep((1000));
                     } catch (InterruptedException e) {
                         System.out.println("Interrupted!");
                         playingThread.interrupt();
@@ -171,7 +171,12 @@ public class Mp3Player extends Thread implements Runnable {
      * Methode verändert die Zeit des Players mit dem erhaltenen Wert. Wird für den Slider benötigt.
      * @param milis
      */
-    public void skip(int milis) { player.skip(milis - player.position()); }
+    public void skip(double milis) {
+        System.out.println(milis);
+        int milSec = (int) milis;
+        player.skip(milSec - player.position());
+
+    }
 
     /**
      * Methode setzt die aktuelle Position in der Playlist wenn diese noch keinen Wert hat
@@ -188,11 +193,7 @@ public class Mp3Player extends Thread implements Runnable {
      * Methode setzt den loop auf true/false, je nachdem wie der Button gedrückt wurde
      */
     public void loop() {
-        if(loop) {
-            this.loop = false;
-        } else {
-            this.loop = true;
-        }
+        this.loop = !loop;
     }
 
     /**

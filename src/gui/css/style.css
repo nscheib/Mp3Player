@@ -312,3 +312,11 @@
     -fx-background-color: #cdcdcd;
 }
 
+/*
+---------- GAME ---------------------------------------------------------------------------------------------------
+*/
+.pane {
+    -fx-background-color: green;
+    -fx-max-height: 500;
+    -fx-max-width: 500;
+}
