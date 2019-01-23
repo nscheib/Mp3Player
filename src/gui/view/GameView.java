@@ -1,5 +1,6 @@
 package gui.view;
 
+import gui.Controller.GameController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -45,6 +46,7 @@ public class GameView extends BorderPane {
         this.setTop(topHBox);
         this.setCenter(pane);
         //this.setBottom(buttonVBox);
+
         this.setMinSize(500,800);
         this.setMaxSize(700,900);
         this.getStyleClass().add("background");
@@ -54,7 +56,7 @@ public class GameView extends BorderPane {
     /**
      * Methode instanziiert alle Gui-Elemente
      */
-    public void guiElemente(){
+    private void guiElemente(){
 
         // Top
         topHBox = new HBox();
@@ -62,6 +64,7 @@ public class GameView extends BorderPane {
         // Center
         centerVBox = new VBox();
         pane = new Pane();
+
 
         // Down
         buttonVBox = new VBox();

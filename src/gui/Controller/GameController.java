@@ -2,6 +2,7 @@ package gui.Controller;
 
 import businessLogic.Main;
 import businessLogic.Mp3Player;
+import businessLogic.Track;
 import gui.game.Block;
 import gui.view.GameView;
 import javafx.animation.PathTransition;
@@ -15,11 +16,19 @@ import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
 //import java.awt.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
+import java.io.*;
 
 public class GameController {
 
     private GameView view;
     private Block block;
+    private Block[][] spielFeld = new Block[20][20];
+    private String mapName;
+    private int sizeX=0,sizeY=0;
+    private int fillx,filly = 0;
 
     public GameController(Main application, Mp3Player player) {
 
@@ -27,6 +36,13 @@ public class GameController {
 
         this.view = new GameView();
         block = new Block(0, 0,1);
+
+
+        // Textdatei einlesen und map aufbauen
+        einlesen("world1");
+        mapBau();
+        ausgeben();
+
 
         // Stylesheet, aus welcher Datei die Einstellung gelesen werden sollen
         view.getStylesheets().add(getClass().getResource("/gui/css/style.css").toExternalForm());
@@ -50,6 +66,7 @@ public class GameController {
 
 
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.2),block.getBlock());
+
 
 
         view.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
@@ -117,6 +134,72 @@ public class GameController {
 
 
 
+    }
+
+    private void mapBau() {
+        Rectangle insert;
+        //insert = new Rectangle(50,50, Color.BLUE);
+        for (int i = 0; i < sizeY;i++){
+            for (int j= 0; j < sizeX;j++){
+                insert = new Rectangle(50,50,Color.BLUE);
+                if (spielFeld[i][j].getType()==120){
+                    insert.setFill(Color.RED);
+                }else if (spielFeld[i][j].getType()==45){
+                    insert.setFill(Color.GREEN);
+                }
+                insert.relocate(spielFeld[i][j].getx(),spielFeld[i][j].gety());
+                view.getPane().getChildren().add(insert);
+
+            }
+        }
+    }
+
+    private void ausgeben() {
+
+
+        System.out.println("\nMap: "+ mapName+"\n");
+
+
+        for (int i = 0; i < sizeY ; i++){
+            for (int j = 0; j < sizeX;j++){
+                if (spielFeld[i][j].getType()==120){
+                    System.out.print("x ");
+                }
+                if (spielFeld[i][j].getType()==45){
+                    System.out.print("- ");
+                }
+
+            }
+            System.out.println();
+        }
+    }
+
+    private void einlesen(String worldname) {
+
+        this.mapName = worldname;
+
+        int counterY = 0;
+        int posX,posY;
+
+        try {
+            BufferedReader bReader = new BufferedReader(new FileReader("Worlds/"+worldname+".txt"));
+            String line = bReader.readLine();
+            this.sizeX = line.length();
+            while (line != null) {
+                posY = this.sizeY * 50;
+                this.sizeY++;
+                for (int x = 0; x < sizeX; x++){
+                    // posX ist positionswert der immer um 50 erhöht wird
+                    posX = x * 50;
+                    spielFeld[x][counterY] = new Block (posX,posY,line.charAt(x));
+                }
+                line = bReader.readLine();
+                counterY++;
+
+            }
+        }catch(java.io.IOException  e){
+            e.printStackTrace();
+        }
     }
 
 

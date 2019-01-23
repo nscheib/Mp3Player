@@ -7,7 +7,7 @@ public class Block {
 
     private Rectangle block;
     private int posx, posy;
-    private int type; // 0 ist spieler, 1 ist wand
+    private int type;
 
     public Block(int posx, int posy,int type) {
 
@@ -38,4 +38,14 @@ public class Block {
     public int gety() {
         return posy;
     }
+    public void changeType(String type){
+        if (type.equals("x")){
+            this.type = 120;
+        }
+        if (type.equals("-")){
+            this.type = 45;
+        }
+    }
+
+
 }
