@@ -7,14 +7,15 @@ public class Block {
 
     private Rectangle block;
     private int posx, posy;
-    private int type;
+    private int type; // 0 ist spieler, 1 ist wand
 
-    public Block(int posx, int posy) {
+    public Block(int posx, int posy,int type) {
 
         this.block = new Rectangle(50, 50);
         this.block.setFill(Color.BLUE);
         this.posx = posx;
         this.posy = posy;
+        this.type = type;
     }
 
     public int getType() {
@@ -26,4 +27,15 @@ public class Block {
         this.posy = y;
     }
 
+    public Rectangle getBlock(){
+        return block;
+    }
+
+    public int getx() {
+        return posx;
+    }
+
+    public int gety() {
+        return posy;
+    }
 }

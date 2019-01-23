@@ -6,9 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.effect.Shadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class PlayListView extends BorderPane {
 
@@ -68,8 +70,8 @@ public class PlayListView extends BorderPane {
         this.setTop(topHBox);
         this.setCenter(centerHBoxZwei);
         this.setBottom(buttonHbox);
-        this.setMinSize(500,800);
-        this.setMaxSize(700,900);
+//        this.setMinSize(500,800);
+//        this.setMaxSize(700,900);
         this.getStyleClass().add("background");
 
     }

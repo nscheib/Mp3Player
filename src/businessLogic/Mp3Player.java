@@ -33,6 +33,7 @@ public class Mp3Player extends Thread implements Runnable {
         this.minim = new SimpleMinim(true);
         this.aktuellePlayList = playListManager.loadChoosenPlayList("Playlisten/Standart.m3u");
         this.auswahlPlaylistAllSongs = playListManager.returnPlaylistSongs("Playlisten/Standart.m3u");
+        this.aktuellerTrack = auswahlPlaylistAllSongs.get(0);
         this.currentTime = new SimpleIntegerProperty();
         setRadomSong(false);
         this.pause = false;
@@ -200,8 +201,10 @@ public class Mp3Player extends Thread implements Runnable {
      * Methode die eine PlayList läd und daraus ein Random Track abspielt
      */
     public void setRadomSong(boolean loop) {
-        if(!loop) {
-            random = new Random().nextInt(aktuellePlayList.size()-1);
+        if(loop) {
+            random = 0;
+            if (aktuellePlayList.size()>0){
+            random = new Random().nextInt(aktuellePlayList.size()-1);}
             aktuellePosInPlayList = random;
             this.aktuellerTrack = playListManager.getOneSongFromList(aktuellePlayList.get(random));
             loadSong();
