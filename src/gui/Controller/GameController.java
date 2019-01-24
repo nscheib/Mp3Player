@@ -9,8 +9,7 @@ import javafx.animation.PathTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
@@ -24,22 +23,25 @@ import java.io.*;
 public class GameController {
 
     private GameView view;
-    private Block block;
+    private Block block = new Block(0, 0,1);
     private Block[][] spielFeld = new Block[20][20];
     private String mapName;
     private int sizeX=0,sizeY=0;
     private int fillx,filly = 0;
+
+    private String draggedData;
+    private TranslateTransition translateTransition;
 
     public GameController(Main application, Mp3Player player) {
 
         int x = 10, y = 10;
 
         this.view = new GameView();
-        block = new Block(0, 0,1);
+        //block = new Block(0, 0,1);
 
 
         // Textdatei einlesen und map aufbauen
-        einlesen("world1");
+        einlesen("Worlds/world1.txt");
         mapBau();
         ausgeben();
 
@@ -65,7 +67,7 @@ public class GameController {
 
 
 
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.2),block.getBlock());
+        translateTransition = new TranslateTransition(Duration.seconds(0.2),block.getBlock());
 
 
 
@@ -77,41 +79,101 @@ public class GameController {
                 // schauen das neue position kein block oder rand des spiels ist
                 if (event.getCode() == KeyCode.UP) {
                     //System.out.println("up");
-                    translateTransition.setFromY(block.gety());
-                    translateTransition.setToY(block.gety()-50);
-                    translateTransition.setCycleCount(1);
-                    translateTransition.play();
-                    //block.getBlock().setTranslateY(block.gety()-50);
-                    block.setNewPos(block.getx(),block.gety()-50);
+                    if (block.gety() != 0&& spielFeld[block.getx()/50][(block.gety()-50)/50].getType() != 120) {
+
+                        translateTransition.setFromY(block.gety());
+                        translateTransition.setToY(block.gety()-50);
+                        translateTransition.setCycleCount(1);
+                        translateTransition.play();
+                        //block.getBlock().setTranslateY(block.gety()-50);
+                        block.setNewPos(block.getx(),block.gety()-50);
+                    }else System.out.println("OBERER RAND");
+
 
                 } else if (event.getCode() == KeyCode.DOWN) {
                     //System.out.println("down");
-                    translateTransition.setFromY(block.gety());
-                    translateTransition.setToY(block.gety()+50);
-                    translateTransition.setCycleCount(1);
-                    translateTransition.play();
-                    //block.getBlock().setTranslateY(block.gety()+50);
-                    block.setNewPos(block.getx(),block.gety()+50);
+                    if(block.gety()!=450 && spielFeld[block.getx()/50][(block.gety()+50)/50].getType() != 120){
+
+                        translateTransition.setFromY(block.gety());
+                        translateTransition.setToY(block.gety()+50);
+                        translateTransition.setCycleCount(1);
+                        translateTransition.play();
+                        //block.getBlock().setTranslateY(block.gety()+50);
+                        block.setNewPos(block.getx(),block.gety()+50);
+                        System.out.println(block.getx());
+                        System.out.println(block.gety());
+                        System.out.println(spielFeld[block.getx()/50][block.gety()/50].getType());
+                    }
+
+                    if (spielFeld[block.getx()/50][(block.gety()/50)+1].getType() != 45){
+                        System.out.println("NEIN HIER IST EINE WAND!");
+                    }
+
+
+
 
                 } else if (event.getCode() == KeyCode.LEFT) {
                     //System.out.println("left");
-                    translateTransition.setFromY(block.gety());
-                    translateTransition.setToX(block.getx()-50);
-                    translateTransition.setCycleCount(1);
-                    translateTransition.play();
-                    //block.getBlock().setTranslateX(block.getx()-50);
-                    block.setNewPos(block.getx()-50,block.gety());
+                    if(block.getx() != 0&& spielFeld[(block.getx()-50)/50][block.gety()/50].getType() != 120){
+                        translateTransition.setFromY(block.gety());
+                        translateTransition.setToX(block.getx()-50);
+                        translateTransition.setCycleCount(1);
+                        translateTransition.play();
+                        //block.getBlock().setTranslateX(block.getx()-50);
+                        block.setNewPos(block.getx()-50,block.gety());
+                    }
+
 
                 } else if (event.getCode() == KeyCode.RIGHT) {
                     //System.out.println("right");
-                    translateTransition.setFromY(block.gety());
-                    translateTransition.setToX(block.getx()+50);
-                    translateTransition.setCycleCount(1);
-                    translateTransition.play();
-                    //block.getBlock().setTranslateX(block.getx()+50);
-                    block.setNewPos(block.getx()+50,block.gety());
+                    if(block.getx() != 450&& spielFeld[(block.getx()+50)/50][block.gety()/50].getType() != 120){
+                        translateTransition.setFromY(block.gety());
+                        translateTransition.setToX(block.getx()+50);
+                        translateTransition.setCycleCount(1);
+                        translateTransition.play();
+                        //block.getBlock().setTranslateX(block.getx()+50);
+                        block.setNewPos(block.getx()+50,block.gety());
+                    }
+
 
                 }
+            }
+        });
+
+        view.getPane().setOnDragOver(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != view.getPane()
+                        && event.getDragboard().hasFiles()) {
+                    /* allow for both copying and moving, whatever user chooses */
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                }
+                event.consume();
+            }
+        });
+
+        view.getPane().setOnDragDropped(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+                    draggedData = db.getFiles().toString();
+                    draggedData = draggedData.substring(1,draggedData.length()-1);
+                    einlesen(draggedData);
+                    ausgeben();
+                    view.getPane().getChildren().clear();
+                    mapBau();
+                    view.getPane().getChildren().add(block.getBlock());
+                    success = true;
+                }
+                /* let the source know whether the string was successfully
+                 * transferred and used */
+                event.setDropCompleted(success);
+
+                event.consume();
             }
         });
 
@@ -144,8 +206,18 @@ public class GameController {
                 insert = new Rectangle(50,50,Color.BLUE);
                 if (spielFeld[i][j].getType()==120){
                     insert.setFill(Color.RED);
-                }else if (spielFeld[i][j].getType()==45){
+                }else if (spielFeld[i][j].getType()==45) {
                     insert.setFill(Color.GREEN);
+                }else if (spielFeld[i][j].getType()==111){
+                    insert.setFill(Color.YELLOW);
+                    //ToDo
+                    // Translatetransition irgendwie richtig machen
+//                    translateTransition2 = new TranslateTransition(Duration.seconds(1),block.getBlock());
+//                    translateTransition2.setFromY(block.gety());
+//                    translateTransition2.setToX(j*50);
+//                    translateTransition2.play();
+                    block.setNewPos(i*50,j*50);
+
                 }
                 insert.relocate(spielFeld[i][j].getx(),spielFeld[i][j].gety());
                 view.getPane().getChildren().add(insert);
@@ -168,6 +240,9 @@ public class GameController {
                 if (spielFeld[i][j].getType()==45){
                     System.out.print("- ");
                 }
+                if (spielFeld[i][j].getType()==111){
+                    System.out.print("o ");
+                }
 
             }
             System.out.println();
@@ -180,9 +255,11 @@ public class GameController {
 
         int counterY = 0;
         int posX,posY;
+        this.sizeX=0;
+        this.sizeY=0;
 
         try {
-            BufferedReader bReader = new BufferedReader(new FileReader("Worlds/"+worldname+".txt"));
+            BufferedReader bReader = new BufferedReader(new FileReader(worldname));
             String line = bReader.readLine();
             this.sizeX = line.length();
             while (line != null) {

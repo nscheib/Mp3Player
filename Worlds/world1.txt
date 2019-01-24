@@ -1,7 +1,7 @@
-xxxxxxxxxx
-xxxxxxxxxx
-xxxxxxxxxx
-xxxxxxxxxx
+o-xxxxxxxx
+---xxxxxxx
+xx--xxxxxx
+xxx--xxxxx
 xxxx--xxxx
 xxxx--xxxx
 xxxxxxxxxx
