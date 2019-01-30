@@ -3,13 +3,10 @@ package businessLogic;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.image.Image;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 public class Track {
 
@@ -69,6 +66,15 @@ public class Track {
             Image image = new Image("gui/images/song.png");
             return image;
         }
+    }
+
+    public boolean verifyPicture() {
+        if(song.getId3v2Tag().getAlbumImage() != null) {
+            return true;
+        } else if (song.getId3v2Tag().getAlbumImage() == null) {
+            return false;
+        }
+        return false;
     }
 
 }

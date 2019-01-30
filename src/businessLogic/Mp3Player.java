@@ -28,7 +28,6 @@ public class Mp3Player extends Thread implements Runnable {
 
     //Constructor
     public Mp3Player() {
-        //skipLefthistory = new ArrayList<>();
         this.playListManager = new PlayListManager();
         this.minim = new SimpleMinim(true);
         this.aktuellePlayList = playListManager.loadChoosenPlayList("Playlisten/Standart.m3u");
@@ -54,13 +53,14 @@ public class Mp3Player extends Thread implements Runnable {
 
             // Erstellt einen neuen Thread.
             this.playingThread = new Thread(() -> {
+
                 // Solange der Player spielt und nicht interrupted wurde, wird die Zeit gesetzt
                 while (player.isPlaying() && !playingThread.isInterrupted()) {
                     try {
-                        // Platfrom.runLater wird bei schnellen und einfachen Operationen benutzt
-                        Platform.runLater(() -> currentTime.setValue(player.position()));
                         // Wird benötigt um die Zeit setzten zu können. 1000 setzt jede Sekunde die Zeit neu
-                        Thread.sleep((1000));
+                        playingThread.sleep((1000));
+
+                        Platform.runLater( ()-> currentTime.setValue(player.position()));
                     } catch (InterruptedException e) {
                         System.out.println("Interrupted!");
                         playingThread.interrupt();
@@ -69,10 +69,12 @@ public class Mp3Player extends Thread implements Runnable {
                 // Wenn eine Playlist geladen und der Thread nicht interrupted ist, dann lade das nächste Lied oder das
                 // gleiche wenn loop==true
                 if ((aktuellePlayList != null) && !playingThread.isInterrupted()) {
-                    Platform.runLater(() -> setNextTrack(loop));
+                    Platform.runLater( ()-> setNextTrack(loop));
                 }
             });
             this.playingThread.start();
+        } else {
+            playingThread.interrupt();
         }
     }
 

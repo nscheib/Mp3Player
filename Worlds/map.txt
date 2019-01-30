@@ -1,0 +1,10 @@
+o-xxxxxxxx
+x-+++++++x
+xx++++++xx
+xxx+++++xx
+xx++++xxxx
+xxxx++++xx
+xxxx++xxxx
+xxxx+++xxx
+xxxxxxxxxx
+xxxxxxxxxx

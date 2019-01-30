@@ -1,0 +1,17 @@
+/*
+---------- GAME ---------------------------------------------------------------------------------------------------
+*/
+.pane {
+    -fx-background-color: green;
+    -fx-max-height: 500;
+    -fx-max-width: 500;
+}
+
+.pacman {
+    -fx-pref-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-background-image: url("/gui/images/game.png");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 50%;
+}

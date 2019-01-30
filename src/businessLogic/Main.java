@@ -1,8 +1,8 @@
 package businessLogic;
 
-import gui.Controller.GameController;
-import gui.Controller.Mp3Controller;
-import gui.Controller.PlayListController;
+import gui.Game.GameController;
+import gui.Mp3Player.Mp3Controller;
+import gui.PlayListen.PlayListController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -33,6 +33,7 @@ public class Main extends Application {
      */
     public void init() {
         player = new Mp3Player();
+
     }
 
     /**

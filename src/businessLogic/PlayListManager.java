@@ -101,6 +101,25 @@ public class PlayListManager {
         return songsInPlaylist;
     }
 
+    public boolean deletePlayList(String playlist) {
+        for (int i = 0; i < allPlayLists.size()-1; i++) {
+            if(allPlayLists.get(i).equalsIgnoreCase("Playlisten/" + playlist + ".m3u")) {
+                allPlayLists.remove(i);
+            }
+        }
+
+        File file = new File("Playlisten");
+        File[] tempFile = file.listFiles();
+
+        for (int i = 0; i < tempFile.length-1;i++) {
+            if (tempFile[i].toString().equals("Playlisten\\" + playlist + ".m3u")) {
+                tempFile[i].delete();
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Methode gibt einen bestimmtes Track obj. aus der HashMap zurück
      * @param trackname

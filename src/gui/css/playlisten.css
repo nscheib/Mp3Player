@@ -1,0 +1,58 @@
+/*
+---------- PLAYLIST ---------------------------------------------------------------------------------------------------
+*/
+
+.playlistPlayButton {
+    -fx-pref-height: 20px;
+    -fx-pref-width: 100px;
+    -fx-background-image: url("/gui/images/play.png");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 60%;
+    -fx-border-width: 0.3;
+    -fx-background-radius: 2, 2;
+    -fx-border-color: #464646;
+    -fx-border-radius: 2;
+    -fx-padding: 3em, 1em, 1em, 1em;
+}
+
+.playBSZwei:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #cdcdcd;
+}
+
+.loadPlaylist {
+    -fx-pref-height: 20px;
+    -fx-pref-width: 100px;
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 60%;
+    -fx-border-width: 0.3;
+    -fx-background-radius: 2, 2;
+    -fx-border-color: #464646;
+    -fx-border-radius: 2;
+    -fx-padding: 1em, 1em, 1em, 1em;
+}
+
+.loadPlaylist:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #cdcdcd;
+}
+
+.delete {
+    -fx-pref-height: 20px;
+    -fx-pref-width: 100px;
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;
+    -fx-background-size: 60%;
+    -fx-border-width: 0.3;
+    -fx-background-radius: 2, 2;
+    -fx-border-color: #464646;
+    -fx-border-radius: 2;
+    -fx-padding: 1em, 1em, 1em, 1em;
+}
+
+.delete:hover {
+    -fx-text-decoration: none;
+    -fx-background-color: #cdcdcd;
+}
