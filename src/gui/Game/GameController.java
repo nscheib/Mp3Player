@@ -24,7 +24,7 @@ public class GameController {
     private Pacman pacman = new Pacman(0, 0);
     private Block block = new Block(0, 0, 1);
     private Ground ground = new Ground(0, 0, 1);
-    private Block[][] spielFeld = new Block[20][20];
+    private Block[][] spielFeld = new Block[10][10];
     private String mapName;
     private int sizeX=0,sizeY=0;
     private int fillx,filly = 0;
@@ -275,14 +275,82 @@ public class GameController {
 
     public void checktype() {
         if(spielFeld[(pacman.getx())/50][pacman.gety()/50].getType() == 43 ) {
-            Rectangle newblock = new Rectangle(50,50,Color.BLUE);
-            count++;
-            newblock.setFill(Color.GREEN);
-            newblock.toBack();
-            newblock.relocate(pacman.getx(),pacman.gety());
-            view.getPane().getChildren().add(newblock);
-            //ToDO newblock muss hinter pacman gesetzt werden
+            spielFeld[(pacman.getx())/50][pacman.gety()/50].changeType("-");
+            spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock().setFill(Color.GREEN);
+
+
+            mapAktualisieren();
+
+
+
+
+//            Rectangle newblock = new Rectangle(50,50,Color.BLUE);
+//            count++;
+//            newblock.setFill(Color.GREEN);
+//            newblock.toBack();
+//            newblock.relocate(pacman.getx(),pacman.gety());
+//            view.getPane().getChildren().add(newblock);
+//            //ToDO newblock muss hinter pacman gesetzt werden
         }
+    }
+
+    private void mapAktualisieren() {
+
+        view.getPane().getChildren().clear();
+
+        Rectangle insert;
+
+        for (int i = 0; i < sizeY;i++){
+            for (int j= 0; j < sizeX;j++){
+                insert = new Rectangle(50,50,Color.BLUE);
+                if (spielFeld[i][j].getType()==120 /*x*/){
+                    insert.setFill(Color.RED);
+                }else if (spielFeld[i][j].getType()==45 /*-*/) {
+                    insert.setFill(Color.GREEN);
+                }else if (spielFeld[i][j].getType()==111 /*o*/){
+                    insert.setFill(Color.YELLOW);
+                    //ToDo
+                    // Translatetransition irgendwie richtig machen
+//                    translateTransition2 = new TranslateTransition(Duration.seconds(1),block.getBlock());
+//                    translateTransition2.setFromY(block.gety());
+//                    translateTransition2.setToX(j*50);
+//                    translateTransition2.play();
+                    block.setNewPos(i*50,j*50);
+
+                } else if (spielFeld[i][j].getType() == 43 /*+*/){
+                    Image img = new Image("game/images/circle.png");
+                    insert.setFill(new ImagePattern(img));
+
+                    // ToDo Bild muss kleiner Scaliert werden
+                    // Bild selbst kleiner machen hilft nicht
+                    //   insert.setHeight();  && insert.setWidth();
+                    // funktioniert zwar aber das Bild wird auf eine
+                    // falsche Pos gesetzt
+                } else if (spielFeld[i][j].getBlock().getFill() == Color.ORANGE){
+                    insert.setFill(Color.ORANGE);
+                }
+                insert.relocate(spielFeld[i][j].getx(),spielFeld[i][j].gety());
+                view.getPane().getChildren().add(insert);
+
+
+            }
+        }
+        view.getPane().getChildren().add(pacman.getfigure());
+
+//        for (int i = 0;i < sizeY; i++){
+//            for (int j = 0; j < sizeX;j++){
+//                System.out.println("X: "+j+"   Y: "+i);
+//                if (j == pacman.getx() && i == pacman.gety()){
+//                    view.getPane().getChildren().add(spielFeld[i][j].getBlock());
+//                }
+//
+//
+//            }
+//
+//
+//        }
+//        view.getPane().getChildren().add(pacman.getfigure());
+
     }
 
     private void rechtklick(int x, int y) {
