@@ -67,17 +67,17 @@ public class GameController {
 
 
 
-        Pacman insert = new Pacman(0,0);
-        pacman = insert;
-        insert.setNewPos(insert.getx(),insert.gety());
+//        Pacman insert = new Pacman(0,0);
+//        pacman = insert;
+//        insert.setNewPos(insert.getx(),insert.gety());
+//
+//
+//        //Setzte Spielerfigur
+//        view.getPane().getChildren().add(insert.getfigure());
 
 
-        //Setzte Spielerfigur
-        view.getPane().getChildren().add(insert.getfigure());
 
 
-
-        translateTransition = new TranslateTransition(Duration.seconds(0.2),pacman.getfigure());
 
 
 
@@ -97,7 +97,11 @@ public class GameController {
                         translateTransition.play();
                         //block.getBlock().setTranslateY(block.gety()-50);
                         pacman.setNewPos(pacman.getx(),pacman.gety()-50);
-                    }else System.out.println("OBERER RAND");
+                    }
+//                    translateTransition.setFromY(pacman.gety());
+//                    translateTransition.setToY(pacman.gety());
+//                    translateTransition.setCycleCount(1);
+//                    translateTransition.play();
                     checktype();
 
                 } else if (event.getCode() == KeyCode.DOWN) {
@@ -110,14 +114,15 @@ public class GameController {
                         translateTransition.play();
                         //block.getBlock().setTranslateY(block.gety()+50);
                         pacman.setNewPos(pacman.getx(),pacman.gety()+50);
-                        System.out.println(pacman.getx());
-                        System.out.println(pacman.gety());
-                        System.out.println(spielFeld[pacman.getx()/50][pacman.gety()/50].getType());
+//                        System.out.println(pacman.getx());
+//                        System.out.println(pacman.gety());
+//                        System.out.println(spielFeld[pacman.getx()/50][pacman.gety()/50].getType());
                     }
 
-                    if (spielFeld[pacman.getx()/50][(pacman.gety()/50)+1].getType() != 45){
-                        System.out.println("NEIN HIER IST EINE WAND!");
-                    }
+//                    translateTransition.setFromY(pacman.gety());
+//                    translateTransition.setToY(pacman.gety());
+//                    translateTransition.setCycleCount(1);
+//                    translateTransition.play();
                     checktype();
 
 
@@ -133,6 +138,10 @@ public class GameController {
                         //block.getBlock().setTranslateX(block.getx()-50);
                         pacman.setNewPos(pacman.getx()-50,pacman.gety());
                     }
+//                    translateTransition.setFromY(pacman.gety());
+//                    translateTransition.setToX(pacman.getx());
+//                    translateTransition.setCycleCount(1);
+//                    translateTransition.play();
                     checktype();
 
 
@@ -146,6 +155,10 @@ public class GameController {
                         //block.getBlock().setTranslateX(block.getx()+50);
                         pacman.setNewPos(pacman.getx()+50,pacman.gety());
                     }
+//                    translateTransition.setFromY(pacman.gety());
+//                    translateTransition.setToX(pacman.getx());
+//                    translateTransition.setCycleCount(1);
+//                    translateTransition.play();
                     checktype();
 
                 }
@@ -204,6 +217,8 @@ public class GameController {
             }
         });
 
+//        pacman.getfigure()
+
 
         // Listener die schauen dass pausiert wenn laenge von maxlaenge erreicht ist und weiterspielt wenn die erhöht wird und es pausiert ist.
 
@@ -213,11 +228,15 @@ public class GameController {
                 if (player.currentTimeProperty().get() >= maxPlayLength.get()){
                     player.pause();
                 }
-                System.out.println("song: "+(int)player.getTrack().getLenght() + "     aktuell: "+player.currentTimeProperty().get());
-                System.out.println("BERECHNUNG : "+((int)player.getTrack().getLenght() - player.currentTimeProperty().get()) );
+//                System.out.println("song: "+(int)player.getTrack().getLenght() + "     aktuell: "+player.currentTimeProperty().get());
+//                System.out.println("BERECHNUNG : "+((int)player.getTrack().getLenght() - player.currentTimeProperty().get()) );
                 if ((int)player.getTrack().getLenght() - player.currentTimeProperty().get() < 100 ){
                     player.stopPlayer();
                 }
+//                translateTransition.setFromY(pacman.gety());
+//                translateTransition.setToX(pacman.getx());
+//                translateTransition.setCycleCount(1);
+//                translateTransition.play();
             }
         });
 
@@ -252,6 +271,7 @@ public class GameController {
 //                    translateTransition2.setFromY(block.gety());
 //                    translateTransition2.setToX(j*50);
 //                    translateTransition2.play();
+                    pacman = new Pacman(i*50,j*50);
                     block.setNewPos(i*50,j*50);
 
                 } else if (spielFeld[i][j].getType() == 43 /*+*/){
@@ -269,7 +289,14 @@ public class GameController {
                 view.getPane().getChildren().add(insert);
 
             }
+
         }
+        view.getPane().getChildren().add(pacman.getfigure());
+        translateTransition = new TranslateTransition(Duration.seconds(0.2),pacman.getfigure());
+        translateTransition.setToX(pacman.getx());
+        translateTransition.setToY(pacman.gety());
+        translateTransition.setCycleCount(1);
+        translateTransition.play();
 
         // berechnen der songSnippet
         songSnippet = (int)player.getTrack().getLenght() / punkte.get();
