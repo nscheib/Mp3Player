@@ -247,73 +247,6 @@ public class GameController {
         songSnippet = (int)player.getTrack().getLenght() / punkte.get();
     }
 
-    private void ausgeben() {
-
-        System.out.println("\nMap: "+ mapName+"\n");
-        for (int i = 0; i < sizeY ; i++){
-            for (int j = 0; j < sizeX;j++){
-                if (spielFeld[i][j].getType()==120){
-                    System.out.print("x ");
-                }
-                if (spielFeld[i][j].getType()==45){
-                    System.out.print("- ");
-                }
-                if (spielFeld[i][j].getType()==111){
-                    System.out.print("o ");
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    private void einlesen(String worldname) {
-
-        this.mapName = worldname;
-        int counterY = 0;
-        int posX,posY;
-        this.sizeX=0;
-        this.sizeY=0;
-
-        try {
-            BufferedReader bReader = new BufferedReader(new FileReader(worldname));
-            String line = bReader.readLine();
-            this.sizeX = line.length();
-            while (line != null) {
-                posY = this.sizeY * 50;
-                this.sizeY++;
-                for (int x = 0; x < sizeX; x++){
-                    // posX ist positionswert der immer um 50 erhöht wird
-                    posX = x * 50;
-                    spielFeld[x][counterY] = new Block (posX,posY,line.charAt(x));
-                }
-                line = bReader.readLine();
-                counterY++;
-
-            }
-        }catch(java.io.IOException  e){
-            e.printStackTrace();
-        }
-    }
-
-    public void checktype() {
-        if(spielFeld[(pacman.getx())/50][pacman.gety()/50].getType() == 43 ) {
-            spielFeld[(pacman.getx())/50][pacman.gety()/50].changeType("-");
-            //spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock().setFill(Color.GREEN);
-            punkte.setValue(punkte.get()-1);
-            maxPlayLength.setValue(maxPlayLength.getValue()+ songSnippet);
-            mapAktualisieren();
-
-
-//            Rectangle newblock = new Rectangle(50,50,Color.BLUE);
-//            count++;
-//            newblock.setFill(Color.GREEN);
-//            newblock.toBack();
-//            newblock.relocate(pacman.getx(),pacman.gety());
-//            view.getPane().getChildren().add(newblock);
-//            //ToDO newblock muss hinter pacman gesetzt werden
-        }
-    }
-
     private void mapAktualisieren() {
 
         view.getPane().getChildren().clear();
@@ -346,6 +279,74 @@ public class GameController {
         }
         view.getPane().getChildren().add(pacman.getfigure());
         score.setValue(score.get() + 1 );
+    }
+
+    private void einlesen(String worldname) {
+
+        this.mapName = worldname;
+        int counterY = 0;
+        int posX,posY;
+        this.sizeX=0;
+        this.sizeY=0;
+
+        try {
+            BufferedReader bReader = new BufferedReader(new FileReader(worldname));
+            String line = bReader.readLine();
+            this.sizeX = line.length();
+            while (line != null) {
+                posY = this.sizeY * 50;
+                this.sizeY++;
+                for (int x = 0; x < sizeX; x++){
+                    // posX ist positionswert der immer um 50 erhöht wird
+                    posX = x * 50;
+                    spielFeld[x][counterY] = new Block (posX,posY,line.charAt(x));
+                }
+                line = bReader.readLine();
+                counterY++;
+
+            }
+        }catch(java.io.IOException  e){
+            e.printStackTrace();
+        }
+    }
+    private void ausgeben() {
+
+        System.out.println("\nMap: "+ mapName+"\n");
+        for (int i = 0; i < sizeY ; i++){
+            for (int j = 0; j < sizeX;j++){
+                if (spielFeld[i][j].getType()==120){
+                    System.out.print("x ");
+                }
+                if (spielFeld[i][j].getType()==45){
+                    System.out.print("- ");
+                }
+                if (spielFeld[i][j].getType()==111){
+                    System.out.print("o ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+
+
+    public void checktype() {
+        if(spielFeld[(pacman.getx())/50][pacman.gety()/50].getType() == 43 ) {
+            spielFeld[(pacman.getx())/50][pacman.gety()/50].changeType("-");
+            //spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock().setFill(Color.GREEN);
+            punkte.setValue(punkte.get()-1);
+            maxPlayLength.setValue(maxPlayLength.getValue()+ songSnippet);
+            mapAktualisieren();
+
+
+//            Rectangle newblock = new Rectangle(50,50,Color.BLUE);
+//            count++;
+//            newblock.setFill(Color.GREEN);
+//            newblock.toBack();
+//            newblock.relocate(pacman.getx(),pacman.gety());
+//            view.getPane().getChildren().add(newblock);
+//            //ToDO newblock muss hinter pacman gesetzt werden
+        }
     }
 
     private void rechtklick(int x, int y) {
