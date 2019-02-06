@@ -6,6 +6,9 @@ import game.Block;
 import game.Ground;
 import game.Pacman;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
@@ -15,7 +18,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
 
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class GameController {
@@ -28,15 +30,21 @@ public class GameController {
     private String mapName;
     private int sizeX=0,sizeY=0;
     private int fillx,filly = 0;
+    private Mp3Player player;
 
     private String draggedData;
     private TranslateTransition translateTransition;
-    private int count;
+    private IntegerProperty score = new SimpleIntegerProperty(0);
+    private IntegerProperty punkte = new SimpleIntegerProperty(0);
+    private IntegerProperty maxPlayLength = new SimpleIntegerProperty(0);
+    private int songSnippet = 0;
+
 
     public GameController(){}
     public GameController(Main application, Mp3Player player) {
 
         this.view = new GameView();
+        this.player = player;
 
 
         // Textdatei einlesen und map aufbauen
@@ -181,6 +189,49 @@ public class GameController {
             }
         });
 
+        // SCORE LISTENER
+        score.addListener(new javafx.beans.value.ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                view.setScore(score.get());
+            }
+        });
+
+        punkte.addListener(new javafx.beans.value.ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                view.setPunkte(punkte.get());
+            }
+        });
+
+
+        // Listener die schauen dass pausiert wenn laenge von maxlaenge erreicht ist und weiterspielt wenn die erhöht wird und es pausiert ist.
+
+        player.currentTimeProperty().addListener(new javafx.beans.value.ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (player.currentTimeProperty().get() >= maxPlayLength.get()){
+                    player.pause();
+                }
+                System.out.println("song: "+(int)player.getTrack().getLenght() + "     aktuell: "+player.currentTimeProperty().get());
+                System.out.println("BERECHNUNG : "+((int)player.getTrack().getLenght() - player.currentTimeProperty().get()) );
+                if ((int)player.getTrack().getLenght() - player.currentTimeProperty().get() < 100 ){
+                    player.stopPlayer();
+                }
+            }
+        });
+
+        maxPlayLength.addListener(new javafx.beans.value.ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (!player.isPlaying() && player.currentTimeProperty().get() <= maxPlayLength.get() ){
+                    player.play();
+                }
+            }
+        });
+
+
+
     }
 
     private void mapBau() {
@@ -206,6 +257,7 @@ public class GameController {
                 } else if (spielFeld[i][j].getType() == 43 /*+*/){
                     Image img = new Image("game/images/circle.png");
                     insert.setFill(new ImagePattern(img));
+                    punkte.set( punkte.getValue()+1 );
 
                     // ToDo Bild muss kleiner Scaliert werden
                     // Bild selbst kleiner machen hilft nicht
@@ -218,6 +270,10 @@ public class GameController {
 
             }
         }
+
+        // berechnen der songSnippet
+        songSnippet = (int)player.getTrack().getLenght() / punkte.get();
+
     }
 
     private void ausgeben() {
@@ -277,8 +333,8 @@ public class GameController {
         if(spielFeld[(pacman.getx())/50][pacman.gety()/50].getType() == 43 ) {
             spielFeld[(pacman.getx())/50][pacman.gety()/50].changeType("-");
             spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock().setFill(Color.GREEN);
-
-
+            punkte.setValue(punkte.get()-1);
+            maxPlayLength.setValue(maxPlayLength.getValue()+ songSnippet);
             mapAktualisieren();
 
 
@@ -328,6 +384,7 @@ public class GameController {
                     // falsche Pos gesetzt
                 } else if (spielFeld[i][j].getBlock().getFill() == Color.ORANGE){
                     insert.setFill(Color.ORANGE);
+
                 }
                 insert.relocate(spielFeld[i][j].getx(),spielFeld[i][j].gety());
                 view.getPane().getChildren().add(insert);
@@ -337,19 +394,8 @@ public class GameController {
         }
         view.getPane().getChildren().add(pacman.getfigure());
 
-//        for (int i = 0;i < sizeY; i++){
-//            for (int j = 0; j < sizeX;j++){
-//                System.out.println("X: "+j+"   Y: "+i);
-//                if (j == pacman.getx() && i == pacman.gety()){
-//                    view.getPane().getChildren().add(spielFeld[i][j].getBlock());
-//                }
-//
-//
-//            }
-//
-//
-//        }
-//        view.getPane().getChildren().add(pacman.getfigure());
+        score.setValue(score.get() + 1 );
+
 
     }
 

@@ -3,6 +3,7 @@ package gui.Game;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -14,6 +15,7 @@ public class GameView extends BorderPane {
     private VBox centerVBox, buttonVBox;
     private HBox topHBox;
     private Pane pane;
+    private Label score,punkte;
 
 
     public GameView() {
@@ -41,7 +43,7 @@ public class GameView extends BorderPane {
 
 
         // Children
-        topHBox.getChildren().addAll(mp3playerButton, playListButton, gameButton, settingButton);
+        topHBox.getChildren().addAll(mp3playerButton, playListButton, gameButton, settingButton, score,punkte);
 
 
         // Scene
@@ -61,6 +63,8 @@ public class GameView extends BorderPane {
 
         // Top
         topHBox = new HBox();
+        score = new Label("Score: 0");
+        punkte = new Label("Anzahl Punkte: 0");
 
         // Center
         centerVBox = new VBox();
@@ -84,5 +88,13 @@ public class GameView extends BorderPane {
 
     public Pane getPane() {
         return pane;
+    }
+
+    public void setScore(int i) {
+        score.setText("Score: "+i);
+    }
+
+    public void setPunkte(int i) {
+        punkte.setText("Punkte: " + i);
     }
 }

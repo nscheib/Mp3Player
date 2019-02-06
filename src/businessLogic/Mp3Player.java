@@ -292,6 +292,7 @@ public class Mp3Player extends Thread implements Runnable {
      */
     public boolean getpause() { return pause; }
 
+
     public void setCurrentTime(int currentTime) {
         this.currentTime.setValue(currentTime);
     }
