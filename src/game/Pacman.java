@@ -31,4 +31,8 @@ public class Pacman {
         this.x = posx;
         this.y = posy;
     }
+
+    public int getPosition(){
+        return x;
+    }
 }
