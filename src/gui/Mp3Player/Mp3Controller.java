@@ -3,7 +3,6 @@ package gui.Mp3Player;
 import businessLogic.Main;
 import businessLogic.Mp3Player;
 import businessLogic.Track;
-import gui.Mp3Player.Mp3View;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,7 +26,7 @@ public class Mp3Controller {
         // Stylesheet, aus welcher Datei die Einstellung gelesen werden sollen
         view.getStylesheets().addAll(
                 getClass().getResource("/gui/css/style.css").toExternalForm(),
-                getClass().getResource("/gui/css/mp3player.css").toExternalForm()
+                getClass().getResource("/gui/Mp3Player/mp3player.css").toExternalForm()
         );
 
         // Button Funktionen

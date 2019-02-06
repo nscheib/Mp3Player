@@ -217,8 +217,6 @@ public class GameController {
             }
         });
 
-//        pacman.getfigure()
-
 
         // Listener die schauen dass pausiert wenn laenge von maxlaenge erreicht ist und weiterspielt wenn die erhöht wird und es pausiert ist.
 
@@ -289,7 +287,6 @@ public class GameController {
                 view.getPane().getChildren().add(insert);
 
             }
-
         }
         view.getPane().getChildren().add(pacman.getfigure());
         translateTransition = new TranslateTransition(Duration.seconds(0.2),pacman.getfigure());
@@ -359,7 +356,7 @@ public class GameController {
     public void checktype() {
         if(spielFeld[(pacman.getx())/50][pacman.gety()/50].getType() == 43 ) {
             spielFeld[(pacman.getx())/50][pacman.gety()/50].changeType("-");
-            spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock().setFill(Color.GREEN);
+            //spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock().setFill(Color.GREEN);
             punkte.setValue(punkte.get()-1);
             maxPlayLength.setValue(maxPlayLength.getValue()+ songSnippet);
             mapAktualisieren();
