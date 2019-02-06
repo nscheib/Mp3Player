@@ -3,6 +3,7 @@ package gui.Game;
 import businessLogic.Main;
 import businessLogic.Mp3Player;
 import game.Block;
+import game.Enemy;
 import game.Ground;
 import game.Pacman;
 import javafx.animation.TranslateTransition;
@@ -23,6 +24,7 @@ import java.io.*;
 public class GameController {
 
     private GameView view;
+    private Enemy enemy1 = new Enemy(3,2);
     private Pacman pacman = new Pacman(0, 0);
     private Block block = new Block(0, 0, 1);
     private Ground ground = new Ground(0, 0, 1);
@@ -39,19 +41,16 @@ public class GameController {
     private IntegerProperty maxPlayLength = new SimpleIntegerProperty(0);
     private int songSnippet = 0;
 
-
     public GameController(){}
     public GameController(Main application, Mp3Player player) {
 
         this.view = new GameView();
         this.player = player;
 
-
         // Textdatei einlesen und map aufbauen
         einlesen("Worlds/map.txt");
         mapBau();
         ausgeben();
-
 
         // Stylesheet, aus welcher Datei die Einstellung gelesen werden sollen
         view.getStylesheets().addAll(
@@ -65,29 +64,23 @@ public class GameController {
         view.getgameButton().setOnAction(e -> application.switchScene("Game"));
         //view.getSettingsButton().setOnAction(e-> application.switchScene("Settings"));
 
-
-
         Pacman insert = new Pacman(0,0);
         pacman = insert;
         insert.setNewPos(insert.getx(),insert.gety());
-
-
+/*
+        Enemy insert2 = new Enemy(10,2);
+        enemy1 = insert2;
+        insert.setNewPos(insert2.getx(),insert2.gety());
+*/
         //Setzte Spielerfigur
-        view.getPane().getChildren().add(insert.getfigure());
-
-
+        view.getPane().getChildren().addAll(insert.getfigure()); //, insert2.getfigure());
 
         translateTransition = new TranslateTransition(Duration.seconds(0.2),pacman.getfigure());
 
-
-
         view.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-
             @Override
             public void handle(KeyEvent event) {
                 Rectangle bl;
-                // ToDo
-                // schauen das neue position kein block oder rand des spiels ist
                 if (event.getCode() == KeyCode.UP) {
                     //System.out.println("up");
                     if (pacman.gety() != 0&& spielFeld[pacman.getx()/50][(pacman.gety()-50)/50].getType() != 120) {
@@ -99,11 +92,9 @@ public class GameController {
                         pacman.setNewPos(pacman.getx(),pacman.gety()-50);
                     }else System.out.println("OBERER RAND");
                     checktype();
-
                 } else if (event.getCode() == KeyCode.DOWN) {
                     //System.out.println("down");
                     if(pacman.gety()!=450 && spielFeld[pacman.getx()/50][(pacman.gety()+50)/50].getType() != 120){
-
                         translateTransition.setFromY(pacman.gety());
                         translateTransition.setToY(pacman.gety()+50);
                         translateTransition.setCycleCount(1);
@@ -114,15 +105,10 @@ public class GameController {
                         System.out.println(pacman.gety());
                         System.out.println(spielFeld[pacman.getx()/50][pacman.gety()/50].getType());
                     }
-
                     if (spielFeld[pacman.getx()/50][(pacman.gety()/50)+1].getType() != 45){
                         System.out.println("NEIN HIER IST EINE WAND!");
                     }
                     checktype();
-
-
-
-
                 } else if (event.getCode() == KeyCode.LEFT) {
                     //System.out.println("left");
                     if(pacman.getx() != 0&& spielFeld[(pacman.getx()-50)/50][pacman.gety()/50].getType() != 120){
@@ -134,8 +120,6 @@ public class GameController {
                         pacman.setNewPos(pacman.getx()-50,pacman.gety());
                     }
                     checktype();
-
-
                 } else if (event.getCode() == KeyCode.RIGHT) {
                     //System.out.println("right");
                     if(pacman.getx() != 450&& spielFeld[(pacman.getx()+50)/50][pacman.gety()/50].getType() != 120){
@@ -147,7 +131,6 @@ public class GameController {
                         pacman.setNewPos(pacman.getx()+50,pacman.gety());
                     }
                     checktype();
-
                 }
             }
         });
@@ -229,9 +212,6 @@ public class GameController {
                 }
             }
         });
-
-
-
     }
 
     private void mapBau() {
@@ -241,11 +221,11 @@ public class GameController {
             for (int j= 0; j < sizeX;j++){
                 insert = new Rectangle(50,50,Color.BLUE);
                 if (spielFeld[i][j].getType()==120 /*x*/){
-                    insert.setFill(Color.RED);
+                    insert.setFill(new ImagePattern(new Image("/game/images/wall-texture.png")));
                 }else if (spielFeld[i][j].getType()==45 /*-*/) {
-                    insert.setFill(Color.GREEN);
+                    insert.setFill(new ImagePattern(new Image("/game/images/ground.png")));
                 }else if (spielFeld[i][j].getType()==111 /*o*/){
-                    insert.setFill(Color.YELLOW);
+                    insert.setFill(new ImagePattern(new Image("/game/images/ground.png")));
                     //ToDo
                     // Translatetransition irgendwie richtig machen
 //                    translateTransition2 = new TranslateTransition(Duration.seconds(1),block.getBlock());
@@ -255,33 +235,21 @@ public class GameController {
                     block.setNewPos(i*50,j*50);
 
                 } else if (spielFeld[i][j].getType() == 43 /*+*/){
-                    Image img = new Image("game/images/circle.png");
+                    Image img = new Image("game/images/ground-texture.png");
                     insert.setFill(new ImagePattern(img));
                     punkte.set( punkte.getValue()+1 );
-
-                    // ToDo Bild muss kleiner Scaliert werden
-                    // Bild selbst kleiner machen hilft nicht
-                    //   insert.setHeight();  && insert.setWidth();
-                    // funktioniert zwar aber das Bild wird auf eine
-                    // falsche Pos gesetzt
                 }
                 insert.relocate(spielFeld[i][j].getx(),spielFeld[i][j].gety());
                 view.getPane().getChildren().add(insert);
-
             }
         }
-
         // berechnen der songSnippet
         songSnippet = (int)player.getTrack().getLenght() / punkte.get();
-
     }
 
     private void ausgeben() {
 
-
         System.out.println("\nMap: "+ mapName+"\n");
-
-
         for (int i = 0; i < sizeY ; i++){
             for (int j = 0; j < sizeX;j++){
                 if (spielFeld[i][j].getType()==120){
@@ -293,7 +261,6 @@ public class GameController {
                 if (spielFeld[i][j].getType()==111){
                     System.out.print("o ");
                 }
-
             }
             System.out.println();
         }
@@ -302,7 +269,6 @@ public class GameController {
     private void einlesen(String worldname) {
 
         this.mapName = worldname;
-
         int counterY = 0;
         int posX,posY;
         this.sizeX=0;
@@ -332,12 +298,10 @@ public class GameController {
     public void checktype() {
         if(spielFeld[(pacman.getx())/50][pacman.gety()/50].getType() == 43 ) {
             spielFeld[(pacman.getx())/50][pacman.gety()/50].changeType("-");
-            spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock().setFill(Color.GREEN);
+            //spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock().setFill(Color.GREEN);
             punkte.setValue(punkte.get()-1);
             maxPlayLength.setValue(maxPlayLength.getValue()+ songSnippet);
             mapAktualisieren();
-
-
 
 
 //            Rectangle newblock = new Rectangle(50,50,Color.BLUE);
@@ -355,16 +319,15 @@ public class GameController {
         view.getPane().getChildren().clear();
 
         Rectangle insert;
-
         for (int i = 0; i < sizeY;i++){
             for (int j= 0; j < sizeX;j++){
                 insert = new Rectangle(50,50,Color.BLUE);
                 if (spielFeld[i][j].getType()==120 /*x*/){
-                    insert.setFill(Color.RED);
+                    insert.setFill(new ImagePattern(new Image("/game/images/wall-texture.png")));
                 }else if (spielFeld[i][j].getType()==45 /*-*/) {
-                    insert.setFill(Color.GREEN);
+                    insert.setFill(new ImagePattern(new Image("/game/images/ground.png")));
                 }else if (spielFeld[i][j].getType()==111 /*o*/){
-                    insert.setFill(Color.YELLOW);
+                    insert.setFill(new ImagePattern(new Image("/game/images/ground.png")));
                     //ToDo
                     // Translatetransition irgendwie richtig machen
 //                    translateTransition2 = new TranslateTransition(Duration.seconds(1),block.getBlock());
@@ -374,29 +337,15 @@ public class GameController {
                     block.setNewPos(i*50,j*50);
 
                 } else if (spielFeld[i][j].getType() == 43 /*+*/){
-                    Image img = new Image("game/images/circle.png");
+                    Image img = new Image("game/images/ground-texture.png");
                     insert.setFill(new ImagePattern(img));
-
-                    // ToDo Bild muss kleiner Scaliert werden
-                    // Bild selbst kleiner machen hilft nicht
-                    //   insert.setHeight();  && insert.setWidth();
-                    // funktioniert zwar aber das Bild wird auf eine
-                    // falsche Pos gesetzt
-                } else if (spielFeld[i][j].getBlock().getFill() == Color.ORANGE){
-                    insert.setFill(Color.ORANGE);
-
                 }
                 insert.relocate(spielFeld[i][j].getx(),spielFeld[i][j].gety());
                 view.getPane().getChildren().add(insert);
-
-
             }
         }
         view.getPane().getChildren().add(pacman.getfigure());
-
         score.setValue(score.get() + 1 );
-
-
     }
 
     private void rechtklick(int x, int y) {

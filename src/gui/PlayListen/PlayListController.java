@@ -45,7 +45,7 @@ public class PlayListController {
         // Stylesheet, aus welcher Datei die Einstellung gelesen werden sollen
         view.getStylesheets().addAll(
                 getClass().getResource("/gui/css/style.css").toExternalForm(),
-                getClass().getResource("/gui/css/playlisten.css").toExternalForm()
+                getClass().getResource("/gui/PlayListen/playlisten.css").toExternalForm()
         );
 
         // Button Funktionen

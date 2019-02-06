@@ -23,8 +23,7 @@ public class GameView extends BorderPane {
         guiElemente();
 
         // Alignment
-        buttonVBox.setAlignment(Pos.CENTER);
-
+        buttonVBox.setAlignment(Pos.TOP_LEFT);
 
         //StyleClasses
         topHBox.getStyleClass().add("topHBox");
@@ -36,20 +35,17 @@ public class GameView extends BorderPane {
         settingButton.getStyleClass().add("settingButton");
         pane.getStyleClass().add("pane");
 
-
-
         //Abstände
         topHBox.setPadding(new Insets(10,10,10,10));
 
-
         // Children
-        topHBox.getChildren().addAll(mp3playerButton, playListButton, gameButton, settingButton, score,punkte);
-
+        topHBox.getChildren().addAll(mp3playerButton, playListButton, gameButton, settingButton); //, score,punkte);
+        buttonVBox.getChildren().addAll(score,punkte);
 
         // Scene
         this.setTop(topHBox);
         this.setCenter(pane);
-        //this.setBottom(buttonVBox);
+        this.setBottom(buttonVBox);
         this.setMinSize(500,800);
         this.setMaxSize(700,900);
         this.getStyleClass().add("background");
@@ -85,7 +81,6 @@ public class GameView extends BorderPane {
     public Button getplayListButton() { return playListButton; }
     public Button getgameButton() { return gameButton; }
     public Button getSettingsButton() { return settingButton; }
-
     public Pane getPane() {
         return pane;
     }

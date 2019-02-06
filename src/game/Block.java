@@ -14,7 +14,7 @@ public class Block {
     public Block(int posx, int posy, int type) {
 
         this.block = new Rectangle(50, 50);
-        this.block.setFill(Color.BLUE);
+        //this.block.setFill(new ImagePattern(new Image("/game/images/wall-texture.png")));
         this.posx = posx;
         this.posy = posy;
         this.type = type;
