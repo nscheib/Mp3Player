@@ -32,7 +32,10 @@ public class Mp3Controller {
         // Button Funktionen
         view.getMp3PlayerButton().setOnAction(e -> application.switchScene("MP3Player"));
         view.getPlayListButton().setOnAction(e -> application.switchScene("PlayListEditor"));
-        view.getGameButton().setOnAction(e -> application.switchScene("Game"));
+        view.getGameButton().setOnAction(e -> {
+            application.switchScene("Game");
+            player.setCurrentMode(1);
+        });
         //Game.getSettingButton().setOnAction(e -> application.switchScene("Settings"));
         view.getStopButton().setOnAction(e -> stop(player));
         view.getPlayButton().setOnAction(e -> play(player));

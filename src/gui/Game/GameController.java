@@ -2,12 +2,14 @@ package gui.Game;
 
 import businessLogic.Main;
 import businessLogic.Mp3Player;
+import businessLogic.Track;
 import game.Block;
 import game.Ground;
 import game.Pacman;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -39,6 +41,8 @@ public class GameController {
     private IntegerProperty maxPlayLength = new SimpleIntegerProperty(0);
     private int songSnippet = 0;
 
+    private String standardSong = "lovewillbewithyou.mp3";
+
 
     public GameController(){}
     public GameController(Main application, Mp3Player player) {
@@ -60,7 +64,12 @@ public class GameController {
         );
 
         // Menü
-        view.getMp3playerButton().setOnAction(e -> application.switchScene("MP3Player"));
+        view.getMp3playerButton().setOnAction(e -> {
+            application.switchScene("MP3Player");
+            player.setCurrentMode(0);
+                }
+
+        );
         view.getplayListButton().setOnAction(e -> application.switchScene("PlayListEditor"));
         view.getgameButton().setOnAction(e -> application.switchScene("Game"));
         //view.getSettingsButton().setOnAction(e-> application.switchScene("Settings"));
@@ -223,7 +232,7 @@ public class GameController {
         player.currentTimeProperty().addListener(new javafx.beans.value.ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (player.currentTimeProperty().get() >= maxPlayLength.get()){
+                if ((player.currentTimeProperty().get() >= maxPlayLength.get()) && player.getCurrentMode().get() == 1){
                     player.pause();
                 }
 //                System.out.println("song: "+(int)player.getTrack().getLenght() + "     aktuell: "+player.currentTimeProperty().get());
@@ -241,11 +250,30 @@ public class GameController {
         maxPlayLength.addListener(new javafx.beans.value.ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if (!player.isPlaying() && player.currentTimeProperty().get() <= maxPlayLength.get() ){
+                if ((!player.isPlaying() && player.currentTimeProperty().get() <= maxPlayLength.get()) && player.getCurrentMode().get() == 1){
                     player.play();
                 }
             }
         });
+
+        // Baut map neu auf und setzt zeit auf null und berechnet damit die zeit auch neu
+        // Hier kann man dann auch noch eventuell schauen dass das Lied geändert wird
+        player.getCurrentMode().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                if (newValue.intValue() == 1){
+                    punkte.set(0);
+                    player.playSelected(new Track(standardSong));
+//                    player.skipleft();
+                    player.pause();
+                    einlesen("Worlds/map.txt");
+                    mapBau();
+                    mapAktualisieren();
+                }
+            }
+        });
+
+
 
 
 
@@ -269,6 +297,7 @@ public class GameController {
 //                    translateTransition2.setFromY(block.gety());
 //                    translateTransition2.setToX(j*50);
 //                    translateTransition2.play();
+
                     pacman = new Pacman(i*50,j*50);
                     block.setNewPos(i*50,j*50);
 
@@ -276,6 +305,7 @@ public class GameController {
                     Image img = new Image("game/images/circle.png");
                     insert.setFill(new ImagePattern(img));
                     punkte.set( punkte.getValue()+1 );
+
 
                     // ToDo Bild muss kleiner Scaliert werden
                     // Bild selbst kleiner machen hilft nicht
@@ -294,6 +324,7 @@ public class GameController {
         translateTransition.setToY(pacman.gety());
         translateTransition.setCycleCount(1);
         translateTransition.play();
+
 
         // berechnen der songSnippet
         songSnippet = (int)player.getTrack().getLenght() / punkte.get();
@@ -325,6 +356,7 @@ public class GameController {
 
     private void einlesen(String worldname) {
 
+        score.set(0);
         this.mapName = worldname;
 
         int counterY = 0;
@@ -342,6 +374,7 @@ public class GameController {
                 for (int x = 0; x < sizeX; x++){
                     // posX ist positionswert der immer um 50 erhöht wird
                     posX = x * 50;
+
                     spielFeld[x][counterY] = new Block (posX,posY,line.charAt(x));
                 }
                 line = bReader.readLine();
@@ -359,6 +392,7 @@ public class GameController {
             //spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock().setFill(Color.GREEN);
             punkte.setValue(punkte.get()-1);
             maxPlayLength.setValue(maxPlayLength.getValue()+ songSnippet);
+            score.setValue(score.get() + 1 );
             mapAktualisieren();
 
 
@@ -418,7 +452,7 @@ public class GameController {
         }
         view.getPane().getChildren().add(pacman.getfigure());
 
-        score.setValue(score.get() + 1 );
+
 
 
     }

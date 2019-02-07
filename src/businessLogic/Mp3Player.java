@@ -26,8 +26,14 @@ public class Mp3Player extends Thread implements Runnable {
     private Thread playingThread;
     private boolean pause, initialisiert = false;
 
+    private SimpleIntegerProperty currentMode; // 0 mp3player, 1 game
+
+//    private Thread mp3PlayerThread;
+
     //Constructor
     public Mp3Player() {
+        // Start des Spiels setzt, da man im mp3Player startet, CurrentMode auf 0
+        currentMode = new SimpleIntegerProperty(0);
         this.playListManager = new PlayListManager();
         this.minim = new SimpleMinim(true);
         this.aktuellePlayList = playListManager.loadChoosenPlayList("Playlisten/Standart.m3u");
