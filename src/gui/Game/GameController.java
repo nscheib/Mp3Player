@@ -7,7 +7,9 @@ import game.Block;
 import game.Ground;
 import game.Pacman;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,6 +19,8 @@ import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
 
@@ -47,8 +51,10 @@ public class GameController {
 //    private IntegerProperty loaded = new SimpleIntegerProperty(0); //0 nein, 1 ja
     private ArrayList<String> maps = new ArrayList<String>(Arrays.asList(new File ("Worlds").list()));
     private String aktuelleMap = maps.get(0);
-    private boolean spielEnde = false;
+    private BooleanProperty spielEnde = new SimpleBooleanProperty(false);
+    private BooleanProperty spielStart = new SimpleBooleanProperty(true);
     private int endergebnis;
+    private boolean nextLevel = false;
 
 //    private final Image pacmanAnimation = new Image("pacmanAnimation.png");
 //    private final ImageView imageView = new ImageView(pacmanAnimation);
@@ -60,12 +66,15 @@ public class GameController {
 
         this.view = new GameView();
         this.player = player;
+        System.out.println("\n"+maps.get(0));
+        System.out.println("\n"+maps.get(1));
+
+        // Animation vorbereiten
+//        imageView.setViewport(new Rectangle2D(0,0,50,50));
 
 
         // Textdatei einlesen und map aufbauen
-        einlesen(aktuelleMap);
-        mapBau();
-        ausgeben();
+
 
 
         // Stylesheet, aus welcher Datei die Einstellung gelesen werden sollen
@@ -109,7 +118,32 @@ public class GameController {
                 // ToDo
                 // schauen das neue position kein block oder rand des spiels ist
 
-                if (!spielEnde) {
+                if((event.getCode() == KeyCode.ENTER) && spielStart.get() ){
+                    System.out.println("YES");
+                    view.setCenter(view.getPane());
+                    einlesen(aktuelleMap);
+                    mapBau();
+                    ausgeben();
+                    spielStart.set(false);
+                    spielEnde.set(false);
+//                    for (int i = 0; i < sizeX;i++){
+//                        for (int j= 0; j < sizeY; j++){
+//                            mapAktualisierenBlock(i,j);
+//                        }
+//                    }
+
+                }else if ((event.getCode() == KeyCode.ENTER) && spielEnde.get()){
+                    spielStart.set(true);
+                    spielEnde.set(false);
+                    score.set(0);
+                    spielStart();
+                }
+
+
+                if (!spielEnde.get() && !spielStart.get()) {
+
+
+
                     if (event.getCode() == KeyCode.UP) {
                         //System.out.println("up");
                         if (pacman.gety() != 0 && spielFeld[pacman.getx() / 50][(pacman.gety() - 50) / 50].getType() != 120) {
@@ -214,7 +248,11 @@ public class GameController {
                     view.getPane().getChildren().clear();
                     mapBau();
                     view.getPane().getChildren().add(block.getBlock());
-                    mapAktualisieren();
+//                    for (int i = 0; i < sizeX;i++){
+//                        for (int j= 0; j < sizeY; j++){
+//                            mapAktualisierenBlock(i,j);
+//                        }
+//                    }
                     success = true;
                 }
                 /* let the source know whether the string was successfully
@@ -240,23 +278,29 @@ public class GameController {
                 // Punkte == 0 heißt nächste map laden, wenn keine da, dann spielende
 
 
-                if (newValue.intValue() == 0 && oldValue.intValue() == 1 && !spielEnde){
+                if (newValue.intValue() == 0 && oldValue.intValue() == 1 && !spielEnde.get()){
                     System.out.println(maps.indexOf(aktuelleMap) + " "+ maps.size());
 
 
                     int temp = score.get();
                     if (maps.indexOf(aktuelleMap) < maps.size()-1){
                         System.out.println("NEXT LVL");
-
+                        nextLevel = true;
+                        player.skipright();
+                        player.pause();
                         aktuelleMap = maps.get(maps.indexOf(aktuelleMap)+1);
                         einlesen(aktuelleMap);
                         mapBau();
-                        mapAktualisieren();
+//                        for (int i = 0; i < sizeX;i++){
+//                            for (int j= 0; j < sizeY; j++){
+//                                mapAktualisierenBlock(i,j);
+//                            }
+//                        }
                         score.set(temp);
                     }else {
                         System.out.println("SPIELENDE");
-                        spielEnde = true;
-                        spielEnde(temp);
+                        spielEnde.set(true);
+//                        spielEnde(temp);
                     }
                 }
             }
@@ -273,7 +317,7 @@ public class GameController {
                 }
 //                System.out.println("song: "+(int)player.getTrack().getLenght() + "     aktuell: "+player.currentTimeProperty().get());
 //                System.out.println("BERECHNUNG : "+((int)player.getTrack().getLenght() - player.currentTimeProperty().get()) );
-                if ((int)player.getTrack().getLenght() - player.currentTimeProperty().get() < 100 ){
+                if (((int)player.getTrack().getLenght() - player.currentTimeProperty().get()) < 100 ){
                     player.stopPlayer();
                 }
 //                translateTransition.setFromY(pacman.gety());
@@ -286,7 +330,11 @@ public class GameController {
         maxPlayLength.addListener(new javafx.beans.value.ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                if ((!player.isPlaying() && player.currentTimeProperty().get() <= maxPlayLength.get()) && player.getCurrentMode().get() == 1){
+
+                if (nextLevel == true){
+                    player.pause();
+
+                }else if ((!player.isPlaying() && player.currentTimeProperty().get() <= maxPlayLength.get()) && player.getCurrentMode().get() == 1){
                     player.play();
                 }
             }
@@ -298,13 +346,29 @@ public class GameController {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if (newValue.intValue() == 1){
+                    spielStart.set(true);
+                    spielEnde.set(false);
+                    aktuelleMap = maps.get(0);
                     punkte.set(0);
-                    player.playSelected(new Track(standardSong));
-//                    player.skipleft();
-                    player.pause();
-                    einlesen(aktuelleMap);
-                    mapBau();
-                    mapAktualisieren();
+                    score.set(0);
+                    spielStart();
+//
+//                    player.playSelected(new Track(standardSong));
+////                    player.skipleft();
+//                    player.pause();
+//                    einlesen(maps.get(0));
+//                    mapBau();
+//                    mapAktualisieren();
+                }
+            }
+        });
+
+        spielEnde.addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (spielEnde.get() && oldValue.booleanValue() == false){
+                    spielEnde();
+
                 }
             }
         });
@@ -317,57 +381,33 @@ public class GameController {
 
     }
 
-    private void spielEnde(int temp) {
+    private void spielStart() {
+        Pane startScreen = new Pane();
+        Rectangle startBlock = new Rectangle(300,250);
+        Text willkommen = new Text("Willkommen zu unserem Spiel\n\nDrücke Enter um das Spiel zu starten!");
+        startScreen.getChildren().add(willkommen);
+        view.setCenter(willkommen);
 
-        Rectangle endScreen = new Rectangle(300,250);
+    }
 
-        Text endergebnis = new Text ("Endergebnis: "+temp);
-        view.getPane().getChildren().add(endScreen);
-        endScreen.setX(350);
-        endScreen.setY(325);
-        view.getPane().getChildren().add(endergebnis);
-        endergebnis.setTextAlignment(TextAlignment.CENTER);
-//        mapAktualisieren();
-
+    private void spielEnde() {
 
 
-//        view.getPane().getChildren().clear();
-////        view.getScore().setAlignment(Pos.CENTER);
-//        view.getPane().getChildren().add(endergebnis);
-//
-//        int counterY = 0;
-//        int posX,posY;
-//        this.sizeX=0;
-//        this.sizeY=0;
+        Pane endScreen = new Pane();
+        Rectangle startBlock = new Rectangle(300,250);
+        Text tschau = new Text("Deine Punktzahl: "+(score.get()+1)+"\n\nDrücke Enter um das Spiel zu neu zu starten!");
+        endScreen.getChildren().add(tschau);
+        view.setCenter(tschau);
+        aktuelleMap = maps.get(0);
 
-//        try {
-//            BufferedReader bReader = new BufferedReader(new FileReader("spielende.txt"));
-//            String line = bReader.readLine();
-//            this.sizeX = line.length();
-//            while (line != null) {
-//                posY = this.sizeY * 50;
-//                this.sizeY++;
-//                for (int x = 0; x < sizeX; x++){
-//                    // posX ist positionswert der immer um 50 erhöht wird
-//                    posX = x * 50;
-//
-//                    spielFeld[x][counterY] = new Block (posX,posY,line.charAt(x));
-//                }
-//                line = bReader.readLine();
-//                counterY++;
-//
-//            }
-//        }catch(java.io.IOException  e){
-//            e.printStackTrace();
-//        }
-//        mapBau();
-//        mapAktualisieren();
-//        score.set(temp);
+        // DARSTELLUNG SPIELENDE
+
 
     }
 
 
     private void mapBau() {
+        view.getPane().getChildren().clear();
         Rectangle insert;
         //insert = new Rectangle(50,50, Color.BLUE);
         for (int i = 0; i < sizeY;i++){
@@ -408,7 +448,7 @@ public class GameController {
         }
 
 
-        if(!spielEnde) {
+        if(!spielEnde.get()) {
             view.getPane().getChildren().add(pacman.getfigure());
             translateTransition = new TranslateTransition(Duration.seconds(0.055), pacman.getfigure());
             translateTransition.setToX(pacman.getx());
@@ -483,8 +523,10 @@ public class GameController {
             punkte.setValue(punkte.get()-1);
             maxPlayLength.setValue(maxPlayLength.getValue()+ songSnippet);
             score.setValue(score.get() + 1 );
-            mapAktualisieren();
+            nextLevel = false;
+//            mapAktualisierenBlock(spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock());
 
+            mapAktualisierenBlock(pacman.getx()/50,pacman.gety()/50);
 
 
 
@@ -498,20 +540,18 @@ public class GameController {
         }
     }
 
-    private void mapAktualisieren() {
+    public void mapAktualisierenBlock(int x , int y){
 
-        view.getPane().getChildren().clear();
-
-        Rectangle insert;
-
-        for (int i = 0; i < sizeY;i++){
-            for (int j= 0; j < sizeX;j++){
-                insert = new Rectangle(50,50,Color.BLUE);
-                if (spielFeld[i][j].getType()==120 /*x*/){
+//        view.getPane().getChildren().clear();
+        Rectangle insert = spielFeld[x][y].getBlock();
+//        int insertPos = view.getPane().getChildren().indexOf(spielFeld[x][y].getBlock());
+        view.getPane().getChildren().remove(insert);
+        //view.getPane().getChildren().remove(changeBlockPos);
+        if (spielFeld[x][y].getType()==120 /*x*/){
                     insert.setFill(Color.RED);
-                }else if (spielFeld[i][j].getType()==45 /*-*/) {
+                }else if (spielFeld[x][y].getType()==45 /*-*/) {
                     insert.setFill(Color.GREEN);
-                }else if (spielFeld[i][j].getType()==111 /*o*/){
+                }else if (spielFeld[x][y].getType()==111 /*o*/){
                     insert.setFill(Color.YELLOW);
                     //ToDo
                     // Translatetransition irgendwie richtig machen
@@ -519,9 +559,9 @@ public class GameController {
 //                    translateTransition2.setFromY(block.gety());
 //                    translateTransition2.setToX(j*50);
 //                    translateTransition2.play();
-                    block.setNewPos(i*50,j*50);
+                    block.setNewPos(x*50,x*50);
 
-                } else if (spielFeld[i][j].getType() == 43 /*+*/){
+                } else if (spielFeld[x][y].getType() == 43 /*+*/){
                     Image img = new Image("game/images/circle.png");
                     insert.setFill(new ImagePattern(img));
 
@@ -530,18 +570,14 @@ public class GameController {
                     //   insert.setHeight();  && insert.setWidth();
                     // funktioniert zwar aber das Bild wird auf eine
                     // falsche Pos gesetzt
-                } else if (spielFeld[i][j].getBlock().getFill() == Color.ORANGE){
-                    insert.setFill(Color.ORANGE);
-
                 }
-                insert.relocate(spielFeld[i][j].getx(),spielFeld[i][j].gety());
-                view.getPane().getChildren().add(insert);
+        insert.relocate(x*50,y*50);
+        view.getPane().getChildren().add(insert);
 
-
-            }
-        }
+        int pos = view.getPane().getChildren().indexOf(pacman.getfigure());
+        view.getPane().getChildren().remove(pos);
         view.getPane().getChildren().add(pacman.getfigure());
-
+    }
 
 
 
