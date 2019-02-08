@@ -410,14 +410,14 @@ public class GameController {
         view.getPane().getChildren().clear();
         Rectangle insert;
         //insert = new Rectangle(50,50, Color.BLUE);
-        for (int i = 0; i < sizeY;i++){
-            for (int j= 0; j < sizeX;j++){
-                insert = new Rectangle(50,50,Color.BLUE);
-                if (spielFeld[i][j].getType()==120 /*x*/){
+        for (int i = 0; i < sizeY; i++) {
+            for (int j = 0; j < sizeX; j++) {
+                insert = new Rectangle(50, 50, Color.BLUE);
+                if (spielFeld[i][j].getType() == 120 /*x*/) {
                     insert.setFill(Color.RED);
-                }else if (spielFeld[i][j].getType()==45 /*-*/) {
+                } else if (spielFeld[i][j].getType() == 45 /*-*/) {
                     insert.setFill(Color.GREEN);
-                }else if (spielFeld[i][j].getType()==111 /*o*/){
+                } else if (spielFeld[i][j].getType() == 111 /*o*/) {
                     insert.setFill(Color.YELLOW);
                     //ToDo
                     // Translatetransition irgendwie richtig machen
@@ -426,13 +426,13 @@ public class GameController {
 //                    translateTransition2.setToX(j*50);
 //                    translateTransition2.play();
 
-                    pacman = new Pacman(i*50,j*50);
-                    block.setNewPos(i*50,j*50);
+                    pacman = new Pacman(i * 50, j * 50);
+                    block.setNewPos(i * 50, j * 50);
 
-                } else if (spielFeld[i][j].getType() == 43 /*+*/){
+                } else if (spielFeld[i][j].getType() == 43 /*+*/) {
                     Image img = new Image("game/images/circle.png");
                     insert.setFill(new ImagePattern(img));
-                    punkte.set( punkte.getValue()+1 );
+                    punkte.set(punkte.getValue() + 1);
 
 
                     // ToDo Bild muss kleiner Scaliert werden
@@ -441,14 +441,14 @@ public class GameController {
                     // funktioniert zwar aber das Bild wird auf eine
                     // falsche Pos gesetzt
                 }
-                insert.relocate(spielFeld[i][j].getx(),spielFeld[i][j].gety());
+                insert.relocate(spielFeld[i][j].getx(), spielFeld[i][j].gety());
                 view.getPane().getChildren().add(insert);
 
             }
         }
 
 
-        if(!spielEnde.get()) {
+        if (!spielEnde.get()) {
             view.getPane().getChildren().add(pacman.getfigure());
             translateTransition = new TranslateTransition(Duration.seconds(0.055), pacman.getfigure());
             translateTransition.setToX(pacman.getx());
@@ -460,6 +460,8 @@ public class GameController {
             songSnippet = (int) player.getTrack().getLenght() / punkte.get();
 
         }
+
+    }
 
     private void ausgeben() {
 
@@ -548,29 +550,16 @@ public class GameController {
         view.getPane().getChildren().remove(insert);
         //view.getPane().getChildren().remove(changeBlockPos);
         if (spielFeld[x][y].getType()==120 /*x*/){
-                    insert.setFill(Color.RED);
-                }else if (spielFeld[x][y].getType()==45 /*-*/) {
-                    insert.setFill(Color.GREEN);
-                }else if (spielFeld[x][y].getType()==111 /*o*/){
-                    insert.setFill(Color.YELLOW);
-                    //ToDo
-                    // Translatetransition irgendwie richtig machen
-//                    translateTransition2 = new TranslateTransition(Duration.seconds(1),block.getBlock());
-//                    translateTransition2.setFromY(block.gety());
-//                    translateTransition2.setToX(j*50);
-//                    translateTransition2.play();
-                    block.setNewPos(x*50,x*50);
-
-                } else if (spielFeld[x][y].getType() == 43 /*+*/){
-                    Image img = new Image("game/images/circle.png");
-                    insert.setFill(new ImagePattern(img));
-
-                    // ToDo Bild muss kleiner Scaliert werden
-                    // Bild selbst kleiner machen hilft nicht
-                    //   insert.setHeight();  && insert.setWidth();
-                    // funktioniert zwar aber das Bild wird auf eine
-                    // falsche Pos gesetzt
-                }
+            insert.setFill(Color.RED);
+        }else if (spielFeld[x][y].getType()==45 /*-*/) {
+            insert.setFill(Color.GREEN);
+        }else if (spielFeld[x][y].getType()==111 /*o*/){
+            insert.setFill(Color.YELLOW);
+            block.setNewPos(x*50,x*50);
+        } else if (spielFeld[x][y].getType() == 43 /*+*/){
+            Image img = new Image("game/images/circle.png");
+            insert.setFill(new ImagePattern(img));
+        }
         insert.relocate(x*50,y*50);
         view.getPane().getChildren().add(insert);
 
@@ -581,7 +570,7 @@ public class GameController {
 
 
 
-    }
+
 
     private void rechtklick(int x, int y) {
         block.setNewPos(x + 1, y + 1);
