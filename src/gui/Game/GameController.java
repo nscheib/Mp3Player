@@ -2,7 +2,6 @@ package gui.Game;
 
 import businessLogic.Main;
 import businessLogic.Mp3Player;
-import businessLogic.Track;
 import game.Block;
 import game.Ground;
 import game.Pacman;
@@ -20,7 +19,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
 
@@ -35,7 +33,6 @@ public class GameController {
     private Block block = new Block(0, 0, 1);
     private Ground ground = new Ground(0, 0, 1);
     private Block[][] spielFeld = new Block[10][10];
-//    private String mapName;
     private int sizeX=0,sizeY=0;
     private int fillx,filly = 0;
     private Mp3Player player;
@@ -48,12 +45,10 @@ public class GameController {
     private int songSnippet = 0;
 
     private String standardSong = "lovewillbewithyou.mp3";
-//    private IntegerProperty loaded = new SimpleIntegerProperty(0); //0 nein, 1 ja
     private ArrayList<String> maps = new ArrayList<String>(Arrays.asList(new File ("Worlds").list()));
     private String aktuelleMap = maps.get(0);
     private BooleanProperty spielEnde = new SimpleBooleanProperty(false);
     private BooleanProperty spielStart = new SimpleBooleanProperty(true);
-    private int endergebnis;
     private boolean nextLevel = false;
 
 //    private final Image pacmanAnimation = new Image("pacmanAnimation.png");
@@ -68,13 +63,6 @@ public class GameController {
         this.player = player;
         System.out.println("\n"+maps.get(0));
         System.out.println("\n"+maps.get(1));
-
-        // Animation vorbereiten
-//        imageView.setViewport(new Rectangle2D(0,0,50,50));
-
-
-        // Textdatei einlesen und map aufbauen
-
 
 
         // Stylesheet, aus welcher Datei die Einstellung gelesen werden sollen
@@ -95,28 +83,11 @@ public class GameController {
         //view.getSettingsButton().setOnAction(e-> application.switchScene("Settings"));
 
 
-
-//        Pacman insert = new Pacman(0,0);
-//        pacman = insert;
-//        insert.setNewPos(insert.getx(),insert.gety());
-//
-//
-//        //Setzte Spielerfigur
-//        view.getPane().getChildren().add(insert.getfigure());
-
-
-
-
-
-
-
         view.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
             @Override
             public void handle(KeyEvent event) {
                 Rectangle bl;
-                // ToDo
-                // schauen das neue position kein block oder rand des spiels ist
 
                 if((event.getCode() == KeyCode.ENTER) && spielStart.get() ){
                     System.out.println("YES");
@@ -126,11 +97,6 @@ public class GameController {
                     ausgeben();
                     spielStart.set(false);
                     spielEnde.set(false);
-//                    for (int i = 0; i < sizeX;i++){
-//                        for (int j= 0; j < sizeY; j++){
-//                            mapAktualisierenBlock(i,j);
-//                        }
-//                    }
 
                 }else if ((event.getCode() == KeyCode.ENTER) && spielEnde.get()){
                     spielStart.set(true);
@@ -139,82 +105,48 @@ public class GameController {
                     spielStart();
                 }
 
-
                 if (!spielEnde.get() && !spielStart.get()) {
 
-
-
                     if (event.getCode() == KeyCode.UP) {
-                        //System.out.println("up");
                         if (pacman.gety() != 0 && spielFeld[pacman.getx() / 50][(pacman.gety() - 50) / 50].getType() != 120) {
                             translateTransition.setFromY(pacman.gety());
                             translateTransition.setToY(pacman.gety() - 50);
                             translateTransition.setCycleCount(1);
                             translateTransition.play();
-                            //block.getBlock().setTranslateY(block.gety()-50);
                             pacman.setNewPos(pacman.getx(), pacman.gety() - 50);
                         }
-//                    translateTransition.setFromY(pacman.gety());
-//                    translateTransition.setToY(pacman.gety());
-//                    translateTransition.setCycleCount(1);
-//                    translateTransition.play();
                         checktype();
 
                     } else if (event.getCode() == KeyCode.DOWN) {
-                        //System.out.println("down");
                         if (pacman.gety() != 450 && spielFeld[pacman.getx() / 50][(pacman.gety() + 50) / 50].getType() != 120) {
 
                             translateTransition.setFromY(pacman.gety());
                             translateTransition.setToY(pacman.gety() + 50);
                             translateTransition.setCycleCount(1);
                             translateTransition.play();
-                            //block.getBlock().setTranslateY(block.gety()+50);
                             pacman.setNewPos(pacman.getx(), pacman.gety() + 50);
-//                        System.out.println(pacman.getx());
-//                        System.out.println(pacman.gety());
-//                        System.out.println(spielFeld[pacman.getx()/50][pacman.gety()/50].getType());
                         }
-
-//                    translateTransition.setFromY(pacman.gety());
-//                    translateTransition.setToY(pacman.gety());
-//                    translateTransition.setCycleCount(1);
-//                    translateTransition.play();
                         checktype();
 
-
                     } else if (event.getCode() == KeyCode.LEFT) {
-                        //System.out.println("left");
                         if (pacman.getx() != 0 && spielFeld[(pacman.getx() - 50) / 50][pacman.gety() / 50].getType() != 120) {
                             translateTransition.setFromY(pacman.gety());
                             translateTransition.setToX(pacman.getx() - 50);
                             translateTransition.setCycleCount(1);
                             translateTransition.play();
-                            //block.getBlock().setTranslateX(block.getx()-50);
                             pacman.setNewPos(pacman.getx() - 50, pacman.gety());
                         }
-//                    translateTransition.setFromY(pacman.gety());
-//                    translateTransition.setToX(pacman.getx());
-//                    translateTransition.setCycleCount(1);
-//                    translateTransition.play();
                         checktype();
 
-
                     } else if (event.getCode() == KeyCode.RIGHT) {
-                        //System.out.println("right");
                         if (pacman.getx() != 450 && spielFeld[(pacman.getx() + 50) / 50][pacman.gety() / 50].getType() != 120) {
                             translateTransition.setFromY(pacman.gety());
                             translateTransition.setToX(pacman.getx() + 50);
                             translateTransition.setCycleCount(1);
                             translateTransition.play();
-                            //block.getBlock().setTranslateX(block.getx()+50);
                             pacman.setNewPos(pacman.getx() + 50, pacman.gety());
                         }
-//                    translateTransition.setFromY(pacman.gety());
-//                    translateTransition.setToX(pacman.getx());
-//                    translateTransition.setCycleCount(1);
-//                    translateTransition.play();
                         checktype();
-
                     }
                 }
             }
@@ -248,17 +180,11 @@ public class GameController {
                     view.getPane().getChildren().clear();
                     mapBau();
                     view.getPane().getChildren().add(block.getBlock());
-//                    for (int i = 0; i < sizeX;i++){
-//                        for (int j= 0; j < sizeY; j++){
-//                            mapAktualisierenBlock(i,j);
-//                        }
-//                    }
                     success = true;
                 }
                 /* let the source know whether the string was successfully
                  * transferred and used */
                 event.setDropCompleted(success);
-
                 event.consume();
             }
         });
@@ -277,10 +203,8 @@ public class GameController {
                 view.setPunkte(punkte.get());
                 // Punkte == 0 heißt nächste map laden, wenn keine da, dann spielende
 
-
                 if (newValue.intValue() == 0 && oldValue.intValue() == 1 && !spielEnde.get()){
                     System.out.println(maps.indexOf(aktuelleMap) + " "+ maps.size());
-
 
                     int temp = score.get();
                     if (maps.indexOf(aktuelleMap) < maps.size()-1){
@@ -330,10 +254,8 @@ public class GameController {
         maxPlayLength.addListener(new javafx.beans.value.ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-
                 if (nextLevel == true){
                     player.pause();
-
                 }else if ((!player.isPlaying() && player.currentTimeProperty().get() <= maxPlayLength.get()) && player.getCurrentMode().get() == 1){
                     player.play();
                 }
@@ -352,13 +274,6 @@ public class GameController {
                     punkte.set(0);
                     score.set(0);
                     spielStart();
-//
-//                    player.playSelected(new Track(standardSong));
-////                    player.skipleft();
-//                    player.pause();
-//                    einlesen(maps.get(0));
-//                    mapBau();
-//                    mapAktualisieren();
                 }
             }
         });
@@ -368,7 +283,6 @@ public class GameController {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (spielEnde.get() && oldValue.booleanValue() == false){
                     spielEnde();
-
                 }
             }
         });
@@ -387,29 +301,22 @@ public class GameController {
         Text willkommen = new Text("Willkommen zu unserem Spiel\n\nDrücke Enter um das Spiel zu starten!");
         startScreen.getChildren().add(willkommen);
         view.setCenter(willkommen);
-
     }
 
     private void spielEnde() {
-
-
         Pane endScreen = new Pane();
         Rectangle startBlock = new Rectangle(300,250);
         Text tschau = new Text("Deine Punktzahl: "+(score.get()+1)+"\n\nDrücke Enter um das Spiel zu neu zu starten!");
         endScreen.getChildren().add(tschau);
         view.setCenter(tschau);
         aktuelleMap = maps.get(0);
-
         // DARSTELLUNG SPIELENDE
-
-
     }
 
 
     private void mapBau() {
         view.getPane().getChildren().clear();
         Rectangle insert;
-        //insert = new Rectangle(50,50, Color.BLUE);
         for (int i = 0; i < sizeY; i++) {
             for (int j = 0; j < sizeX; j++) {
                 insert = new Rectangle(50, 50, Color.BLUE);
@@ -419,12 +326,6 @@ public class GameController {
                     insert.setFill(Color.GREEN);
                 } else if (spielFeld[i][j].getType() == 111 /*o*/) {
                     insert.setFill(Color.YELLOW);
-                    //ToDo
-                    // Translatetransition irgendwie richtig machen
-//                    translateTransition2 = new TranslateTransition(Duration.seconds(1),block.getBlock());
-//                    translateTransition2.setFromY(block.gety());
-//                    translateTransition2.setToX(j*50);
-//                    translateTransition2.play();
 
                     pacman = new Pacman(i * 50, j * 50);
                     block.setNewPos(i * 50, j * 50);
@@ -433,17 +334,9 @@ public class GameController {
                     Image img = new Image("game/images/circle.png");
                     insert.setFill(new ImagePattern(img));
                     punkte.set(punkte.getValue() + 1);
-
-
-                    // ToDo Bild muss kleiner Scaliert werden
-                    // Bild selbst kleiner machen hilft nicht
-                    //   insert.setHeight();  && insert.setWidth();
-                    // funktioniert zwar aber das Bild wird auf eine
-                    // falsche Pos gesetzt
                 }
                 insert.relocate(spielFeld[i][j].getx(), spielFeld[i][j].gety());
                 view.getPane().getChildren().add(insert);
-
             }
         }
 
@@ -458,16 +351,12 @@ public class GameController {
 
             // berechnen der songSnippet
             songSnippet = (int) player.getTrack().getLenght() / punkte.get();
-
         }
-
     }
 
     private void ausgeben() {
 
-
         System.out.println("\nMap: "+ aktuelleMap +"\n");
-
 
         for (int i = 0; i < sizeY ; i++){
             for (int j = 0; j < sizeX;j++){
@@ -480,7 +369,6 @@ public class GameController {
                 if (spielFeld[i][j].getType()==111){
                     System.out.print("o ");
                 }
-
             }
             System.out.println();
         }
@@ -506,12 +394,10 @@ public class GameController {
                 for (int x = 0; x < sizeX; x++){
                     // posX ist positionswert der immer um 50 erhöht wird
                     posX = x * 50;
-
                     spielFeld[x][counterY] = new Block (posX,posY,line.charAt(x));
                 }
                 line = bReader.readLine();
                 counterY++;
-
             }
         }catch(java.io.IOException  e){
             e.printStackTrace();
@@ -526,19 +412,8 @@ public class GameController {
             maxPlayLength.setValue(maxPlayLength.getValue()+ songSnippet);
             score.setValue(score.get() + 1 );
             nextLevel = false;
-//            mapAktualisierenBlock(spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock());
-
             mapAktualisierenBlock(pacman.getx()/50,pacman.gety()/50);
 
-
-
-//            Rectangle newblock = new Rectangle(50,50,Color.BLUE);
-//            count++;
-//            newblock.setFill(Color.GREEN);
-//            newblock.toBack();
-//            newblock.relocate(pacman.getx(),pacman.gety());
-//            view.getPane().getChildren().add(newblock);
-//            //ToDO newblock muss hinter pacman gesetzt werden
         }
     }
 
