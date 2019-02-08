@@ -14,7 +14,7 @@ public class GameView extends BorderPane {
     private Button playListButton, mp3playerButton, settingButton, gameButton, buttonleft;
     private VBox centerVBox, buttonVBox;
     private HBox topHBox;
-    private Pane pane;
+    private Pane startPane,pane,endPane;
     private Label score,punkte;
 
 
@@ -64,7 +64,9 @@ public class GameView extends BorderPane {
 
         // Center
         centerVBox = new VBox();
+        startPane = new Pane();
         pane = new Pane();
+        endPane = new Pane();
 
         // Down
         buttonVBox = new VBox();
@@ -85,11 +87,18 @@ public class GameView extends BorderPane {
         return pane;
     }
 
+    public Pane getStartPane(){return startPane;}
+    public Pane getEndPane(){return endPane;}
+
     public void setScore(int i) {
         score.setText("Score: "+i);
     }
 
     public void setPunkte(int i) {
         punkte.setText("Punkte: " + i);
+    }
+
+    public Label getScore(){
+        return score;
     }
 }

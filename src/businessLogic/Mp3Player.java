@@ -302,4 +302,13 @@ public class Mp3Player extends Thread implements Runnable {
     public void setCurrentTime(int currentTime) {
         this.currentTime.setValue(currentTime);
     }
+
+    public void setCurrentMode(int scene) {
+
+        currentMode.setValue(scene);
+    }
+
+    public SimpleIntegerProperty getCurrentMode() {
+        return currentMode;
+    }
 }

@@ -21,6 +21,8 @@ import javafx.util.Duration;
 import javafx.scene.paint.Color;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameController {
 
@@ -29,7 +31,7 @@ public class GameController {
     private Block block = new Block(0, 0, 1);
     private Ground ground = new Ground(0, 0, 1);
     private Block[][] spielFeld = new Block[10][10];
-    private String mapName;
+//    private String mapName;
     private int sizeX=0,sizeY=0;
     private int fillx,filly = 0;
     private Mp3Player player;
@@ -42,6 +44,15 @@ public class GameController {
     private int songSnippet = 0;
 
     private String standardSong = "lovewillbewithyou.mp3";
+//    private IntegerProperty loaded = new SimpleIntegerProperty(0); //0 nein, 1 ja
+    private ArrayList<String> maps = new ArrayList<String>(Arrays.asList(new File ("Worlds").list()));
+    private String aktuelleMap = maps.get(0);
+    private boolean spielEnde = false;
+    private int endergebnis;
+
+//    private final Image pacmanAnimation = new Image("pacmanAnimation.png");
+//    private final ImageView imageView = new ImageView(pacmanAnimation);
+//    private final Animation animation = new SpriteAnimation(
 
 
     public GameController(){}
@@ -52,7 +63,7 @@ public class GameController {
 
 
         // Textdatei einlesen und map aufbauen
-        einlesen("Worlds/map.txt");
+        einlesen(aktuelleMap);
         mapBau();
         ausgeben();
 
@@ -97,79 +108,80 @@ public class GameController {
                 Rectangle bl;
                 // ToDo
                 // schauen das neue position kein block oder rand des spiels ist
-                if (event.getCode() == KeyCode.UP) {
-                    //System.out.println("up");
-                    if (pacman.gety() != 0&& spielFeld[pacman.getx()/50][(pacman.gety()-50)/50].getType() != 120) {
-                        translateTransition.setFromY(pacman.gety());
-                        translateTransition.setToY(pacman.gety()-50);
-                        translateTransition.setCycleCount(1);
-                        translateTransition.play();
-                        //block.getBlock().setTranslateY(block.gety()-50);
-                        pacman.setNewPos(pacman.getx(),pacman.gety()-50);
-                    }
+
+                if (!spielEnde) {
+                    if (event.getCode() == KeyCode.UP) {
+                        //System.out.println("up");
+                        if (pacman.gety() != 0 && spielFeld[pacman.getx() / 50][(pacman.gety() - 50) / 50].getType() != 120) {
+                            translateTransition.setFromY(pacman.gety());
+                            translateTransition.setToY(pacman.gety() - 50);
+                            translateTransition.setCycleCount(1);
+                            translateTransition.play();
+                            //block.getBlock().setTranslateY(block.gety()-50);
+                            pacman.setNewPos(pacman.getx(), pacman.gety() - 50);
+                        }
 //                    translateTransition.setFromY(pacman.gety());
 //                    translateTransition.setToY(pacman.gety());
 //                    translateTransition.setCycleCount(1);
 //                    translateTransition.play();
-                    checktype();
+                        checktype();
 
-                } else if (event.getCode() == KeyCode.DOWN) {
-                    //System.out.println("down");
-                    if(pacman.gety()!=450 && spielFeld[pacman.getx()/50][(pacman.gety()+50)/50].getType() != 120){
+                    } else if (event.getCode() == KeyCode.DOWN) {
+                        //System.out.println("down");
+                        if (pacman.gety() != 450 && spielFeld[pacman.getx() / 50][(pacman.gety() + 50) / 50].getType() != 120) {
 
-                        translateTransition.setFromY(pacman.gety());
-                        translateTransition.setToY(pacman.gety()+50);
-                        translateTransition.setCycleCount(1);
-                        translateTransition.play();
-                        //block.getBlock().setTranslateY(block.gety()+50);
-                        pacman.setNewPos(pacman.getx(),pacman.gety()+50);
+                            translateTransition.setFromY(pacman.gety());
+                            translateTransition.setToY(pacman.gety() + 50);
+                            translateTransition.setCycleCount(1);
+                            translateTransition.play();
+                            //block.getBlock().setTranslateY(block.gety()+50);
+                            pacman.setNewPos(pacman.getx(), pacman.gety() + 50);
 //                        System.out.println(pacman.getx());
 //                        System.out.println(pacman.gety());
 //                        System.out.println(spielFeld[pacman.getx()/50][pacman.gety()/50].getType());
-                    }
+                        }
 
 //                    translateTransition.setFromY(pacman.gety());
 //                    translateTransition.setToY(pacman.gety());
 //                    translateTransition.setCycleCount(1);
 //                    translateTransition.play();
-                    checktype();
+                        checktype();
 
 
-
-
-                } else if (event.getCode() == KeyCode.LEFT) {
-                    //System.out.println("left");
-                    if(pacman.getx() != 0&& spielFeld[(pacman.getx()-50)/50][pacman.gety()/50].getType() != 120){
-                        translateTransition.setFromY(pacman.gety());
-                        translateTransition.setToX(pacman.getx()-50);
-                        translateTransition.setCycleCount(1);
-                        translateTransition.play();
-                        //block.getBlock().setTranslateX(block.getx()-50);
-                        pacman.setNewPos(pacman.getx()-50,pacman.gety());
-                    }
+                    } else if (event.getCode() == KeyCode.LEFT) {
+                        //System.out.println("left");
+                        if (pacman.getx() != 0 && spielFeld[(pacman.getx() - 50) / 50][pacman.gety() / 50].getType() != 120) {
+                            translateTransition.setFromY(pacman.gety());
+                            translateTransition.setToX(pacman.getx() - 50);
+                            translateTransition.setCycleCount(1);
+                            translateTransition.play();
+                            //block.getBlock().setTranslateX(block.getx()-50);
+                            pacman.setNewPos(pacman.getx() - 50, pacman.gety());
+                        }
 //                    translateTransition.setFromY(pacman.gety());
 //                    translateTransition.setToX(pacman.getx());
 //                    translateTransition.setCycleCount(1);
 //                    translateTransition.play();
-                    checktype();
+                        checktype();
 
 
-                } else if (event.getCode() == KeyCode.RIGHT) {
-                    //System.out.println("right");
-                    if(pacman.getx() != 450&& spielFeld[(pacman.getx()+50)/50][pacman.gety()/50].getType() != 120){
-                        translateTransition.setFromY(pacman.gety());
-                        translateTransition.setToX(pacman.getx()+50);
-                        translateTransition.setCycleCount(1);
-                        translateTransition.play();
-                        //block.getBlock().setTranslateX(block.getx()+50);
-                        pacman.setNewPos(pacman.getx()+50,pacman.gety());
-                    }
+                    } else if (event.getCode() == KeyCode.RIGHT) {
+                        //System.out.println("right");
+                        if (pacman.getx() != 450 && spielFeld[(pacman.getx() + 50) / 50][pacman.gety() / 50].getType() != 120) {
+                            translateTransition.setFromY(pacman.gety());
+                            translateTransition.setToX(pacman.getx() + 50);
+                            translateTransition.setCycleCount(1);
+                            translateTransition.play();
+                            //block.getBlock().setTranslateX(block.getx()+50);
+                            pacman.setNewPos(pacman.getx() + 50, pacman.gety());
+                        }
 //                    translateTransition.setFromY(pacman.gety());
 //                    translateTransition.setToX(pacman.getx());
 //                    translateTransition.setCycleCount(1);
 //                    translateTransition.play();
-                    checktype();
+                        checktype();
 
+                    }
                 }
             }
         });
@@ -196,11 +208,13 @@ public class GameController {
                 if (db.hasFiles()) {
                     draggedData = db.getFiles().toString();
                     draggedData = draggedData.substring(1,draggedData.length()-1);
+                    punkte.set(0);
                     einlesen(draggedData);
                     ausgeben();
                     view.getPane().getChildren().clear();
                     mapBau();
                     view.getPane().getChildren().add(block.getBlock());
+                    mapAktualisieren();
                     success = true;
                 }
                 /* let the source know whether the string was successfully
@@ -223,6 +237,28 @@ public class GameController {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 view.setPunkte(punkte.get());
+                // Punkte == 0 heißt nächste map laden, wenn keine da, dann spielende
+
+
+                if (newValue.intValue() == 0 && oldValue.intValue() == 1 && !spielEnde){
+                    System.out.println(maps.indexOf(aktuelleMap) + " "+ maps.size());
+
+
+                    int temp = score.get();
+                    if (maps.indexOf(aktuelleMap) < maps.size()-1){
+                        System.out.println("NEXT LVL");
+
+                        aktuelleMap = maps.get(maps.indexOf(aktuelleMap)+1);
+                        einlesen(aktuelleMap);
+                        mapBau();
+                        mapAktualisieren();
+                        score.set(temp);
+                    }else {
+                        System.out.println("SPIELENDE");
+                        spielEnde = true;
+                        spielEnde(temp);
+                    }
+                }
             }
         });
 
@@ -266,7 +302,7 @@ public class GameController {
                     player.playSelected(new Track(standardSong));
 //                    player.skipleft();
                     player.pause();
-                    einlesen("Worlds/map.txt");
+                    einlesen(aktuelleMap);
                     mapBau();
                     mapAktualisieren();
                 }
@@ -277,7 +313,59 @@ public class GameController {
 
 
 
+
+
     }
+
+    private void spielEnde(int temp) {
+
+        Rectangle endScreen = new Rectangle(300,250);
+
+        Text endergebnis = new Text ("Endergebnis: "+temp);
+        view.getPane().getChildren().add(endScreen);
+        endScreen.setX(350);
+        endScreen.setY(325);
+        view.getPane().getChildren().add(endergebnis);
+        endergebnis.setTextAlignment(TextAlignment.CENTER);
+//        mapAktualisieren();
+
+
+
+//        view.getPane().getChildren().clear();
+////        view.getScore().setAlignment(Pos.CENTER);
+//        view.getPane().getChildren().add(endergebnis);
+//
+//        int counterY = 0;
+//        int posX,posY;
+//        this.sizeX=0;
+//        this.sizeY=0;
+
+//        try {
+//            BufferedReader bReader = new BufferedReader(new FileReader("spielende.txt"));
+//            String line = bReader.readLine();
+//            this.sizeX = line.length();
+//            while (line != null) {
+//                posY = this.sizeY * 50;
+//                this.sizeY++;
+//                for (int x = 0; x < sizeX; x++){
+//                    // posX ist positionswert der immer um 50 erhöht wird
+//                    posX = x * 50;
+//
+//                    spielFeld[x][counterY] = new Block (posX,posY,line.charAt(x));
+//                }
+//                line = bReader.readLine();
+//                counterY++;
+//
+//            }
+//        }catch(java.io.IOException  e){
+//            e.printStackTrace();
+//        }
+//        mapBau();
+//        mapAktualisieren();
+//        score.set(temp);
+
+    }
+
 
     private void mapBau() {
         Rectangle insert;
@@ -318,23 +406,25 @@ public class GameController {
 
             }
         }
-        view.getPane().getChildren().add(pacman.getfigure());
-        translateTransition = new TranslateTransition(Duration.seconds(0.2),pacman.getfigure());
-        translateTransition.setToX(pacman.getx());
-        translateTransition.setToY(pacman.gety());
-        translateTransition.setCycleCount(1);
-        translateTransition.play();
 
 
-        // berechnen der songSnippet
-        songSnippet = (int)player.getTrack().getLenght() / punkte.get();
+        if(!spielEnde) {
+            view.getPane().getChildren().add(pacman.getfigure());
+            translateTransition = new TranslateTransition(Duration.seconds(0.055), pacman.getfigure());
+            translateTransition.setToX(pacman.getx());
+            translateTransition.setToY(pacman.gety());
+            translateTransition.setCycleCount(1);
+            translateTransition.play();
 
-    }
+            // berechnen der songSnippet
+            songSnippet = (int) player.getTrack().getLenght() / punkte.get();
+
+        }
 
     private void ausgeben() {
 
 
-        System.out.println("\nMap: "+ mapName+"\n");
+        System.out.println("\nMap: "+ aktuelleMap +"\n");
 
 
         for (int i = 0; i < sizeY ; i++){
@@ -357,7 +447,7 @@ public class GameController {
     private void einlesen(String worldname) {
 
         score.set(0);
-        this.mapName = worldname;
+//        this.mapName = worldname;
 
         int counterY = 0;
         int posX,posY;
@@ -365,7 +455,7 @@ public class GameController {
         this.sizeY=0;
 
         try {
-            BufferedReader bReader = new BufferedReader(new FileReader(worldname));
+            BufferedReader bReader = new BufferedReader(new FileReader("Worlds/"+worldname));
             String line = bReader.readLine();
             this.sizeX = line.length();
             while (line != null) {
