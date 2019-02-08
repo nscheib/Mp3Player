@@ -1,4 +1,4 @@
-package gui.Mp3Player;
+package gui.mp3player;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 
 
 /**
- * Klasse Mp3View enthält alle Gui-Elemente der Mp3Player-Funktionen
+ * Klasse Mp3View enthält alle Gui-Elemente der mp3player-Funktionen
  */
 public class Mp3View extends BorderPane {
 
@@ -29,13 +29,14 @@ public class Mp3View extends BorderPane {
     private ImageView imgview;
     private Image img; // !nicht löschen! //
 
-    // Constructor
+    /**
+     * Konstruktor
+     */
     public Mp3View() {
 
         initGuiElements();
         loadButtons();
         loadSongItems();
-
 
         // Alignment
         topVBox.setAlignment(Pos.CENTER);
@@ -45,7 +46,6 @@ public class Mp3View extends BorderPane {
         buttonVBox.setAlignment(Pos.CENTER);
         buttonHBox.setAlignment(Pos.CENTER);
         buttonHBoxZwei.setAlignment(Pos.CENTER);
-
 
         //StyleClasses
         topHBox.getStyleClass().add("topHBox");
@@ -73,21 +73,17 @@ public class Mp3View extends BorderPane {
         //shuffle.getStyleClass().add("shuffle");
         //repeat.getStyleClass().add("repeat");
 
-
         // Volumeslider
         volumeslider.setValue(50);
-
 
         //Picture
         imgview.setImage(img);
         imgview.setFitWidth(350);
         imgview.setFitHeight(350);
 
-
         //Abstände
         topHBox.setPadding(new Insets(10,10,10,10));
         buttonHBox.setPadding(new Insets(10,10,10,10));
-
 
         // Children
         topHBox.getChildren().addAll(mp3playerButton, playListButton, gameButton, settingButton);
@@ -97,7 +93,6 @@ public class Mp3View extends BorderPane {
         buttonHBox.getChildren().addAll(skipleft, stop, play, skipright, loop);
         buttonHBoxZwei.getChildren().addAll(vol, volumeslider);
         buttonVBox.getChildren().addAll(buttonHBox, buttonHBoxZwei);
-
 
         // Scene
         this.setTop(topHBox);
@@ -126,7 +121,6 @@ public class Mp3View extends BorderPane {
         buttonVBox = new VBox();
         buttonHBox = new HBox();
         buttonHBoxZwei = new HBox();
-
 
         // Slider
         timeslider = new Slider();
@@ -191,5 +185,4 @@ public class Mp3View extends BorderPane {
 
     // Gibt die ImageView zurück
     public ImageView getImgview() { return imgview; }
-
 }

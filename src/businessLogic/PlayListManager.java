@@ -16,14 +16,16 @@ public class PlayListManager {
     private ArrayList<String> allPlayLists = new ArrayList();
     private ArrayList<String> choosenPlayList = new ArrayList<>();
 
-    // Constructor
+    /**
+     * Default-Konstruktor
+     */
     public PlayListManager() {
         loadAllPlayLists();
         updateAllSongs();
     }
 
     /**
-     * Methode läd alle im Playlistenordner existierenden Playlisten
+     * Methode laedt alle im Playlistenordner existierenden Playlisten
      */
     public void loadAllPlayLists() {
         File file = new File("Playlisten");
@@ -60,7 +62,7 @@ public class PlayListManager {
 
 
     /**
-     * Methode läd eine Playlist mit bestimmtem namen
+     * Methode laedt eine Playlist mit bestimmtem namen
      * @param playListFile
      * @return
      */
@@ -101,6 +103,11 @@ public class PlayListManager {
         return songsInPlaylist;
     }
 
+    /**
+     * Loescht eine gewaehlte Playlist.
+     * @param playlist gewaehlte Liste
+     * @return gibt zurueck, ob geloescht werden soll oder nicht
+     */
     public boolean deletePlayList(String playlist) {
         for (int i = 0; i < allPlayLists.size()-1; i++) {
             if(allPlayLists.get(i).equalsIgnoreCase("Playlisten/" + playlist + ".m3u")) {
@@ -131,5 +138,4 @@ public class PlayListManager {
      * Methode gibt alle Namen (String) der Playlisten zurück
      */
     public ArrayList<String> getAllPlayLists() { return allPlayLists; }
-
 }

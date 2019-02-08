@@ -1,4 +1,4 @@
-package gui.Game;
+package gui.game;
 
 import businessLogic.Main;
 import businessLogic.Mp3Player;
@@ -55,15 +55,16 @@ public class GameController {
 //    private final ImageView imageView = new ImageView(pacmanAnimation);
 //    private final Animation animation = new SpriteAnimation(
 
-
-    public GameController(){}
+    /**
+     * Initialisierungskontroller
+     * @param application Applikation
+     * @param player Mp3Player
+     */
     public GameController(Main application, Mp3Player player) {
-
         this.view = new GameView();
         this.player = player;
         System.out.println("\n"+maps.get(0));
         System.out.println("\n"+maps.get(1));
-
 
         // Stylesheet, aus welcher Datei die Einstellung gelesen werden sollen
         view.getStylesheets().addAll(
@@ -78,34 +79,28 @@ public class GameController {
                 }
         );
         view.getplayListButton().setOnAction(e -> application.switchScene("PlayListEditor"));
-        view.getgameButton().setOnAction(e -> application.switchScene("Game"));
+        view.getgameButton().setOnAction(e -> application.switchScene("game"));
         //view.getSettingsButton().setOnAction(e-> application.switchScene("Settings"));
 
-
         view.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-
             @Override
             public void handle(KeyEvent event) {
                 Rectangle bl;
-
                 if((event.getCode() == KeyCode.ENTER) && spielStart.get() ){
                     //System.out.println("YES");
                     view.setCenter(view.getPane());
-                    einlesen(aktuelleMap);
+                    readIn(aktuelleMap);
                     mapBau();
-                    ausgeben();
+                    print();
                     spielStart.set(false);
                     spielEnde.set(false);
-
                 }else if ((event.getCode() == KeyCode.ENTER) && spielEnde.get()){
                     spielStart.set(true);
                     spielEnde.set(false);
                     score.set(0);
-                    spielStart();
+                    beginGame();
                 }
-
                 if (!spielEnde.get() && !spielStart.get()) {
-
                     if (event.getCode() == KeyCode.UP) {
                         if (pacman.gety() != 0 && spielFeld[pacman.getx() / 50][(pacman.gety() - 50) / 50].getType() != 120) {
                             translateTransition.setFromY(pacman.gety());
@@ -116,10 +111,8 @@ public class GameController {
                             pacman.changepic("o");
                         }
                         checktype();
-
                     } else if (event.getCode() == KeyCode.DOWN) {
                         if (pacman.gety() != 450 && spielFeld[pacman.getx() / 50][(pacman.gety() + 50) / 50].getType() != 120) {
-
                             translateTransition.setFromY(pacman.gety());
                             translateTransition.setToY(pacman.gety() + 50);
                             translateTransition.setCycleCount(1);
@@ -128,7 +121,6 @@ public class GameController {
                             pacman.changepic("u");
                         }
                         checktype();
-
                     } else if (event.getCode() == KeyCode.LEFT) {
                         if (pacman.getx() != 0 && spielFeld[(pacman.getx() - 50) / 50][pacman.gety() / 50].getType() != 120) {
                             translateTransition.setFromY(pacman.gety());
@@ -139,7 +131,6 @@ public class GameController {
                             pacman.changepic("l");
                         }
                         checktype();
-
                     } else if (event.getCode() == KeyCode.RIGHT) {
                         if (pacman.getx() != 450 && spielFeld[(pacman.getx() + 50) / 50][pacman.gety() / 50].getType() != 120) {
                             translateTransition.setFromY(pacman.gety());
@@ -156,7 +147,6 @@ public class GameController {
         });
 
         view.getPane().setOnDragOver(new EventHandler<DragEvent>() {
-
             @Override
             public void handle(DragEvent event) {
                 if (event.getGestureSource() != view.getPane()
@@ -169,7 +159,6 @@ public class GameController {
         });
 
         view.getPane().setOnDragDropped(new EventHandler<DragEvent>() {
-
             @Override
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
@@ -178,8 +167,8 @@ public class GameController {
                     draggedData = db.getFiles().toString();
                     draggedData = draggedData.substring(1,draggedData.length()-1);
                     punkte.set(0);
-                    einlesen(draggedData);
-                    ausgeben();
+                    readIn(draggedData);
+                    print();
                     view.getPane().getChildren().clear();
                     mapBau();
                     view.getPane().getChildren().add(block.getBlock());
@@ -216,18 +205,18 @@ public class GameController {
                         player.skipright();
                         player.pause();
                         aktuelleMap = maps.get(maps.indexOf(aktuelleMap)+1);
-                        einlesen(aktuelleMap);
+                        readIn(aktuelleMap);
                         mapBau();
 //                        for (int i = 0; i < sizeX;i++){
 //                            for (int j= 0; j < sizeY; j++){
-//                                mapAktualisierenBlock(i,j);
+//                                updateBlock(i,j);
 //                            }
 //                        }
                         score.set(temp);
                     }else {
                         System.out.println("SPIELENDE");
                         spielEnde.set(true);
-//                        spielEnde(temp);
+//                        endGame(temp);
                     }
                 }
             }
@@ -270,7 +259,7 @@ public class GameController {
                     aktuelleMap = maps.get(0);
                     punkte.set(0);
                     score.set(0);
-                    spielStart();
+                    beginGame();
                 }
             }
         });
@@ -279,38 +268,42 @@ public class GameController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (spielEnde.get() && oldValue.booleanValue() == false){
-                    spielEnde();
+                    endGame();
                 }
             }
         });
-
-
-
-
-
-
-
     }
 
-    private void spielStart() {
+    /**
+     * Erstellt einen Start-Screen
+     */
+    private void beginGame() {
         Pane startScreen = new Pane();
         Rectangle startBlock = new Rectangle(300,250);
-        Text willkommen = new Text("Willkommen zu unserem Spiel\n\nDrücke Enter um das Spiel zu starten!");
-        startScreen.getChildren().add(willkommen);
-        view.setCenter(willkommen);
+        Text welcome = new Text("Willkommen zu unserem Spiel\n\nDrücke Enter um das Spiel zu starten!");
+        startScreen.getChildren().add(welcome);
+        view.setCenter(welcome);
     }
 
-    private void spielEnde() {
+    /**
+     * Erstellt einen End-Screen
+     */
+    private void endGame() {
         Pane endScreen = new Pane();
         Rectangle startBlock = new Rectangle(300,250);
-        Text tschau = new Text("Deine Punktzahl: "+(score.get()+1)+"\n\nDrücke Enter um das Spiel zu neu zu starten!");
-        endScreen.getChildren().add(tschau);
-        view.setCenter(tschau);
+        Text goodbye = new Text("Deine Punktzahl: "+(score.get()+1)+"\n\nDrücke Enter um das Spiel zu neu zu starten!");
+        endScreen.getChildren().add(goodbye);
+        view.setCenter(goodbye);
         aktuelleMap = maps.get(0);
         // DARSTELLUNG SPIELENDE
     }
 
-
+    /**
+     * Methode zum Erstellen des Spielfeldes.
+     * Hierbei werden die Textdateien gelesen und je nach Eingabezeichen
+     * die passenden Bilder gesetzt,
+     * um die Spielatospaere zu verbessern.
+     */
     private void mapBau() {
         view.getPane().getChildren().clear();
         Rectangle insert;
@@ -335,8 +328,6 @@ public class GameController {
                 view.getPane().getChildren().add(insert);
             }
         }
-
-
         if (!spielEnde.get()) {
             view.getPane().getChildren().add(pacman.getfigure());
             translateTransition = new TranslateTransition(Duration.seconds(0.055), pacman.getfigure());
@@ -350,10 +341,12 @@ public class GameController {
         }
     }
 
-    private void ausgeben() {
-
+    /**
+     * Methode zur Kontrolle in Form von Konsolenausgabe,
+     * die das Spielfeld abbildet.
+     */
+    private void print() {
         System.out.println("\nMap: "+ aktuelleMap +"\n");
-
         for (int i = 0; i < sizeY ; i++){
             for (int j = 0; j < sizeX;j++){
                 if (spielFeld[i][j].getType()==120){
@@ -370,8 +363,12 @@ public class GameController {
         }
     }
 
-    private void einlesen(String worldname) {
-
+    /**
+     * Methode, die eine Text-Datei einliest,
+     * und dann mit der Klasse Block das Spielfeld erstellt.
+     * @param worldname Datename, der Map
+     */
+    private void readIn (String worldname) {
         score.set(0);
         int counterY = 0;
         int posX,posY;
@@ -398,20 +395,29 @@ public class GameController {
         }
     }
 
+    /**
+     * Methode zum ueberpruefen ob der Spielfeld-Block
+     * eine Muenze besitzt, also welcher Typ vorliegt.
+     * Verwaltet auch die Aktualisierung
+     */
     public void checktype() {
         if(spielFeld[(pacman.getx())/50][pacman.gety()/50].getType() == 43 ) {
             spielFeld[(pacman.getx())/50][pacman.gety()/50].changeType("-");
-            //spielFeld[(pacman.getx())/50][pacman.gety()/50].getBlock().setFill(Color.GREEN);
             punkte.setValue(punkte.get()-1);
             maxPlayLength.setValue(maxPlayLength.getValue()+ songSnippet);
             score.setValue(score.get() + 1 );
             nextLevel = false;
-            mapAktualisierenBlock(pacman.getx()/50,pacman.gety()/50);
+            updateBlock(pacman.getx()/50,pacman.gety()/50);
         }
     }
 
-    public void mapAktualisierenBlock(int x , int y){
-
+    /**
+     * Aktualisiert die Bloecke und setzt das jeweilige
+     * passende Bild ein.
+     * @param x x-Koordinate
+     * @param y y-Koordinate
+     */
+    public void updateBlock(int x , int y){
         Rectangle insert = spielFeld[x][y].getBlock();
         view.getPane().getChildren().remove(insert);
         if (spielFeld[x][y].getType()==120 /*x*/){
@@ -436,5 +442,9 @@ public class GameController {
         block.setNewPos(x + 1, y + 1);
     }
 
+    /**
+     * Gewaehrt Zugriff auf Pane. (Zeichenflaeche)
+     * @return
+     */
     public Pane getView() { return view; }
 }

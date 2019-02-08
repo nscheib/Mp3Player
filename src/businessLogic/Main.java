@@ -1,8 +1,8 @@
 package businessLogic;
 
-import gui.Game.GameController;
-import gui.Mp3Player.Mp3Controller;
-import gui.PlayListen.PlayListController;
+import gui.game.GameController;
+import gui.mp3player.Mp3Controller;
+import gui.playlists.PlayListController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -23,13 +23,14 @@ public class Main extends Application {
 
 
     /**
-     * Start Methode
+     * Hiermit wird das Programm gestartet bzw die Applikation verwaltet.
      * @param args
      */
     public static void main(String[]args) { launch(args); }
 
     /**
-     * Method initializes the mp3player
+     * Methode initialisiert einen Mp3Player,
+     * dient generell der Initialisierung von Businessobjekten.
      */
     public void init() {
         player = new Mp3Player();
@@ -37,7 +38,7 @@ public class Main extends Application {
     }
 
     /**
-     * Method which is inherited by the application and processes the stage which is selected.
+     * Hier werden die eigentlichen Views bzw. die jeweiligen Controller erzeugt.
      * @param primaryStage
      * @throws Exception
      */
@@ -62,7 +63,7 @@ public class Main extends Application {
     }
 
     /**
-     * Methode zum switchen zwischen den Scenen
+     * Methode zum switchen zwischen den Scenen.
      * @param sceneName
      */
     public void switchScene(String sceneName) {
@@ -70,13 +71,13 @@ public class Main extends Application {
         switch(sceneName) {
             case "PlayListEditor": stage.getScene().setRoot(playListController.getView()); break;
             case "MP3Player": stage.getScene().setRoot(mp3Controller.getView()); break;
-            case "Game": stage.getScene().setRoot(gameController.getView()); break;
+            case "game": stage.getScene().setRoot(gameController.getView()); break;
             //case "Settings": stage.getScene().setRoot(settingsController.getView()); break;
         }
     }
 
     /**
-     * Methode die nur einen WillkommensText ausgibt
+     * Methode die einen Willkommenstext ausgibt.
      */
     public void welcome() {
         System.out.println( ANSI_GREEN + "<<=================================>>\n" + ANSI_RESET +
@@ -84,7 +85,4 @@ public class Main extends Application {
                             ANSI_BLUE + "    Der Mp3 Player startet ...\n" + ANSI_RESET +
                             ANSI_GREEN + "<<=================================>>\n" + ANSI_RESET);
     }
-
-
-
 }

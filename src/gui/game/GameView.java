@@ -1,4 +1,4 @@
-package gui.Game;
+package gui.game;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,10 +17,12 @@ public class GameView extends BorderPane {
     private Pane startPane,pane,endPane;
     private Label score,punkte;
 
-
+    /**
+     * Konstruktor
+     */
     public GameView() {
 
-        guiElemente();
+        guiElements();
 
         // Alignment
         buttonVBox.setAlignment(Pos.TOP_LEFT);
@@ -55,7 +57,7 @@ public class GameView extends BorderPane {
     /**
      * Methode instanziiert alle Gui-Elemente
      */
-    private void guiElemente(){
+    private void guiElements(){
 
         // Top
         topHBox = new HBox();
@@ -79,6 +81,8 @@ public class GameView extends BorderPane {
         buttonleft = new Button();
     }
 
+    // Methoden um Zugriff auf private Variablen zu bekommen
+
     public Button getMp3playerButton() { return mp3playerButton; }
     public Button getplayListButton() { return playListButton; }
     public Button getgameButton() { return gameButton; }
@@ -86,18 +90,14 @@ public class GameView extends BorderPane {
     public Pane getPane() {
         return pane;
     }
-
     public Pane getStartPane(){return startPane;}
     public Pane getEndPane(){return endPane;}
-
     public void setScore(int i) {
-        score.setText("Score: "+i);
+        score.setText("Score: " + i);
     }
-
     public void setPunkte(int i) {
-        punkte.setText("Punkte: " + i);
+        punkte.setText("sammelbare Punkte: " + i);
     }
-
     public Label getScore(){
         return score;
     }

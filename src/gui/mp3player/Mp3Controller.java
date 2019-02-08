@@ -1,4 +1,4 @@
-package gui.Mp3Player;
+package gui.mp3player;
 
 import businessLogic.Main;
 import businessLogic.Mp3Player;
@@ -10,14 +10,18 @@ import javafx.scene.layout.Pane;
 
 
 /**
- * Klasse Mp3Controller händelt die einzelen Funktionen von Gui-Elementen und verwaltet Listener,
+ * Klasse Mp3Controller handelt die einzelen Funktionen von Gui-Elementen und verwaltet Listener,
  * dient als Schnittstelle zwischen Gui und der Businesslogic
  */
 public class Mp3Controller {
 
     private Mp3View view;
 
-    // Constructor
+    /**
+     * Konstruktor
+     * @param application Apllikation
+     * @param player Mp3Player
+     */
     public Mp3Controller(Main application, Mp3Player player) {
 
         // Erstellt eine neue View
@@ -26,17 +30,17 @@ public class Mp3Controller {
         // Stylesheet, aus welcher Datei die Einstellung gelesen werden sollen
         view.getStylesheets().addAll(
                 getClass().getResource("/gui/css/style.css").toExternalForm(),
-                getClass().getResource("/gui/Mp3Player/mp3player.css").toExternalForm()
+                getClass().getResource("/gui/mp3player/mp3player.css").toExternalForm()
         );
 
         // Button Funktionen
         view.getMp3PlayerButton().setOnAction(e -> application.switchScene("MP3Player"));
         view.getPlayListButton().setOnAction(e -> application.switchScene("PlayListEditor"));
         view.getGameButton().setOnAction(e -> {
-            application.switchScene("Game");
+            application.switchScene("game");
             player.setCurrentMode(1);
         });
-        //Game.getSettingButton().setOnAction(e -> application.switchScene("Settings"));
+        //game.getSettingButton().setOnAction(e -> application.switchScene("Settings"));
         view.getStopButton().setOnAction(e -> stop(player));
         view.getPlayButton().setOnAction(e -> play(player));
 
@@ -44,10 +48,9 @@ public class Mp3Controller {
         view.getSkipleft().setOnAction(e -> skipleft(player));
         Platform.runLater(() -> view.getTimeslider().setOnMouseReleased(event -> player.skip(view.getTimeslider().getValue())));
 
-
         view.getLoop().setOnAction(e -> player.loop());
-        //Game.getShuffle().setOnAction(e -> player.shuffle());
-        //Game.getRepeat().setOnAction(e -> player.repeate());
+        //game.getShuffle().setOnAction(e -> player.shuffle());
+        //game.getRepeat().setOnAction(e -> player.repeate());
 
         // Setzt die ersten Eigenschaften
         view.getTitle().setText(player.getTrack().getTitle());
@@ -57,7 +60,6 @@ public class Mp3Controller {
         view.getTimeslider().setMax(player.getTrack().getLenght());
         view.getTimeslider().setMajorTickUnit(Math.round(player.getTrack().getLenght()));
         view.getTimeZwei().setText(player.getTrack().getLenghtAsString());
-
 
         // TimeLabel Listener
         player.currentTimeProperty().addListener(new ChangeListener<Number>() {
@@ -155,7 +157,6 @@ public class Mp3Controller {
             player.stopPlayer();
             changePlayButton(player);
     }
-
 
     /**
      * Methode überprüft ob der Playbutton oder Pausebutton angezeigt werden muss

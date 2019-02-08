@@ -1,4 +1,4 @@
-package gui.PlayListen;
+package gui.playlists;
 
 import businessLogic.Track;
 import javafx.collections.FXCollections;
@@ -6,11 +6,9 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.effect.Shadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class PlayListView extends BorderPane {
 
@@ -26,17 +24,18 @@ public class PlayListView extends BorderPane {
     private ListView<String> spaltenViewLeft;
     private ListView<Track> spaltenViewRight;
 
-    // Constructor
+    /**
+     * Konstruktor
+     */
     public PlayListView() {
 
-        guiElemente();
+        guiElements();
 
         // Alignment
         centerVBoxZwei.setAlignment(Pos.CENTER);
         centerVBoxZwei2.setAlignment(Pos.CENTER);
         centerHBoxZwei.setAlignment(Pos.CENTER);
         buttonHbox.setAlignment(Pos.BOTTOM_CENTER);
-
 
         //StyleClasses
         topHBox.getStyleClass().add("topHBox");
@@ -49,16 +48,13 @@ public class PlayListView extends BorderPane {
         loadPlaylist.getStyleClass().add("loadPlaylist");
         delete.getStyleClass().add("delete");
 
-
         //Abstände
         centerVBoxZwei.setPadding(new Insets(10,10,10,10));
         centerVBoxZwei2.setPadding(new Insets(10,10,10,10));
         topHBox.setPadding(new Insets(10,10,10,10));
 
-
         spaltenViewLeft.setPrefSize(500,900);
         spaltenViewRight.setPrefSize(500,900);
-
 
         // Children
         topHBox.getChildren().addAll(mp3playerButton, playListButton, gameButton, settingButton);
@@ -75,13 +71,12 @@ public class PlayListView extends BorderPane {
         this.setMinSize(500,800);
         this.setMaxSize(700,900);
         this.getStyleClass().add("background");
-
     }
 
     /**
      * Methode instanziiert alle Gui-Elemente
      */
-    private void guiElemente(){
+    private void guiElements(){
 
         // Top
         topHBox = new HBox();
@@ -128,5 +123,4 @@ public class PlayListView extends BorderPane {
     public ListView<Track> getSpaltenViewRight() { return spaltenViewRight; }
     public ObservableList<String> getItemList() { return itemList; }
     public ListView<String> getSpaltenViewLeft() { return spaltenViewLeft; }
-
 }

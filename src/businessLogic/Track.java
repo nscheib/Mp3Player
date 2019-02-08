@@ -8,18 +8,24 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Klasse Track, die die jeweiligen einzelnen Songs darstellt,
+ * die dann in Playlisten gespeichert werden.
+ */
 public class Track {
 
     private String title;
     private String interpret;
-    //private String albumTitle;
     private String soundFile;
     private Mp3File song;
     private byte[] picture;
     private long lenght;
     private String fileName;
 
-
+    /**
+     * Initialisierungskontruktor
+     * @param title Titel des Liedes.
+     */
     public Track(String title) {
         soundFile = "tracks/" + title;
         fileName = title;
@@ -42,22 +48,45 @@ public class Track {
 
     }
 
+    /**
+     * Gib den Namen der Datei weiter.
+     */
     public String getFileName(){return fileName;}
 
+    /**
+     * Gib den Namen des Songs weiter.
+     */
     public String getTitle(){return title;}
 
+    /**
+     * Gib den Interpreten des Songs weiter.
+     */
     public String getInterpret(){return interpret;}
 
+    /**
+     * Gib die Lied Datei weiter.
+     */
     public String getSoundFile() { return soundFile; }
 
+    /**
+     * Gib Laenge des Liedes weiter.
+     */
     public float getLenght(){ return lenght; }
 
+    /**
+     * Gib die Laenge des Liedes als String aus.
+     */
     public String getLenghtAsString(){
         int minutes = (int)lenght / (60 * 1000);
         int seconds = (int)(lenght / 1000) % 60;
         return String.format("%02d:%02d", minutes, seconds);
     }
 
+    /**
+     * Gibt das Bild der Datei weiter,
+     * falles keines vorhanden ist
+     * wird ein Default-Biild eingefuegt.
+     */
     public Image getImage(){
         if(picture != null) {
             Image imageOutput = new Image(new ByteArrayInputStream(picture));
@@ -76,5 +105,4 @@ public class Track {
         }
         return false;
     }
-
 }

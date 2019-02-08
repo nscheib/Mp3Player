@@ -1,4 +1,4 @@
-package gui.PlayListen;
+package gui.playlists;
 
 import businessLogic.Track;
 import javafx.scene.control.Label;
@@ -18,7 +18,9 @@ public class CustomTrackCell extends ListCell<Track> {
     private ImageView image, img;
     private VBox vBox;
 
-    // Constructor
+    /**
+     * Konstruktor
+     */
     public CustomTrackCell(){
         super();
         title = new Label();
@@ -38,7 +40,6 @@ public class CustomTrackCell extends ListCell<Track> {
     @Override
     protected void updateItem(Track item, boolean empty) {
         super.updateItem(item, empty);
-
         if (item != null && !empty) {
             title.setText(item.getTitle());
             interpret.setText(item.getInterpret());

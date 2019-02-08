@@ -1,4 +1,4 @@
-package gui.PlayListen;
+package gui.playlists;
 
 import businessLogic.Main;
 import businessLogic.Mp3Player;
@@ -27,7 +27,11 @@ public class PlayListController {
     private String auswahlPlaylist;
     private ObservableList<Track> songsInPlaylist = FXCollections.observableArrayList();
 
-    // Construtor
+    /**
+     * Konstruktor
+     * @param application Applikation
+     * @param player Mp3Player
+     */
     public PlayListController(Main application, Mp3Player player) {
 
         // Läde den PlayListManager aus dem Player in ein Klassenatribut
@@ -45,18 +49,17 @@ public class PlayListController {
         // Stylesheet, aus welcher Datei die Einstellung gelesen werden sollen
         view.getStylesheets().addAll(
                 getClass().getResource("/gui/css/style.css").toExternalForm(),
-                getClass().getResource("/gui/PlayListen/playlisten.css").toExternalForm()
+                getClass().getResource("/gui/playlists/playlisten.css").toExternalForm()
         );
 
         // Button Funktionen
         view.getLoadPlayList().setOnAction(e->loadPlayList(player));
         view.getMp3playerButton().setOnAction(e -> application.switchScene("MP3Player"));
         view.getplaylistButton().setOnAction(e -> application.switchScene("Playlist"));
-        view.getgameButton().setOnAction(e -> application.switchScene("Game"));
-        //Game.getsettingButton().setOnAction(e->application.switchScene("Setting"));
+        view.getgameButton().setOnAction(e -> application.switchScene("game"));
+        //game.getsettingButton().setOnAction(e->application.switchScene("Setting"));
         view.getPlayButton().setOnAction(e -> playAndSwitch(application,player));
         view.getDelete().setOnAction(e -> playlistDelete());
-
 
         // ListViewLeft Listener
         view.getlistView().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -75,7 +78,6 @@ public class PlayListController {
                 auswahlTrackPlayList = newValue;
             }
         });
-
     }
 
     private void playlistDelete() {
@@ -91,7 +93,7 @@ public class PlayListController {
     private void loadPlayList(Mp3Player player) {
         view.getlistViewRight().getItems().clear();
         songsInPlaylist = playListManager.returnPlaylistSongs("Playlisten/" + auswahlPlaylist + ".m3u");
-        player.setAktuellePlayList(songsInPlaylist);
+        player.setCurrentPlaylist(songsInPlaylist);
 
         view.getlistViewRight().setCellFactory(new Callback<ListView<Track>, ListCell<Track>>() {
             @Override
@@ -105,7 +107,7 @@ public class PlayListController {
     }
 
     /**
-     * Methode läd das gewählte Lied aus der Playlist in den Mp3Player und switcht danach die Scene
+     * Methode läd das gewählte Lied aus der Playlist in den mp3player und switcht danach die Scene
      * @param application
      * @param player
      */
@@ -121,7 +123,7 @@ public class PlayListController {
     }
 
     /**
-     * Methode gibt die Game zurück
+     * Methode gibt die game zurück
      * @return
      */
     public Pane getView() { return view; }
