@@ -76,7 +76,6 @@ public class GameController {
             application.switchScene("MP3Player");
             player.setCurrentMode(0);
                 }
-
         );
         view.getplayListButton().setOnAction(e -> application.switchScene("PlayListEditor"));
         view.getgameButton().setOnAction(e -> application.switchScene("Game"));
@@ -90,7 +89,7 @@ public class GameController {
                 Rectangle bl;
 
                 if((event.getCode() == KeyCode.ENTER) && spielStart.get() ){
-                    System.out.println("YES");
+                    //System.out.println("YES");
                     view.setCenter(view.getPane());
                     einlesen(aktuelleMap);
                     mapBau();
@@ -114,6 +113,7 @@ public class GameController {
                             translateTransition.setCycleCount(1);
                             translateTransition.play();
                             pacman.setNewPos(pacman.getx(), pacman.gety() - 50);
+                            pacman.changepic("o");
                         }
                         checktype();
 
@@ -125,6 +125,7 @@ public class GameController {
                             translateTransition.setCycleCount(1);
                             translateTransition.play();
                             pacman.setNewPos(pacman.getx(), pacman.gety() + 50);
+                            pacman.changepic("u");
                         }
                         checktype();
 
@@ -135,6 +136,7 @@ public class GameController {
                             translateTransition.setCycleCount(1);
                             translateTransition.play();
                             pacman.setNewPos(pacman.getx() - 50, pacman.gety());
+                            pacman.changepic("l");
                         }
                         checktype();
 
@@ -145,6 +147,7 @@ public class GameController {
                             translateTransition.setCycleCount(1);
                             translateTransition.play();
                             pacman.setNewPos(pacman.getx() + 50, pacman.gety());
+                            pacman.changepic("r");
                         }
                         checktype();
                     }
@@ -204,7 +207,7 @@ public class GameController {
                 // Punkte == 0 heißt nächste map laden, wenn keine da, dann spielende
 
                 if (newValue.intValue() == 0 && oldValue.intValue() == 1 && !spielEnde.get()){
-                    System.out.println(maps.indexOf(aktuelleMap) + " "+ maps.size());
+                    //System.out.println(maps.indexOf(aktuelleMap) + " "+ maps.size());
 
                     int temp = score.get();
                     if (maps.indexOf(aktuelleMap) < maps.size()-1){
@@ -239,15 +242,9 @@ public class GameController {
                 if ((player.currentTimeProperty().get() >= maxPlayLength.get()) && player.getCurrentMode().get() == 1){
                     player.pause();
                 }
-//                System.out.println("song: "+(int)player.getTrack().getLenght() + "     aktuell: "+player.currentTimeProperty().get());
-//                System.out.println("BERECHNUNG : "+((int)player.getTrack().getLenght() - player.currentTimeProperty().get()) );
                 if (((int)player.getTrack().getLenght() - player.currentTimeProperty().get()) < 100 ){
                     player.stopPlayer();
                 }
-//                translateTransition.setFromY(pacman.gety());
-//                translateTransition.setToX(pacman.getx());
-//                translateTransition.setCycleCount(1);
-//                translateTransition.play();
             }
         });
 
@@ -321,18 +318,17 @@ public class GameController {
             for (int j = 0; j < sizeX; j++) {
                 insert = new Rectangle(50, 50, Color.BLUE);
                 if (spielFeld[i][j].getType() == 120 /*x*/) {
-                    insert.setFill(Color.RED);
+                    insert.setFill(new ImagePattern(new Image ("game/images/wall-texture.png")));
                 } else if (spielFeld[i][j].getType() == 45 /*-*/) {
-                    insert.setFill(Color.GREEN);
+                    insert.setFill(new ImagePattern(new Image ("game/images/ground.png")));
                 } else if (spielFeld[i][j].getType() == 111 /*o*/) {
-                    insert.setFill(Color.YELLOW);
+                    insert.setFill(new ImagePattern(new Image ("game/images/ground_fahne.png")));
 
                     pacman = new Pacman(i * 50, j * 50);
                     block.setNewPos(i * 50, j * 50);
 
                 } else if (spielFeld[i][j].getType() == 43 /*+*/) {
-                    Image img = new Image("game/images/circle.png");
-                    insert.setFill(new ImagePattern(img));
+                    insert.setFill(new ImagePattern(new Image ("game/images/ground-texture.png")));
                     punkte.set(punkte.getValue() + 1);
                 }
                 insert.relocate(spielFeld[i][j].getx(), spielFeld[i][j].gety());
@@ -377,8 +373,6 @@ public class GameController {
     private void einlesen(String worldname) {
 
         score.set(0);
-//        this.mapName = worldname;
-
         int counterY = 0;
         int posX,posY;
         this.sizeX=0;
@@ -413,27 +407,22 @@ public class GameController {
             score.setValue(score.get() + 1 );
             nextLevel = false;
             mapAktualisierenBlock(pacman.getx()/50,pacman.gety()/50);
-
         }
     }
 
     public void mapAktualisierenBlock(int x , int y){
 
-//        view.getPane().getChildren().clear();
         Rectangle insert = spielFeld[x][y].getBlock();
-//        int insertPos = view.getPane().getChildren().indexOf(spielFeld[x][y].getBlock());
         view.getPane().getChildren().remove(insert);
-        //view.getPane().getChildren().remove(changeBlockPos);
         if (spielFeld[x][y].getType()==120 /*x*/){
-            insert.setFill(Color.RED);
+            insert.setFill(new ImagePattern(new Image ("game/images/wall-texture.png")));
         }else if (spielFeld[x][y].getType()==45 /*-*/) {
-            insert.setFill(Color.GREEN);
+            insert.setFill(new ImagePattern(new Image ("game/images/ground.png")));
         }else if (spielFeld[x][y].getType()==111 /*o*/){
-            insert.setFill(Color.YELLOW);
+            insert.setFill(new ImagePattern(new Image ("game/images/ground_fahne.png")));
             block.setNewPos(x*50,x*50);
         } else if (spielFeld[x][y].getType() == 43 /*+*/){
-            Image img = new Image("game/images/circle.png");
-            insert.setFill(new ImagePattern(img));
+            insert.setFill(new ImagePattern(new Image ("game/images/ground-texture.png")));
         }
         insert.relocate(x*50,y*50);
         view.getPane().getChildren().add(insert);
@@ -442,10 +431,6 @@ public class GameController {
         view.getPane().getChildren().remove(pos);
         view.getPane().getChildren().add(pacman.getfigure());
     }
-
-
-
-
 
     private void rechtklick(int x, int y) {
         block.setNewPos(x + 1, y + 1);
