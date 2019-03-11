@@ -213,10 +213,12 @@ public class GameController {
 //                            }
 //                        }
                         score.set(temp);
+                        maxPlayLength.set(0);
                     }else {
                         System.out.println("SPIELENDE");
                         spielEnde.set(true);
 //                        endGame(temp);
+
                     }
                 }
             }
@@ -242,7 +244,8 @@ public class GameController {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if (nextLevel == true){
                     player.pause();
-                }else if ((!player.isPlaying() && player.currentTimeProperty().get() <= maxPlayLength.get()) && player.getCurrentMode().get() == 1){
+                    nextLevel = false;
+                }else if ((!player.isPlaying() && player.currentTimeProperty().get() <= maxPlayLength.get()) && player.getCurrentMode().get() == 1 && !spielEnde.get()){
                     player.play();
                 }
             }
@@ -295,6 +298,8 @@ public class GameController {
         endScreen.getChildren().add(goodbye);
         view.setCenter(goodbye);
         aktuelleMap = maps.get(0);
+        player.stopPlayer();
+
         // DARSTELLUNG SPIELENDE
     }
 

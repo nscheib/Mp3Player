@@ -136,12 +136,12 @@ public class Mp3Player extends Thread implements Runnable {
         if((currentPosPlaylist >= 0)  && (currentPosPlaylist <= allChoosablePlaylistSongs.size()-1)) {
             this.currentTrack = playListManager.getOneSongFromList(currentPlaylist.get(currentPosPlaylist));
             loadSong();
-            play();
+            //play();
         } else if(currentPosPlaylist >= allChoosablePlaylistSongs.size()-1) {
             currentPosPlaylist = 0;
             this.currentTrack = playListManager.getOneSongFromList(currentPlaylist.get(currentPosPlaylist));
             loadSong();
-            play();
+            //play();
         }
     }
 
@@ -160,12 +160,12 @@ public class Mp3Player extends Thread implements Runnable {
         if((currentPosPlaylist >= 0) && (currentPosPlaylist <= allChoosablePlaylistSongs.size()-1)) {
             this.currentTrack = playListManager.getOneSongFromList(currentPlaylist.get(currentPosPlaylist));
             loadSong();
-            play();
+            //play();
         }  else if(currentPosPlaylist < 0) {
             currentPosPlaylist = allChoosablePlaylistSongs.size()-1;
             this.currentTrack = playListManager.getOneSongFromList(currentPlaylist.get(currentPosPlaylist));
             loadSong();
-            play();
+            //play();
         }
     }
 
